@@ -2,6 +2,7 @@
 using UnityEngine.Events;
 using System.Collections;
 using System.Collections.Generic;
+using UIEventDelegate;
 
 [System.Serializable]
 public class ReorderableListEventList : ReorderableList<EventDelegate>{}

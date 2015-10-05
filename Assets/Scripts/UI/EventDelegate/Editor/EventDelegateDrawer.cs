@@ -5,6 +5,8 @@ using System.Reflection;
 using System.Collections;
 using System.Collections.Generic;
 
+using UIEventDelegate;
+
 /// <summary>
 /// Draws a single event delegate. Contributed by Adam Byrd and Lermy Garcia.
 /// </summary>
@@ -286,7 +288,60 @@ public class EventDelegateDrawer : PropertyDrawer
                             EditorGUI.PropertyField(lineRect, valueProp, new GUIContent(paramDesc));
                             
                             param.value = valueProp.boolValue;
-                        } else
+                        } 
+						else if (param.expectedType == typeof(Color))
+						{
+							SerializedProperty valueProp = paramProp.FindPropertyRelative("argColor");
+							EditorGUI.PropertyField(lineRect, valueProp, new GUIContent(paramDesc));
+							
+							param.value = valueProp.colorValue;
+						}
+						else if (param.expectedType == typeof(Vector2))
+						{
+							SerializedProperty valueProp = paramProp.FindPropertyRelative("argVector2");
+							EditorGUI.PropertyField(lineRect, valueProp, new GUIContent(paramDesc));
+							
+							param.value = valueProp.vector2Value;
+						}
+						else if (param.expectedType == typeof(Vector3))
+						{
+							SerializedProperty valueProp = paramProp.FindPropertyRelative("argVector3");
+							EditorGUI.PropertyField(lineRect, valueProp, new GUIContent(paramDesc));
+							
+							param.value = valueProp.vector3Value;
+						}
+						else if (param.expectedType == typeof(Vector4))
+						{
+							SerializedProperty valueProp = paramProp.FindPropertyRelative("argVector4");
+							Vector4 vec4 = valueProp.vector4Value;
+							
+							//workaround for vector 4, it uses an extra line.
+							//valueProp.vector4Value = EditorGUI.Vector4Field(lineRect, paramDesc, valueProp.vector4Value);
+							
+							//create all this values just once.
+							float[] values = new float[4];
+							values[0] = vec4.x;
+							values[1] = vec4.y;
+							values[2] = vec4.z;
+							values[3] = vec4.w;
+							
+							GUIContent[] content = new GUIContent[4];
+							content[0] = new GUIContent("X");
+							content[1] = new GUIContent("Y");
+							content[2] = new GUIContent("Z");
+							content[3] = new GUIContent("W");
+
+							EditorGUI.LabelField(lineRect, paramDesc);
+							
+							Rect vector4Line = new Rect(lineRect);							
+							vector4Line.xMin += EditorGUI.indentLevel*16 + 80;
+							
+							EditorGUI.MultiFloatField(vector4Line, content, values);
+							
+							valueProp.vector4Value = new Vector4(values[0], values[1], values[2], values[3]);							
+							param.value = valueProp.vector4Value;
+						}
+                        else
                         {
                             obj = EditorGUI.ObjectField(lineRect, paramDesc, obj, typeof(UnityEngine.Object), true);
                             

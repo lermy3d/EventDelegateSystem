@@ -49,17 +49,20 @@ public class TestEventChild : TestEventsParent
     
     void TestingVectorParameter(Vector2 vec2, Vector3 vec3, Vector4 vec4)
     {
-        Debug.Log("Testing Vector Parameter");
+        Debug.Log("Testing Vector Parameter:");
+		Debug.Log("Vec2: " + vec2);
+		Debug.Log("Vec3: " + vec3);
+		Debug.Log("Vec4: " + vec4);
     }
     
-    public void TestingVector3Param(Vector3 vec3)
+    void TestSerializedClassParam(DelegateHolder holderClass)
     {
-        Debug.Log("Testing Vector3 Parameter");
+		Debug.Log("Testing Serialized Class Param: " + holderClass.name);
     }
     
     public void TestingColorParam(Color color)
     {
-        Debug.Log("Testing Color Parameter");
+        Debug.Log("Testing Color Parameter: " + color.ToString());
     }
     
     public MonoBehaviour TestMono(string message)
