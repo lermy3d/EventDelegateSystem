@@ -11,6 +11,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+namespace UIEventDelegate
+{
+
 /// <summary>
 /// Delegate callback that Unity can serialize and set via Inspector.
 /// </summary>
@@ -34,6 +37,10 @@ public class EventDelegate
         public float argFloatValue;
         public double argDoubleValue;
         public bool argBoolValue;
+		public Color argColor;
+        public Vector2 argVector2;
+		public Vector3 argVector3;
+		public Vector4 argVector4;
 
 		public Parameter () { }
         public Parameter (UnityEngine.Object obj, string field) { this.obj = obj; this.field = field; }
@@ -93,7 +100,27 @@ public class EventDelegate
                         mValue = argBoolValue;
                         return argBoolValue;
                     }
-
+					else if(expectedType == typeof(Color))
+					{
+						mValue = argColor;
+						return argColor;
+					}
+					else if(expectedType == typeof(Vector2))
+					{
+						mValue = argVector2;
+						return argVector2;
+					}
+					else if(expectedType == typeof(Vector3))
+					{
+						mValue = argVector3;
+						return argVector3;
+					}
+					else if(expectedType == typeof(Vector4))
+					{
+						mValue = argVector4;
+						return argVector4;
+					}
+					
 					if (obj != null && !string.IsNullOrEmpty(field))
 					{
 						System.Type type = obj.GetType();
@@ -1036,4 +1063,5 @@ public class Entry : IComparer<Entry>, IComparable<Entry>
     {
         return entryHash;
     }
+}
 }
