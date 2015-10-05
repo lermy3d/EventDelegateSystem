@@ -33,6 +33,10 @@ public class EventDelegateDrawer : PropertyDrawer
     /// </summary>
 	
     static public bool canConvert = true;
+    
+    //vector 4 workaround optimization
+	float[] vec4Values;	
+	GUIContent[] vec4GUIContent;	
 
     public override float GetPropertyHeight(SerializedProperty prop, GUIContent label)
     {
@@ -318,27 +322,30 @@ public class EventDelegateDrawer : PropertyDrawer
 							//workaround for vector 4, it uses an extra line.
 							//valueProp.vector4Value = EditorGUI.Vector4Field(lineRect, paramDesc, valueProp.vector4Value);
 							
-							//create all this values just once.
-							float[] values = new float[4];
-							values[0] = vec4.x;
-							values[1] = vec4.y;
-							values[2] = vec4.z;
-							values[3] = vec4.w;
+							//create all this values just once
+							if(vec4Values == null)
+								vec4Values = new float[4];
 							
-							GUIContent[] content = new GUIContent[4];
-							content[0] = new GUIContent("X");
-							content[1] = new GUIContent("Y");
-							content[2] = new GUIContent("Z");
-							content[3] = new GUIContent("W");
-
+							vec4Values[0] = vec4.x;
+							vec4Values[1] = vec4.y;
+							vec4Values[2] = vec4.z;
+							vec4Values[3] = vec4.w;
+							
+							if(vec4GUIContent == null)
+								vec4GUIContent = new GUIContent[4];
+							
+							vec4GUIContent[0] = new GUIContent("X");
+							vec4GUIContent[1] = new GUIContent("Y");
+							vec4GUIContent[2] = new GUIContent("Z");
+							vec4GUIContent[3] = new GUIContent("W");
+							
 							EditorGUI.LabelField(lineRect, paramDesc);
 							
-							Rect vector4Line = new Rect(lineRect);							
+							Rect vector4Line = new Rect(lineRect);
 							vector4Line.xMin += EditorGUI.indentLevel*16 + 80;
+							EditorGUI.MultiFloatField(vector4Line, vec4GUIContent, vec4Values);
 							
-							EditorGUI.MultiFloatField(vector4Line, content, values);
-							
-							valueProp.vector4Value = new Vector4(values[0], values[1], values[2], values[3]);							
+							valueProp.vector4Value = new Vector4(vec4Values[0], vec4Values[1], vec4Values[2], vec4Values[3]);							
 							param.value = valueProp.vector4Value;
 						}
                         else
