@@ -4,20 +4,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UIEventDelegate;
 
-[System.Serializable]
-public class ReorderableListEventList : ReorderableList<EventDelegate>{}
-
 public class TestExecOrderUnityEvent : MonoBehaviour
 {
     [Header("Current Unity events")]
     public UnityEvent OnEnableEvents;
     
-    [Header("Reorderable List")]
-	public ReorderableListEventList UnityListDrawer;
-
     [Header("Custom Events")]
     public List<EventDelegate> CustomDelegates;
-    
+
+    public ReorderableEventList UnityReorderableDrawer;
+
     void OnEnable()
     {
         if (OnEnableEvents != null)
@@ -25,6 +21,9 @@ public class TestExecOrderUnityEvent : MonoBehaviour
 
         if(CustomDelegates.Count > 0)
             EventDelegate.Execute(CustomDelegates);
+
+        if (UnityReorderableDrawer.List.Count > 0)
+            EventDelegate.Execute(UnityReorderableDrawer.List);
     }
     
     public void SetParent(Transform child, Transform newParent = null)
