@@ -174,7 +174,10 @@ public class EventDelegate
     
     [HideInInspector]
     public bool mShowGroup = true;
-    
+
+    [HideInInspector]
+    public float mYOffset = 0;
+
     [HideInInspector]
     public bool mUpdateEntryList = true;
     

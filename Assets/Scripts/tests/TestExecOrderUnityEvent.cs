@@ -6,13 +6,13 @@ using UIEventDelegate;
 
 public class TestExecOrderUnityEvent : MonoBehaviour
 {
+    public ReorderableEventList UnityReorderableDrawer;
+
     [Header("Current Unity events")]
     public UnityEvent OnEnableEvents;
     
     [Header("Custom Events")]
     public List<EventDelegate> CustomDelegates;
-
-    public ReorderableEventList UnityReorderableDrawer;
 
     void OnEnable()
     {

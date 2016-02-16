@@ -24,11 +24,6 @@ public class ReorderableDelegateDrawer : UnityEditor.PropertyDrawer
 		{
 			list = new ReorderableList(property.serializedObject, property, true, true, true, true);
 
-            //list.drawHeaderCallback = rect =>
-            //{
-            //    EditorGUI.LabelField(rect, property.name);
-            //};
-
             list.drawElementCallback = (UnityEngine.Rect rect, int index, bool isActive, bool isFocused) =>
 			{
 				int indent = EditorGUI.indentLevel;
@@ -37,7 +32,20 @@ public class ReorderableDelegateDrawer : UnityEditor.PropertyDrawer
                 rect.width -= 20;
                 rect.x += 8;
 
-                EditorGUI.PropertyField(rect, property.GetArrayElementAtIndex(index), true);
+                SerializedProperty elemtProp = property.GetArrayElementAtIndex(index);
+ 
+                SerializedProperty yOffsetProp = elemtProp.FindPropertyRelative("mYOffset");
+                if (yOffsetProp != null)
+                    yOffsetProp.floatValue = 6;
+
+                if (EditorApplication.isCompiling)
+                {
+                    SerializedProperty updateMethodsProp = elemtProp.FindPropertyRelative("mUpdateEntryList");
+                    if(updateMethodsProp != null)
+                        updateMethodsProp.boolValue = true;
+                }
+
+                EditorGUI.PropertyField(rect, elemtProp, true);
 				
 				EditorGUI.indentLevel = indent;
 			};

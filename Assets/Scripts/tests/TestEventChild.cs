@@ -82,9 +82,26 @@ public class TestEventChild : TestEventsParent
         Debug.Log(message);
         return 5;
     }
-    
-//    public void TemplateTest<T>(string param, T someObject)
-//    {
-//        Debug.Log(param + " object: " + someObject.ToString());
-//    }
+
+    public void TestPrimitiveParams(string valString, int valInteger, float valFloat, double valDouble, bool valBool, Transform valTranform) //, FireType fireType)
+    {
+        Debug.Log("valString: " + valString);
+
+        Debug.Log("valInteger: " + valInteger);
+
+        Debug.Log("valFloat: " + valFloat);
+
+        Debug.Log("valDouble: " + valDouble);
+
+        Debug.Log("valBool: " + valBool);
+
+        Debug.Log("valTransform: " + valTranform);
+
+        //Debug.Log("FireType: " + fireType);
+    }
+
+    //    public void TemplateTest<T>(string param, T someObject)
+    //    {
+    //        Debug.Log(param + " object: " + someObject.ToString());
+    //    }
 }

@@ -1,6 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum FireType
+{
+    Blast,
+    AreaDamage,
+    Pierce
+}
+
 public class TestEventsParent : MonoBehaviour
 {
 	public void ParentMessage(string logMessage)
