@@ -4,13 +4,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UIEventDelegate;
 
+[System.Serializable]
+public class UnityCustomTest : UnityEvent<int>
+{}
+
 public class TestExecOrderUnityEvent : MonoBehaviour
 {
     public ReorderableEventList UnityReorderableDrawer;
 
     [Header("Current Unity events")]
     public UnityEvent OnEnableEvents;
-    
+
+    public UnityCustomTest AnotherCustomTest;
+
     [Header("Custom Events")]
     public List<EventDelegate> CustomDelegates;
 

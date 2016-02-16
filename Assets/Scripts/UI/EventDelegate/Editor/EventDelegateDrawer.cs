@@ -52,7 +52,7 @@ public class EventDelegateDrawer : PropertyDrawer
     {
         SerializedProperty showGroup = prop.FindPropertyRelative("mShowGroup");
         if (!showGroup.boolValue)
-            return 16;
+            return lineHeight;
     
         SerializedProperty targetProp = prop.FindPropertyRelative("mTarget");
         if (targetProp.objectReferenceValue == null)
@@ -147,9 +147,11 @@ public class EventDelegateDrawer : PropertyDrawer
         string eventName = nameProp.stringValue;
         MonoBehaviour target = targetProp.objectReferenceValue as MonoBehaviour;
 
+        //this is unnecessary
+        //EditorGUI.indentLevel = showGroup.depth;
+
         //controls
-        EditorGUI.indentLevel = showGroup.depth;
-        Rect groupPos = new Rect(rect.x, rect.y, rect.width, 16);
+        Rect groupPos = new Rect(rect.x, rect.y, rect.width, lineHeight);
         showGroup.boolValue = EditorGUI.Foldout(groupPos, showGroup.boolValue, label);
 
         if (showGroup.boolValue)
@@ -289,7 +291,7 @@ public class EventDelegateDrawer : PropertyDrawer
                         
                         UnityEngine.Object obj = param.obj;
                         
-                        if (param.expectedType == typeof(string))
+                        if (param.paramType == ParameterType.Value && param.expectedType == typeof(string))
                         {
                             SerializedProperty valueProp = paramProp.FindPropertyRelative("argStringValue");
                             EditorGUI.PropertyField(lineRect, valueProp, new GUIContent(paramDesc));
@@ -383,12 +385,14 @@ public class EventDelegateDrawer : PropertyDrawer
 							vec4GUIContent[1] = new GUIContent("Y");
 							vec4GUIContent[2] = new GUIContent("Z");
 							vec4GUIContent[3] = new GUIContent("W");
-							
-							EditorGUI.LabelField(lineRect, paramDesc);
+
+                            EditorGUI.LabelField(lineRect, paramDesc);
 							
 							Rect vector4Line = new Rect(lineRect);
-							vector4Line.xMin += EditorGUI.indentLevel*16 + 80;
-							EditorGUI.MultiFloatField(vector4Line, vec4GUIContent, vec4Values);
+							vector4Line.xMin += (EditorGUI.indentLevel * lineHeight) + 80;
+                            vector4Line.yMin += 0.2f;
+
+                            EditorGUI.MultiFloatField(vector4Line, vec4GUIContent, vec4Values);
 							
 							valueProp.vector4Value = new Vector4(vec4Values[0], vec4Values[1], vec4Values[2], vec4Values[3]);							
 							param.value = valueProp.vector4Value;

@@ -3,6 +3,8 @@ using System.Collections;
 
 public class TestEventChild : TestEventsParent
 {
+    public FireType myFireType;
+
     int TestingintInternalMethod(string sendMessage)
     {
         Debug.Log(sendMessage);
@@ -83,7 +85,20 @@ public class TestEventChild : TestEventsParent
         return 5;
     }
 
-    public void TestPrimitiveParams(string valString, int valInteger, float valFloat, double valDouble, bool valBool, Transform valTranform) //, FireType fireType)
+    public void SetParent(Transform child, Transform newParent = null)
+    {
+        if (child == null)
+            return;
+
+        child.SetParent(newParent, false);
+    }
+
+    public void TestLogInt(int integerParam)
+    {
+        Debug.Log(integerParam);
+    }
+
+    public void TestPrimitiveParams(string valString, int valInteger, float valFloat, double valDouble, bool valBool, Transform valTranform, FireType fireType)
     {
         Debug.Log("valString: " + valString);
 
@@ -97,7 +112,7 @@ public class TestEventChild : TestEventsParent
 
         Debug.Log("valTransform: " + valTranform);
 
-        //Debug.Log("FireType: " + fireType);
+        Debug.Log("FireType: " + fireType);
     }
 
     //    public void TemplateTest<T>(string param, T someObject)

@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 using UnityEditor;
 using UnityEditorInternal;
-using System.Collections.Generic;
 
 using UIEventDelegate;
 
-[CustomPropertyDrawer(typeof(SimpleReorderableList), true)]
+[CustomPropertyDrawer(typeof(ReorderableEventList), true)]
 public class ReorderableDelegateDrawer : UnityEditor.PropertyDrawer
 {
 	private UnityEditorInternal.ReorderableList list;
@@ -26,10 +25,7 @@ public class ReorderableDelegateDrawer : UnityEditor.PropertyDrawer
 
             list.drawElementCallback = (UnityEngine.Rect rect, int index, bool isActive, bool isFocused) =>
 			{
-				int indent = EditorGUI.indentLevel;
-				EditorGUI.indentLevel = index;
-
-                rect.width -= 20;
+                rect.width -= 10;
                 rect.x += 8;
 
                 SerializedProperty elemtProp = property.GetArrayElementAtIndex(index);
@@ -46,8 +42,6 @@ public class ReorderableDelegateDrawer : UnityEditor.PropertyDrawer
                 }
 
                 EditorGUI.PropertyField(rect, elemtProp, true);
-				
-				EditorGUI.indentLevel = indent;
 			};
 
             list.elementHeightCallback = (index) =>
@@ -56,7 +50,7 @@ public class ReorderableDelegateDrawer : UnityEditor.PropertyDrawer
 
                 SerializedProperty showGroup = element.FindPropertyRelative("mShowGroup");
                 if (!showGroup.boolValue)
-                    return 16;
+                    return lineHeight;
 
                 SerializedProperty targetProp = element.FindPropertyRelative("mTarget");
                 if (targetProp.objectReferenceValue == null)

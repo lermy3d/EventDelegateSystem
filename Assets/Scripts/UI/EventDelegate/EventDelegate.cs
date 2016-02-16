@@ -15,6 +15,15 @@ namespace UIEventDelegate
 {
 
 /// <summary>
+/// Parameter type is used to allow switching between reference or manual value setup in inspector for the parameters passed.
+/// </summary>
+public enum ParameterType
+{
+    Value,
+    Reference
+}
+
+/// <summary>
 /// Delegate callback that Unity can serialize and set via Inspector.
 /// </summary>
 
@@ -32,6 +41,8 @@ public class EventDelegate
 		public UnityEngine.Object obj;
 		public string field;
         
+        public ParameterType paramType;
+
         public string argStringValue;
         public int argIntValue;
         public float argFloatValue;
