@@ -36,7 +36,17 @@ public class EventDelegateDrawer : PropertyDrawer
     
     //vector 4 workaround optimization
 	float[] vec4Values;	
-	GUIContent[] vec4GUIContent;	
+	GUIContent[] vec4GUIContent;
+
+    /// <summary>
+    /// Rect used to check for the minimalist method.
+    /// </summary>
+    Rect lineRect;
+
+    /// <summary>
+    /// Width value to start using minimalistic method.
+    /// </summary>
+    int minimalistWidth = 0; //TODO: implement minimalistic method, unity activates it at 257
 
     public override float GetPropertyHeight(SerializedProperty prop, GUIContent label)
     {
@@ -80,6 +90,17 @@ public class EventDelegateDrawer : PropertyDrawer
                     param.expectedType == typeof(bool))
                 {
                     continue;
+                }
+                else
+                {
+                    if (lineRect.width < minimalistWidth) //use minimalist method
+                    {
+                        if (param.expectedType == typeof(Vector2) || param.expectedType == typeof(Vector3))
+                        {
+                            lines += lineHeight;
+                            continue;
+                        }
+                    }
                 }
                 
                 UnityEngine.Object obj = objProp.objectReferenceValue;
@@ -134,9 +155,15 @@ public class EventDelegateDrawer : PropertyDrawer
         if (showGroup.boolValue)
         {
             EditorGUI.indentLevel++;
-    		
-            Rect lineRect = rect;
-            lineRect.yMin = rect.yMin + lineHeight;
+
+            //this offset is used to fix the properties overlap in reorderable list per item
+            float yOffset = 0;
+            SerializedProperty yOffsetProp = prop.FindPropertyRelative("mYOffset");
+            if (yOffsetProp != null)
+                yOffset = yOffsetProp.floatValue;
+
+            lineRect = rect;
+            lineRect.yMin = rect.yMin + lineHeight + yOffset;
             lineRect.yMax = lineRect.yMin + lineHeight;
             
             eventName = EditorGUI.TextField(lineRect, eventName);
@@ -303,16 +330,34 @@ public class EventDelegateDrawer : PropertyDrawer
 						else if (param.expectedType == typeof(Vector2))
 						{
 							SerializedProperty valueProp = paramProp.FindPropertyRelative("argVector2");
-							EditorGUI.PropertyField(lineRect, valueProp, new GUIContent(paramDesc));
+
+                            if (lineRect.width < minimalistWidth)
+                            {
+                                Rect vectMinRect = new Rect(lineRect);
+                                vectMinRect.yMin += lineHeight;
+
+                                EditorGUI.PropertyField(vectMinRect, valueProp, new GUIContent(paramDesc));
+                            }
+                            else
+                                EditorGUI.PropertyField(lineRect, valueProp, new GUIContent(paramDesc));
 							
 							param.value = valueProp.vector2Value;
 						}
 						else if (param.expectedType == typeof(Vector3))
 						{
 							SerializedProperty valueProp = paramProp.FindPropertyRelative("argVector3");
-							EditorGUI.PropertyField(lineRect, valueProp, new GUIContent(paramDesc));
-							
-							param.value = valueProp.vector3Value;
+
+                            if (lineRect.width < minimalistWidth)
+                            {
+                                Rect vectMinRect = new Rect(lineRect);
+                                vectMinRect.yMin += lineHeight;
+
+                                EditorGUI.PropertyField(lineRect, valueProp, new GUIContent(paramDesc));
+                            }
+                            else
+                                EditorGUI.PropertyField(lineRect, valueProp, new GUIContent(paramDesc));
+
+                            param.value = valueProp.vector3Value;
 						}
 						else if (param.expectedType == typeof(Vector4))
 						{
