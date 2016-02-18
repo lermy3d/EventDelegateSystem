@@ -41,7 +41,7 @@ public class EventDelegate
 		public UnityEngine.Object obj;
 		public string field;
         
-        public ParameterType paramType;
+        public ParameterType paramRefType;
 
         public string argStringValue;
         public int argIntValue;
@@ -85,52 +85,66 @@ public class EventDelegate
 					cached = true;
 					fieldInfo = null;
 					propInfo = null;
+                    
+                    if(paramRefType == ParameterType.Value)
+                    {
+                        if (expectedType == typeof(string))
+                        {
+                            mValue = argStringValue;
+                            return argStringValue;
+                        }
+                        else if (expectedType == typeof(int))
+                        {
+                            mValue = argIntValue;
+                            return argIntValue;
+                        }
+                        else if (expectedType == typeof(float))
+                        {
+                            mValue = argFloatValue;
+                            return argFloatValue;
+                        }
+                        else if (expectedType == typeof(double))
+                        {
+                            mValue = argDoubleValue;
+                            return argDoubleValue;
+                        }
+                        else if (expectedType == typeof(bool))
+                        {
+                            mValue = argBoolValue;
+                            return argBoolValue;
+                        }
+                        else if (expectedType == typeof(Color))
+                        {
+                            mValue = argColor;
+                            return argColor;
+                        }
+                        else if (expectedType == typeof(Vector2))
+                        {
+                            mValue = argVector2;
+                            return argVector2;
+                        }
+                        else if (expectedType == typeof(Vector3))
+                        {
+                            mValue = argVector3;
+                            return argVector3;
+                        }
+                        else if (expectedType == typeof(Vector4))
+                        {
+                            mValue = argVector4;
+                            return argVector4;
+                        }
+                        else if (expectedType.IsEnum)
+                        {
+                            if (string.IsNullOrEmpty(argStringValue) || Enum.IsDefined(expectedType, argStringValue) == false)
+                            {
+                                //set default value
+                                argStringValue = Enum.GetNames(expectedType)[0];
+                            }
 
-                    if(expectedType == typeof(string))
-                    {
-                        mValue = argStringValue;
-                        return argStringValue;
+                            mValue = (Enum)Enum.Parse(expectedType, argStringValue);
+                            return mValue;
+                        }
                     }
-                    else if(expectedType == typeof(int))
-                    {
-                        mValue = argIntValue;
-                        return argIntValue;
-                    }
-                    else if(expectedType == typeof(float))
-                    {
-                        mValue = argFloatValue;
-                        return argFloatValue;
-                    }
-                    else if(expectedType == typeof(double))
-                    {
-                        mValue = argDoubleValue;
-                        return argDoubleValue;
-                    }
-                    else if(expectedType == typeof(bool))
-                    {
-                        mValue = argBoolValue;
-                        return argBoolValue;
-                    }
-					else if(expectedType == typeof(Color))
-					{
-						mValue = argColor;
-						return argColor;
-					}
-					else if(expectedType == typeof(Vector2))
-					{
-						mValue = argVector2;
-						return argVector2;
-					}
-					else if(expectedType == typeof(Vector3))
-					{
-						mValue = argVector3;
-						return argVector3;
-					}
-					else if(expectedType == typeof(Vector4))
-					{
-						mValue = argVector4;
-						return argVector4;
-					}
 					
 					if (obj != null && !string.IsNullOrEmpty(field))
 					{
@@ -691,7 +705,12 @@ public class EventDelegate
 
 				// Set all the parameters
 				for (int i = 0, imax = mParameters.Length; i < imax; ++i)
-					mArgs[i] = mParameters[i].value;
+                {
+                    //request parameter again, cache is not usefull when supporting Vand Reference params
+                    mParameters[i].value = null;
+                    mParameters[i].cached = false;
+                    mArgs[i] = mParameters[i].value;
+                }
 
 				// Invoke the callback
 				try

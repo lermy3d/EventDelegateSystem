@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class TestEventChild : TestEventsParent
 {
     public FireType myFireType;
+    public Color myColor;
 
     int TestingintInternalMethod(string sendMessage)
     {
@@ -98,6 +98,11 @@ public class TestEventChild : TestEventsParent
         Debug.Log(integerParam);
     }
 
+    public void TestLogEnum(FireType fire)
+    {
+        Debug.Log(fire);
+    }
+
     public void TestPrimitiveParams(string valString, int valInteger, float valFloat, double valDouble, bool valBool, Transform valTranform, FireType fireType)
     {
         Debug.Log("valString: " + valString);
@@ -113,6 +118,11 @@ public class TestEventChild : TestEventsParent
         Debug.Log("valTransform: " + valTranform);
 
         Debug.Log("FireType: " + fireType);
+    }
+
+    public string ResturningString()
+    {
+        return "My returned value.";
     }
 
     //    public void TemplateTest<T>(string param, T someObject)

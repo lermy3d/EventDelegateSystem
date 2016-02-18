@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEditor;
 using System;
 using System.Reflection;
-using System.Collections;
 using System.Collections.Generic;
 
 using UIEventDelegate;
@@ -46,19 +45,26 @@ public class EventDelegateDrawer : PropertyDrawer
     /// <summary>
     /// Width value to start using minimalistic method.
     /// </summary>
-    int minimalistWidth = 0; //TODO: implement minimalistic method, unity activates it at 257
+    //int minimalistWidth = 0; //TODO: implement minimalistic method, unity activates it at 257
 
     public override float GetPropertyHeight(SerializedProperty prop, GUIContent label)
     {
+        float yOffset = 0;
+        SerializedProperty yOffsetProp = prop.FindPropertyRelative("mYOffset");
+        if (yOffsetProp != null)
+            yOffset = yOffsetProp.floatValue;
+
         SerializedProperty showGroup = prop.FindPropertyRelative("mShowGroup");
         if (!showGroup.boolValue)
-            return lineHeight;
-    
+            return lineHeight + yOffset;
+
+        float lines = (3 * lineHeight) + yOffset;
+
         SerializedProperty targetProp = prop.FindPropertyRelative("mTarget");
         if (targetProp.objectReferenceValue == null)
-            return 3 * lineHeight;
-		
-        int lines = 4 * lineHeight;
+            return lines;
+
+        lines += lineHeight;
 
         SerializedProperty methodProp = prop.FindPropertyRelative("mMethodName");
         
@@ -80,26 +86,35 @@ public class EventDelegateDrawer : PropertyDrawer
             for (int i = 0; i < ps.Length; i++)
             {
                 EventDelegate.Parameter param = ps [i];
-                lines += lineHeight;
+
+                if (i != 0 || ps.Length == 1)
+                    lines += lineHeight;
 
                 SerializedProperty paramProp = paramArrayProp.GetArrayElementAtIndex(i);
                 SerializedProperty objProp = paramProp.FindPropertyRelative("obj");
-   
-                if (param.expectedType == typeof(string) || param.expectedType == typeof(int) || 
-                    param.expectedType == typeof(float) || param.expectedType == typeof(double) || 
-                    param.expectedType == typeof(bool))
+
+                bool useManualValue = paramProp.FindPropertyRelative("paramRefType").enumValueIndex == (int)ParameterType.Value;
+
+                if (useManualValue)
                 {
-                    continue;
-                }
-                else
-                {
-                    if (lineRect.width < minimalistWidth) //use minimalist method
+                    if (param.expectedType == typeof(string) || param.expectedType == typeof(int) ||
+                        param.expectedType == typeof(float) || param.expectedType == typeof(double) ||
+                        param.expectedType == typeof(bool) || param.expectedType.IsEnum ||
+                        param.expectedType == typeof(Color))
                     {
-                        if (param.expectedType == typeof(Vector2) || param.expectedType == typeof(Vector3))
-                        {
-                            lines += lineHeight;
-                            continue;
-                        }
+                        continue;
+                    }
+                    else if (param.expectedType == typeof(Vector2) || param.expectedType == typeof(Vector3) || param.expectedType == typeof(Vector4))
+                    {
+                        //if (lineRect.width < minimalistWidth) //use minimalist method
+                        //{
+                        //    if (param.expectedType == typeof(Vector2) || param.expectedType == typeof(Vector3))
+                        //    {
+                        //        lines += lineHeight;
+                        //    }
+                        //}
+                        lines += 4;
+                        continue;
                     }
                 }
                 
@@ -269,7 +284,11 @@ public class EventDelegateDrawer : PropertyDrawer
                 if (ps != null)
                 {
                     EditorGUI.indentLevel++;
-                    
+
+                    float paramTypeWidth = 100;
+                    float lineOriginalMax = lineRect.xMax;
+                    lineRect.xMax -= 68;
+
                     paramArrayProp.arraySize = ps.Length;
                     for (int i = 0; i < ps.Length; i++)
                     {
@@ -284,129 +303,152 @@ public class EventDelegateDrawer : PropertyDrawer
 
                         lineRect.yMin += lineHeight;
                         lineRect.yMax += lineHeight;
-                        
+
                         //showing param info
                         string paramDesc = GetSimpleName(param.expectedType);
                         paramDesc += " " + param.name;
                         
                         UnityEngine.Object obj = param.obj;
+
                         
-                        if (param.paramType == ParameterType.Value && param.expectedType == typeof(string))
+                        bool useManualValue = paramProp.FindPropertyRelative("paramRefType").enumValueIndex == (int)ParameterType.Value;
+                        
+                        if(IsPrimitiveType(param.expectedType))
+                        {
+                            //only do this if parameter is a primitive type
+                            Rect paramTypeRect = new Rect(lineRect.x + lineRect.width - 28, lineRect.y, paramTypeWidth, lineHeight);
+
+                            SerializedProperty paramTypeProp = paramProp.FindPropertyRelative("paramRefType");
+
+                            //draw param type option
+                            EditorGUI.PropertyField(paramTypeRect, paramTypeProp, GUIContent.none);
+                            param.paramRefType = (ParameterType)paramTypeProp.enumValueIndex;
+                        }
+                        else
+                            lineRect.xMax = lineOriginalMax;
+
+                        if (useManualValue && param.expectedType == typeof(string))
                         {
                             SerializedProperty valueProp = paramProp.FindPropertyRelative("argStringValue");
                             EditorGUI.PropertyField(lineRect, valueProp, new GUIContent(paramDesc));
-                            
+
                             param.value = valueProp.stringValue;
-                        } else if (param.expectedType == typeof(int))
+                        }
+                        else if (useManualValue && param.expectedType == typeof(int))
                         {
                             SerializedProperty valueProp = paramProp.FindPropertyRelative("argIntValue");
                             EditorGUI.PropertyField(lineRect, valueProp, new GUIContent(paramDesc));
-                            
+
                             param.value = valueProp.intValue;
-                        } else if (param.expectedType == typeof(float))
+                        }
+                        else if (useManualValue && param.expectedType == typeof(float))
                         {
                             SerializedProperty valueProp = paramProp.FindPropertyRelative("argFloatValue");
                             EditorGUI.PropertyField(lineRect, valueProp, new GUIContent(paramDesc));
-                            
+
                             param.value = valueProp.floatValue;
-                        } else if (param.expectedType == typeof(double))
+                        }
+                        else if (useManualValue && param.expectedType == typeof(double))
                         {
                             SerializedProperty valueProp = paramProp.FindPropertyRelative("argDoubleValue");
                             EditorGUI.PropertyField(lineRect, valueProp, new GUIContent(paramDesc));
-                            
+
                             param.value = valueProp.doubleValue;
-                        } else if (param.expectedType == typeof(bool))
+                        }
+                        else if (useManualValue && param.expectedType == typeof(bool))
                         {
                             SerializedProperty valueProp = paramProp.FindPropertyRelative("argBoolValue");
                             EditorGUI.PropertyField(lineRect, valueProp, new GUIContent(paramDesc));
-                            
+
                             param.value = valueProp.boolValue;
-                        } 
-						else if (param.expectedType == typeof(Color))
-						{
-							SerializedProperty valueProp = paramProp.FindPropertyRelative("argColor");
-							EditorGUI.PropertyField(lineRect, valueProp, new GUIContent(paramDesc));
-							
-							param.value = valueProp.colorValue;
-						}
-						else if (param.expectedType == typeof(Vector2))
-						{
-							SerializedProperty valueProp = paramProp.FindPropertyRelative("argVector2");
+                        }
+                        else if (useManualValue && param.expectedType == typeof(Color))
+                        {
+                            SerializedProperty valueProp = paramProp.FindPropertyRelative("argColor");
+                            EditorGUI.PropertyField(lineRect, valueProp, new GUIContent(paramDesc));
 
-                            if (lineRect.width < minimalistWidth)
-                            {
-                                Rect vectMinRect = new Rect(lineRect);
-                                vectMinRect.yMin += lineHeight;
+                            param.value = valueProp.colorValue;
+                        }
+                        else if (useManualValue && param.expectedType == typeof(Vector2))
+                        {
+                            SerializedProperty valueProp = paramProp.FindPropertyRelative("argVector2");
+                            lineRect.y += 2;
 
-                                EditorGUI.PropertyField(vectMinRect, valueProp, new GUIContent(paramDesc));
-                            }
-                            else
-                                EditorGUI.PropertyField(lineRect, valueProp, new GUIContent(paramDesc));
-							
-							param.value = valueProp.vector2Value;
-						}
-						else if (param.expectedType == typeof(Vector3))
-						{
-							SerializedProperty valueProp = paramProp.FindPropertyRelative("argVector3");
+                            EditorGUI.PropertyField(lineRect, valueProp, new GUIContent(paramDesc));
 
-                            if (lineRect.width < minimalistWidth)
-                            {
-                                Rect vectMinRect = new Rect(lineRect);
-                                vectMinRect.yMin += lineHeight;
+                            param.value = valueProp.vector2Value;
+                        }
+                        else if (useManualValue && param.expectedType == typeof(Vector3))
+                        {
+                            SerializedProperty valueProp = paramProp.FindPropertyRelative("argVector3");
+                            lineRect.y += 2;
 
-                                EditorGUI.PropertyField(lineRect, valueProp, new GUIContent(paramDesc));
-                            }
-                            else
-                                EditorGUI.PropertyField(lineRect, valueProp, new GUIContent(paramDesc));
+                            EditorGUI.PropertyField(lineRect, valueProp, new GUIContent(paramDesc));
 
                             param.value = valueProp.vector3Value;
-						}
-						else if (param.expectedType == typeof(Vector4))
-						{
-							SerializedProperty valueProp = paramProp.FindPropertyRelative("argVector4");
-							Vector4 vec4 = valueProp.vector4Value;
-							
-							//workaround for vector 4, it uses an extra line.
-							//valueProp.vector4Value = EditorGUI.Vector4Field(lineRect, paramDesc, valueProp.vector4Value);
-							
-							//create all this values just once
-							if(vec4Values == null)
-								vec4Values = new float[4];
-							
-							vec4Values[0] = vec4.x;
-							vec4Values[1] = vec4.y;
-							vec4Values[2] = vec4.z;
-							vec4Values[3] = vec4.w;
-							
-							if(vec4GUIContent == null)
-								vec4GUIContent = new GUIContent[4];
-							
-							vec4GUIContent[0] = new GUIContent("X");
-							vec4GUIContent[1] = new GUIContent("Y");
-							vec4GUIContent[2] = new GUIContent("Z");
-							vec4GUIContent[3] = new GUIContent("W");
+                        }
+                        else if (useManualValue && param.expectedType == typeof(Vector4))
+                        {
+                            SerializedProperty valueProp = paramProp.FindPropertyRelative("argVector4");
+                            Vector4 vec4 = valueProp.vector4Value;
+
+                            lineRect.y += 2;
+
+                            //workaround for vector 4, it uses an extra line.
+                            //valueProp.vector4Value = EditorGUI.Vector4Field(lineRect, paramDesc, valueProp.vector4Value);
+
+                            //create all this values just once
+                            if (vec4Values == null)
+                                vec4Values = new float[4];
+
+                            vec4Values[0] = vec4.x;
+                            vec4Values[1] = vec4.y;
+                            vec4Values[2] = vec4.z;
+                            vec4Values[3] = vec4.w;
+
+                            if (vec4GUIContent == null)
+                                vec4GUIContent = new GUIContent[4];
+
+                            vec4GUIContent[0] = new GUIContent("X");
+                            vec4GUIContent[1] = new GUIContent("Y");
+                            vec4GUIContent[2] = new GUIContent("Z");
+                            vec4GUIContent[3] = new GUIContent("W");
 
                             EditorGUI.LabelField(lineRect, paramDesc);
-							
-							Rect vector4Line = new Rect(lineRect);
-							vector4Line.xMin += (EditorGUI.indentLevel * lineHeight) + 80;
-                            vector4Line.yMin += 0.2f;
+
+                            Rect vector4Line = new Rect(lineRect);
+                            vector4Line.xMin += (EditorGUI.indentLevel * lineHeight) + 80;
 
                             EditorGUI.MultiFloatField(vector4Line, vec4GUIContent, vec4Values);
-							
-							valueProp.vector4Value = new Vector4(vec4Values[0], vec4Values[1], vec4Values[2], vec4Values[3]);							
-							param.value = valueProp.vector4Value;
-						}
+
+                            valueProp.vector4Value = new Vector4(vec4Values[0], vec4Values[1], vec4Values[2], vec4Values[3]);
+                            param.value = valueProp.vector4Value;
+                        }
+                        else if (useManualValue && param.expectedType.IsEnum)
+                        {
+                            SerializedProperty valueProp = paramProp.FindPropertyRelative("argStringValue");
+
+                            if(string.IsNullOrEmpty(valueProp.stringValue) || Enum.IsDefined(param.expectedType, valueProp.stringValue) == false)
+                            {
+                                //set default value
+                                valueProp.stringValue = Enum.GetNames(param.expectedType)[0];
+                            }
+
+                            Enum selectedOpt = (Enum)Enum.Parse(param.expectedType, valueProp.stringValue);
+
+                            param.value = EditorGUI.EnumPopup(lineRect, new GUIContent(paramDesc), selectedOpt);
+                            valueProp.stringValue = param.value.ToString();
+                        }
                         else
                         {
                             obj = EditorGUI.ObjectField(lineRect, paramDesc, obj, typeof(UnityEngine.Object), true);
-                            
+
                             param.obj = obj;
                             objProp.objectReferenceValue = obj;
 
                             if (obj == null)
                                 continue;
-                            
+
                             //show gameobject
                             GameObject selGO = null;
                             System.Type type = param.obj.GetType();
@@ -414,42 +456,44 @@ public class EventDelegateDrawer : PropertyDrawer
                                 selGO = param.obj as GameObject;
                             else if (type.IsSubclassOf(typeof(Component)))
                                 selGO = (param.obj as Component).gameObject;
-        
+
                             if (selGO != null)
                             {
                                 // Parameters must be exact -- they can't be converted like property bindings
                                 filter = param.expectedType;
                                 canConvert = false;
                                 List<Entry> ents = GetProperties(selGO, true, false);
-        
+
                                 int selection;
                                 string[] props = GetNames(ents, EventDelegate.GetFuncName(param.obj, param.field), false, out selection);
-        
+
                                 lineRect.yMin += lineHeight;
                                 lineRect.yMax += lineHeight;
                                 int newSel = EditorGUI.Popup(lineRect, " ", selection, props);
-        
+
                                 if (newSel != selection)
                                 {
                                     if (newSel == 0)
                                     {
                                         param.obj = selGO;
                                         param.field = null;
-        
+
                                         objProp.objectReferenceValue = selGO;
                                         fieldProp.stringValue = null;
-                                    } else
+                                    }
+                                    else
                                     {
-                                        param.obj = ents [newSel - 1].target;
-                                        param.field = ents [newSel - 1].name;
-        
+                                        param.obj = ents[newSel - 1].target;
+                                        param.field = ents[newSel - 1].name;
+
                                         objProp.objectReferenceValue = param.obj;
                                         fieldProp.stringValue = param.field;
                                     }
                                 }
-                            } else if (!string.IsNullOrEmpty(param.field))
+                            }
+                            else if (!string.IsNullOrEmpty(param.field))
                                 param.field = null;
-        
+
                             filter = typeof(void);
                             canConvert = true;
                         }
@@ -556,6 +600,18 @@ public class EventDelegateDrawer : PropertyDrawer
         string name = type.ToString();
         
         return name.Substring(name.LastIndexOf('.') + 1);
+    }
+
+    static public bool IsPrimitiveType(Type expectedType)
+    {
+        if(expectedType == typeof(string) || expectedType == typeof(int) || expectedType == typeof(float) || expectedType == typeof(double) ||
+            expectedType == typeof(bool) || expectedType == typeof(Vector2) || expectedType == typeof(Vector3) || expectedType == typeof(Vector4) ||
+            expectedType == typeof(Color) || expectedType.IsEnum)
+        {
+            return true;
+        }
+
+        return false;
     }
     
     #if REFLECTION_SUPPORT

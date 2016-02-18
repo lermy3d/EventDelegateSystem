@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEditor;
 using UnityEditorInternal;
 
@@ -48,15 +49,22 @@ public class ReorderableDelegateDrawer : UnityEditor.PropertyDrawer
             {
                 var element = property.GetArrayElementAtIndex(index);
 
+                float yOffset = 0;
+                SerializedProperty yOffsetProp = element.FindPropertyRelative("mYOffset");
+                if (yOffsetProp != null)
+                    yOffset = yOffsetProp.floatValue;
+
                 SerializedProperty showGroup = element.FindPropertyRelative("mShowGroup");
                 if (!showGroup.boolValue)
-                    return lineHeight;
+                    return lineHeight + yOffset;
+
+                float lines = (3 * lineHeight) + yOffset;
 
                 SerializedProperty targetProp = element.FindPropertyRelative("mTarget");
                 if (targetProp.objectReferenceValue == null)
-                    return 3 * lineHeight;
+                    return lines;
 
-                int lines = 4 * lineHeight;
+                lines += lineHeight;
 
                 SerializedProperty methodProp = element.FindPropertyRelative("mMethodName");
 
@@ -78,16 +86,30 @@ public class ReorderableDelegateDrawer : UnityEditor.PropertyDrawer
                     for (int i = 0; i < ps.Length; i++)
                     {
                         EventDelegate.Parameter param = ps[i];
-                        lines += lineHeight;
+
+                        if (i != 0 || ps.Length == 1)
+                            lines += lineHeight;
 
                         SerializedProperty paramProp = paramArrayProp.GetArrayElementAtIndex(i);
                         SerializedProperty objProp = paramProp.FindPropertyRelative("obj");
 
-                        if (param.expectedType == typeof(string) || param.expectedType == typeof(int) ||
-                            param.expectedType == typeof(float) || param.expectedType == typeof(double) ||
-                            param.expectedType == typeof(bool))
+                        bool useManualValue = paramProp.FindPropertyRelative("paramRefType").enumValueIndex == (int)ParameterType.Value;
+
+                        if (useManualValue)
                         {
-                            continue;
+                            if (param.expectedType == typeof(string) || param.expectedType == typeof(int) ||
+                                param.expectedType == typeof(float) || param.expectedType == typeof(double) ||
+                                param.expectedType == typeof(bool) || param.expectedType.IsEnum ||
+                                param.expectedType == typeof(Color))
+                            {
+                                continue;
+                            }
+                            else if (param.expectedType == typeof(Vector2) || param.expectedType == typeof(Vector3) || param.expectedType == typeof(Vector4))
+                            {
+                                //TODO: use minimalist method
+                                lines += 4;
+                                continue;
+                            }
                         }
 
                         UnityEngine.Object obj = objProp.objectReferenceValue;
@@ -95,7 +117,7 @@ public class ReorderableDelegateDrawer : UnityEditor.PropertyDrawer
                         if (obj == null)
                             continue;
 
-                        System.Type type = obj.GetType();
+                        Type type = obj.GetType();
 
                         GameObject selGO = null;
                         if (type == typeof(GameObject))
