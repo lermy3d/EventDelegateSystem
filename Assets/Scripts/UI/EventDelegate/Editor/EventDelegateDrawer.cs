@@ -87,8 +87,7 @@ public class EventDelegateDrawer : PropertyDrawer
             {
                 EventDelegate.Parameter param = ps [i];
 
-                if (i != 0 || ps.Length == 1)
-                    lines += lineHeight;
+                lines += lineHeight;
 
                 SerializedProperty paramProp = paramArrayProp.GetArrayElementAtIndex(i);
                 SerializedProperty objProp = paramProp.FindPropertyRelative("obj");
@@ -315,6 +314,9 @@ public class EventDelegateDrawer : PropertyDrawer
                         
                         if(IsPrimitiveType(param.expectedType))
                         {
+                            if(lineOriginalMax == lineRect.xMax)
+                                lineRect.xMax -= 68;
+
                             //only do this if parameter is a primitive type
                             Rect paramTypeRect = new Rect(lineRect.x + lineRect.width - 28, lineRect.y, paramTypeWidth, lineHeight);
 
