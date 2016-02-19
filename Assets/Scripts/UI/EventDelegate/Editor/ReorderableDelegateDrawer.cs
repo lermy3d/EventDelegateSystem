@@ -87,8 +87,7 @@ public class ReorderableDelegateDrawer : UnityEditor.PropertyDrawer
                     {
                         EventDelegate.Parameter param = ps[i];
 
-                        if (i != 0 || ps.Length == 1)
-                            lines += lineHeight;
+                        lines += lineHeight;
 
                         SerializedProperty paramProp = paramArrayProp.GetArrayElementAtIndex(i);
                         SerializedProperty objProp = paramProp.FindPropertyRelative("obj");
@@ -130,7 +129,7 @@ public class ReorderableDelegateDrawer : UnityEditor.PropertyDrawer
                     }
                 }
 
-                return lines;
+                return lines - lineHeight/2;
             };
         }
 
