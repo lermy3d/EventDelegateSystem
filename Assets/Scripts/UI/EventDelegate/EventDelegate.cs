@@ -595,7 +595,7 @@ public class EventDelegate
                         mCachedCallback = Delegate.CreateDelegate(typeof(MonoBehaviourCallback), mTarget, mMethodName);
                     else if(mMethod.ReturnType.IsSubclassOf(typeof(UnityEngine.Object)))
                         mCachedCallback = Delegate.CreateDelegate(typeof(UnityObjectCallback), mTarget, mMethodName);
-                    else if(mMethod.ReturnType.IsSubclassOf(typeof(System.Object)))
+                    else if (mMethod.ReturnType != typeof(void) && mMethod.ReturnType.IsSubclassOf(typeof(System.Object)))
                         mCachedCallback = Delegate.CreateDelegate(typeof(SystemObjectCallback), mTarget, mMethodName);
                     else if(mMethod.ReturnType == typeof(void))
                         mCachedCallback = Delegate.CreateDelegate(typeof(Callback), mTarget, mMethodName);

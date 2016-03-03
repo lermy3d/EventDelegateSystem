@@ -20,7 +20,12 @@ public class TestEventChild : TestEventsParent
     {
         Debug.Log("overload child method executed");
     }
-    
+
+    public void BasicEvent()
+    {
+        Debug.Log("basic event executed");
+    }
+
     public string MyOptionalParameters(string childMessage = "test")
     {
         Debug.Log(childMessage);
