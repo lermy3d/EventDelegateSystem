@@ -5,6 +5,9 @@ public class TestEventChild : TestEventsParent
     public FireType myFireType;
     public Color myColor;
 
+    //TODO: exlude flags from being referenced
+    //public MultiFireType myMultiFireType;
+
     int TestingintInternalMethod(string sendMessage)
     {
         Debug.Log(sendMessage);
@@ -106,6 +109,20 @@ public class TestEventChild : TestEventsParent
     public void TestLogEnum(FireType fire)
     {
         Debug.Log(fire);
+    }
+
+    public void TestLogMultiFlag(MultiFireType multiFire)
+    {
+        if ((int)multiFire == 0)
+        {
+            Debug.Log("Nothing");
+        }
+        else
+        {
+            Debug.Log("Blast: " + ((multiFire & MultiFireType.Blast) == MultiFireType.Blast ? "Yes" : "No"));
+            Debug.Log("AreaDamage: " + ((multiFire & MultiFireType.AreaDamage) == MultiFireType.AreaDamage ? "Yes" : "No"));
+            Debug.Log("Pierce: " + ((multiFire & MultiFireType.Pierce) == MultiFireType.Pierce ? "Yes" : "No"));
+        }
     }
 
     public void TestPrimitiveParams(string valString, int valInteger, float valFloat, double valDouble, bool valBool, Transform valTranform, FireType fireType)

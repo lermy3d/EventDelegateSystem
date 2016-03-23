@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using UIEventDelegate;
 
 /// <summary>
-/// Draws a single event delegate. Contributed by Adam Byrd and Lermy Garcia.
+/// Draws a single event delegate. Contributed by Lermy Garcia and Adam Byrd.
 /// </summary>
 
 [CustomPropertyDrawer(typeof(EventDelegate))]
@@ -419,7 +419,7 @@ public class EventDelegateDrawer : PropertyDrawer
                             EditorGUI.LabelField(lineRect, paramDesc);
 
                             Rect vector4Line = new Rect(lineRect);
-                            vector4Line.xMin += (EditorGUI.indentLevel * lineHeight) + 80;
+                            vector4Line.xMin += (EditorGUI.indentLevel * lineHeight) + 86;
 
                             EditorGUI.MultiFloatField(vector4Line, vec4GUIContent, vec4Values);
 
@@ -428,18 +428,19 @@ public class EventDelegateDrawer : PropertyDrawer
                         }
                         else if (useManualValue && param.expectedType.IsEnum)
                         {
-                            SerializedProperty valueProp = paramProp.FindPropertyRelative("argStringValue");
+                            SerializedProperty valueProp = paramProp.FindPropertyRelative("argIntValue");
 
-                            if(string.IsNullOrEmpty(valueProp.stringValue) || Enum.IsDefined(param.expectedType, valueProp.stringValue) == false)
+                            if (param.expectedType.GetAttribute<FlagsAttribute>() != null)
                             {
-                                //set default value
-                                valueProp.stringValue = Enum.GetNames(param.expectedType)[0];
+                                param.value = EditorGUI.MaskField(lineRect, new GUIContent(paramDesc), valueProp.intValue, Enum.GetNames(param.expectedType));
+                            }
+                            else
+                            {
+                                Enum selectedOpt = (Enum)Enum.ToObject(param.expectedType, valueProp.intValue);
+                                param.value = EditorGUI.EnumPopup(lineRect, new GUIContent(paramDesc), selectedOpt);
                             }
 
-                            Enum selectedOpt = (Enum)Enum.Parse(param.expectedType, valueProp.stringValue);
-
-                            param.value = EditorGUI.EnumPopup(lineRect, new GUIContent(paramDesc), selectedOpt);
-                            valueProp.stringValue = param.value.ToString();
+                            valueProp.intValue = (int)param.value;
                         }
                         else
                         {
@@ -916,7 +917,11 @@ public class EventDelegateDrawer : PropertyDrawer
         }
         return list;
     }
-    
+
+    /// <summary>
+    /// Returns if an overloaded method exists in an array of functions.
+    /// </summary>
+
     static public bool ExistOverloadedMethod(MethodInfo[] methodArray, Entry entry)
     {
         if (methodArray == null || methodArray.Length <= 0 || entry == null || string.IsNullOrEmpty(entry.name))

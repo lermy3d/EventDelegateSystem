@@ -1,11 +1,19 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System;
 
 public enum FireType
 {
     Blast,
     AreaDamage,
     Pierce
+}
+
+[Flags]
+public enum MultiFireType
+{
+    Blast       = 1,
+    AreaDamage  = 2,
+    Pierce      = 4
 }
 
 public class TestEventsParent : MonoBehaviour
