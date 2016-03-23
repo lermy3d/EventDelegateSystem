@@ -7,7 +7,7 @@ using System.Reflection;
 #endif
 
 using System;
-using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -135,13 +135,7 @@ public class EventDelegate
                         }
                         else if (expectedType.IsEnum)
                         {
-                            if (string.IsNullOrEmpty(argStringValue) || Enum.IsDefined(expectedType, argStringValue) == false)
-                            {
-                                //set default value
-                                argStringValue = Enum.GetNames(expectedType)[0];
-                            }
-
-                            mValue = (Enum)Enum.Parse(expectedType, argStringValue);
+                            mValue = (Enum)Enum.ToObject(expectedType, argIntValue);
                             return mValue;
                         }
                     }
@@ -1095,6 +1089,18 @@ public class Entry : IComparer<Entry>, IComparable<Entry>
     public override int GetHashCode ()
     {
         return entryHash;
+    }
+}
+
+public static class AttributeExtension
+{
+    /// <summary>
+    /// Obtains the first or default attribute from a MemberInfo.
+    /// </summary>
+
+    static public T GetAttribute<T>(this MemberInfo memberInfo) where T : Attribute
+    {
+        return memberInfo.GetCustomAttributes(typeof(T), true).FirstOrDefault() as T;
     }
 }
 }
