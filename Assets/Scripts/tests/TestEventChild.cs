@@ -5,8 +5,8 @@ public class TestEventChild : TestEventsParent
     public FireType myFireType;
     public Color myColor;
 
-    //TODO: exlude flags from being referenced
-    //public MultiFireType myMultiFireType;
+    //TODO: a custom drawer is needed for drawing flag type (use MaskField)
+    public MultiFireType myMultiFireType;
 
     int TestingintInternalMethod(string sendMessage)
     {

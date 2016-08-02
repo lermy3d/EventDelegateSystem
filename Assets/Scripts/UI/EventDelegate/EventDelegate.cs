@@ -70,11 +70,11 @@ public class EventDelegate
 		[System.NonSerialized] public PropertyInfo propInfo;
         [System.NonSerialized] public FieldInfo fieldInfo;
 
-		/// <summary>
-		/// Return the property's current value.
-		/// </summary>
+        /// <summary>
+        /// Return the property's current value.
+        /// </summary>
 
-		public object value
+        public object value
 		{
 			get
 			{
@@ -163,6 +163,11 @@ public class EventDelegate
 			set
 			{
 				mValue = value;
+                
+                if(mValue == null)
+                {
+                    cached = false;
+                }
 			}
 		}
 
@@ -289,11 +294,11 @@ public class EventDelegate
 	{
 		get
 		{
-#if UNITY_EDITOR
-			if (!mCached || !Application.isPlaying) Cache();
-#else
-			if (!mCached) Cache();
-#endif
+            if (!mCached)
+            {
+                Cache();
+            }
+
 			return mParameters;
 		}
 	}
@@ -306,11 +311,11 @@ public class EventDelegate
 	{
 		get
 		{
-#if UNITY_EDITOR
-			if (!mCached || !Application.isPlaying) Cache(false);
-#else
-			if (!mCached) Cache();
-#endif
+            if (!mCached)
+            {
+                Cache();
+            }
+
 			return (mRawDelegate && mCachedCallback != null) || ExistMethod();
 		}
 	}
@@ -323,11 +328,11 @@ public class EventDelegate
 	{
 		get
 		{
-#if UNITY_EDITOR
-			if (!mCached || !Application.isPlaying) Cache();
-#else
-			if (!mCached) Cache();
-#endif
+            if (!mCached)
+            {
+                Cache();
+            }
+
 			if (mRawDelegate && mCachedCallback != null)
                 return true;
 			if (mTarget == null)
@@ -638,13 +643,11 @@ public class EventDelegate
 			return true;
 		}
 #else
-#if UNITY_EDITOR
-		if (!mCached || !Application.isPlaying)
+        if (!mCached)
+        {
             Cache();
-#else
-		if (!mCached)
-            Cache();
-#endif
+        }
+
 		if (mCachedCallback != null)
 		{
 #if !UNITY_EDITOR
@@ -689,7 +692,14 @@ public class EventDelegate
 
 			if (len == 0)
 			{
-				mMethod.Invoke(mTarget, null);
+                try
+				{
+					mMethod.Invoke(mTarget, null);
+				}
+				catch (System.ArgumentException ex)
+				{
+					LogInvokeError(ex);
+				}
 			}
 			else
 			{
@@ -697,13 +707,25 @@ public class EventDelegate
 				if (mArgs == null || mArgs.Length != mParameters.Length)
 					mArgs = new object[mParameters.Length];
 
+                Parameter paramItem = null;
+
 				// Set all the parameters
-				for (int i = 0, imax = mParameters.Length; i < imax; ++i)
+				for (int i = 0, imax = mParameters.Length; i < imax; ++i, paramItem = null)
                 {
-                    //request parameter again, cache is not usefull when supporting Vand Reference params
-                    mParameters[i].value = null;
-                    mParameters[i].cached = false;
-                    mArgs[i] = mParameters[i].value;
+                    paramItem = mParameters[i];
+
+                    if(paramItem == null)
+                        continue;
+
+                    //update the parameter is a reference (assuming value parameters will never change in realtime)
+                    //or if in editor mode (for testing purpose)
+                    if (paramItem.paramRefType == ParameterType.Reference || Application.isEditor)
+                    {
+                        paramItem.value = null;
+                    }
+
+                    //obtaining param value
+                    mArgs[i] = paramItem.value;
                 }
 
 				// Invoke the callback
@@ -713,39 +735,7 @@ public class EventDelegate
 				}
 				catch (System.ArgumentException ex)
 				{
-					string msg = "Error calling ";
-
-					if (mTarget == null) msg += mMethod.Name;
-					else msg += mTarget.GetType() + "." + mMethod.Name;
-					
-					msg += ": " + ex.Message;
-					msg += "\n  Expected: ";
-
-					if (mParameterInfos.Length == 0)
-					{
-						msg += "no arguments";
-					}
-					else
-					{
-						msg += mParameterInfos[0];
-						for (int i = 1; i < mParameterInfos.Length; ++i)
-							msg += ", " + mParameterInfos[i].ParameterType;
-					}
-
-					msg += "\n  Received: ";
-
-					if (mParameters.Length == 0)
-					{
-						msg += "no arguments";
-					}
-					else
-					{
-						msg += mParameters[0].type;
-						for (int i = 1; i < mParameters.Length; ++i)
-							msg += ", " + mParameters[i].type;
-					}
-					msg += "\n";
-					Debug.LogError(msg);
+					LogInvokeError(ex);
 				}
 
 				// Clear the parameters so that references are not kept
@@ -758,11 +748,49 @@ public class EventDelegate
 					mArgs[i] = null;
 				}
 			}
+
 			return true;
 		}
 #endif
 		return false;
 	}
+
+    void LogInvokeError(System.ArgumentException ex)
+    {
+        string msg = "Error calling ";
+
+		if (mTarget == null) msg += mMethod.Name;
+		else msg += mTarget.GetType() + "." + mMethod.Name;
+					
+		msg += ": " + ex.Message;
+		msg += "\n  Expected: ";
+
+		if (mParameterInfos.Length == 0)
+		{
+			msg += "no arguments";
+		}
+		else
+		{
+			msg += mParameterInfos[0];
+			for (int i = 1; i < mParameterInfos.Length; ++i)
+				msg += ", " + mParameterInfos[i].ParameterType;
+		}
+
+		msg += "\n  Received: ";
+
+		if (mParameters.Length == 0)
+		{
+			msg += "no arguments";
+		}
+		else
+		{
+			msg += mParameters[0].type;
+			for (int i = 1; i < mParameters.Length; ++i)
+				msg += ", " + mParameters[i].type;
+		}
+		msg += "\n";
+		Debug.LogError(msg);
+    }
 
 	/// <summary>
 	/// Clear the event delegate.
