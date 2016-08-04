@@ -200,7 +200,7 @@ public class EventDelegate
     public bool mShowGroup = true;
 
     [HideInInspector]
-    public float mYOffset = 0;
+    public float mYOffset = 0;  //this offset is used to fix the properties overlap in reorderable list per item
 
     [HideInInspector]
     public bool mUpdateEntryList = true;
@@ -214,6 +214,8 @@ public class EventDelegate
 	[SerializeField] MonoBehaviour mTarget;
 	[SerializeField] string mMethodName;
 	[SerializeField] Parameter[] mParameters;
+
+    [SerializeField] bool mCached = false;
 
 	/// <summary>
 	/// Whether the event delegate will be removed after execution.
@@ -231,7 +233,6 @@ public class EventDelegate
     // Private variables
 	[System.NonSerialized] Delegate mCachedCallback;
 	[System.NonSerialized] bool mRawDelegate = false;
-	[System.NonSerialized] bool mCached = false;
 #if REFLECTION_SUPPORT
 	[System.NonSerialized] MethodInfo mMethod;
     [System.NonSerialized] ParameterInfo[] mParameterInfos;
@@ -567,7 +568,7 @@ public class EventDelegate
 
 				if (mMethod == null)
 				{
-                    //method was most likely changed
+                    //method or target was most likely changed
                     
                     mArgs = null;
                     mParameters = null;
@@ -587,7 +588,7 @@ public class EventDelegate
  #if NETFX_CORE
                     mCachedCallback = Delegate.CreateDelegatem(mMethod.ReturnType, mTarget, mMethodName);
  #else
-                    //som UI components (like Button) need this specification for their methods to work
+                    //some UI components (like Button) need this specification for their methods to work
                     if(mMethod.ReturnType == typeof(System.Boolean))
                         mCachedCallback = Delegate.CreateDelegate(typeof(BoolCallback), mTarget, mMethodName);
                     else if(mMethod.ReturnType.IsSubclassOf(typeof(MonoBehaviour)))

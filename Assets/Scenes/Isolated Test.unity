@@ -254,7 +254,7 @@ MonoBehaviour:
       - target: {fileID: 497976576}
         name: TestUnityObject (String message)
       mTarget: {fileID: 497976576}
-      mMethodName: TestingColorParam
+      mMethodName: TestingMultipleParameters
       mParameters:
       - obj: {fileID: 279176393}
         field: 
@@ -268,6 +268,19 @@ MonoBehaviour:
         argVector2: {x: 0, y: 0}
         argVector3: {x: 0, y: 0, z: 0}
         argVector4: {x: 0, y: 0, z: 0, w: 0}
+      - obj: {fileID: 279176393}
+        field: 
+        paramRefType: 0
+        argStringValue: test private
+        argIntValue: 0
+        argFloatValue: 0
+        argDoubleValue: 0
+        argBoolValue: 0
+        argColor: {r: 1, g: 1, b: 1, a: 0}
+        argVector2: {x: 0, y: 0}
+        argVector3: {x: 0, y: 0, z: 0}
+        argVector4: {x: 0, y: 0, z: 0, w: 0}
+      mCached: 0
       oneShot: 0
 --- !u!1 &1089524841
 GameObject:
@@ -316,34 +329,6 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 443808, guid: c0f044da1e222a5449720955e92c5d91, type: 2}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 443808, guid: c0f044da1e222a5449720955e92c5d91, type: 2}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 443808, guid: c0f044da1e222a5449720955e92c5d91, type: 2}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 443808, guid: c0f044da1e222a5449720955e92c5d91, type: 2}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 443808, guid: c0f044da1e222a5449720955e92c5d91, type: 2}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 443808, guid: c0f044da1e222a5449720955e92c5d91, type: 2}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 443808, guid: c0f044da1e222a5449720955e92c5d91, type: 2}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 443808, guid: c0f044da1e222a5449720955e92c5d91, type: 2}
       propertyPath: m_RootOrder
       value: 3

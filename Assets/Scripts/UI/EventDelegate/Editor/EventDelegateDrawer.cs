@@ -228,9 +228,6 @@ public class EventDelegateDrawer : PropertyDrawer
                     methodName = methodName.Replace(">", "");
                 }
 
-                eventDelegate.target = target;
-                eventDelegate.methodName = methodName;
-                
                 string[] names = GetNames(listWithParams, methodName, true, out index, methodProp);
 
                 lineRect.yMin += lineHeight;
@@ -242,10 +239,13 @@ public class EventDelegateDrawer : PropertyDrawer
                 {
                     Entry entry = listWithParams [choice - 1];
     				
-                    if(targetProp.objectReferenceValue != entry.target)
+                    if(target != entry.target)
                     {
                         target = entry.target as MonoBehaviour;
                         targetProp.objectReferenceValue = target;
+
+                        SerializedProperty cacheProp = prop.FindPropertyRelative("mCached");
+                        cacheProp.boolValue = false;
                     }
                     
                     methodName = entry.name;
@@ -254,10 +254,18 @@ public class EventDelegateDrawer : PropertyDrawer
                     if (string.IsNullOrEmpty(methodName) == false && methodName.Contains(" ("))
                         methodName = methodName.Remove(methodName.IndexOf(" ("));
                     
-                    methodProp.stringValue = methodName;
-                    eventDelegate.methodName = methodName;
-                    entry.name = methodName;
+                    if(methodName != methodProp.stringValue)
+                    {
+                        methodProp.stringValue = methodName;
+                        entry.name = methodName;
+
+                        SerializedProperty cacheProp = prop.FindPropertyRelative("mCached");
+                        cacheProp.boolValue = false;
+                    }
                 }
+
+                eventDelegate.target = target;
+                eventDelegate.methodName = methodName;
                 
                 if (eventDelegate.isValid == false)
                 {
