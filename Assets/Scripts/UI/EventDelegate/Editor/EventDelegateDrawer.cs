@@ -71,7 +71,7 @@ public class EventDelegateDrawer : PropertyDrawer
         if (methodProp.stringValue == "<Choose>" || methodProp.stringValue.StartsWith("<Missing - "))
             return lines;
 
-        eventDelegate.target = targetProp.objectReferenceValue as MonoBehaviour;
+		eventDelegate.target = targetProp.objectReferenceValue;
         eventDelegate.methodName = methodProp.stringValue;
         
         if (eventDelegate.isValid == false)
@@ -157,7 +157,7 @@ public class EventDelegateDrawer : PropertyDrawer
             updateMethodsProp.boolValue = true;
 
         string eventName = nameProp.stringValue;
-        MonoBehaviour target = targetProp.objectReferenceValue as MonoBehaviour;
+		UnityEngine.Object target = targetProp.objectReferenceValue;
 
         //controls
         Rect groupPos = new Rect(rect.x, rect.y, rect.width, lineHeight);
@@ -183,7 +183,7 @@ public class EventDelegateDrawer : PropertyDrawer
             lineRect.yMin += lineHeight;
             lineRect.yMax += lineHeight;
     		
-            target = EditorGUI.ObjectField(lineRect, "Notify", target, typeof(MonoBehaviour), true) as MonoBehaviour;
+			target = EditorGUI.ObjectField(lineRect, "Notify", target, typeof(UnityEngine.Object), true);
             
             //update method list if target component was modified
             if (targetProp.objectReferenceValue != target)
@@ -191,15 +191,26 @@ public class EventDelegateDrawer : PropertyDrawer
 
             targetProp.objectReferenceValue = target;
 
-            if (target != null && target.gameObject != null)
+            if (target != null)
             {
-                GameObject go = target.gameObject;
                 List<Entry> listWithParams = null;
                 
                 SerializedProperty entryArrayProp = prop.FindPropertyRelative("mEntryList");
 
                 if (updateMethodsProp.boolValue && EditorApplication.isCompiling == false)
-                    UpdateMethods(listWithParams, entryArrayProp, updateMethodsProp, go);
+				{
+					GameObject go = target as GameObject;
+					if(go == null)
+					{
+						Component component = target as Component;
+						if(target)
+						{
+							UpdateMethods(listWithParams, entryArrayProp, updateMethodsProp, component.gameObject);
+						}
+					}
+					else
+						UpdateMethods(listWithParams, entryArrayProp, updateMethodsProp, go);
+				}
                 else
                 {
                     //get list from array
@@ -209,7 +220,7 @@ public class EventDelegateDrawer : PropertyDrawer
                     for (int i = 0; i < entryArrayProp.arraySize; i++)
                     {
                         entryItem = entryArrayProp.GetArrayElementAtIndex(i);
-                        Component targetComp = entryItem.FindPropertyRelative("target").objectReferenceValue as Component;
+						UnityEngine.Object targetComp = entryItem.FindPropertyRelative("target").objectReferenceValue;
                         string name = entryItem.FindPropertyRelative("name").stringValue;
                         
                         listWithParams.Add(new Entry(targetComp, name));
@@ -241,7 +252,7 @@ public class EventDelegateDrawer : PropertyDrawer
     				
                     if(target != entry.target)
                     {
-                        target = entry.target as MonoBehaviour;
+						target = entry.target as UnityEngine.Object;
                         targetProp.objectReferenceValue = target;
 
                         SerializedProperty cacheProp = prop.FindPropertyRelative("mCached");
@@ -531,6 +542,12 @@ public class EventDelegateDrawer : PropertyDrawer
 
     void UpdateMethods(List<Entry> listWithParams, SerializedProperty entryArrayProp, SerializedProperty updateMethodsProp, GameObject go)
     {
+		if(go == null)
+		{
+			entryArrayProp.ClearArray();
+			return;
+		}
+
         listWithParams = GetMethods(go, true);
         entryArrayProp.ClearArray();
         SerializedProperty entryProp;
@@ -761,100 +778,129 @@ public class EventDelegateDrawer : PropertyDrawer
         if (target == null)
             return list;
         
-        MonoBehaviour[] comps = target.GetComponents<MonoBehaviour>();
-        
-        for (int i = 0, imax = comps.Length; i < imax; ++i)
+		Component[] comps = target.GetComponents<Component>();
+        MethodInfo[] methods = null;
+
+		Component comp = null;
+        for (int i = 0, imax = comps.Length; i < imax; ++i, comp = null)
         {
-            MonoBehaviour mb = comps [i];
-            if (mb == null)
+			comp = comps [i];
+			if (comp == null)
                 continue;
             
-            MethodInfo[] methods = mb.GetType().GetMethods(EventDelegate.MethodFlags);
+			methods = comp.GetType().GetMethods(EventDelegate.MethodFlags);
             
-            for (int b = 0; b < methods.Length; ++b)
+			MethodInfo mi = null;
+            for (int b = 0, len = methods.Length; b < len; ++b, mi = null)
             {
-                MethodInfo mi = methods [b];
+                mi = methods [b];
                 
-                //filter methods
-                string name = mi.Name;
-                
-                if (name == "obj_address")
-                    continue;
-                if (name == "MemberwiseClone")
-                    continue;
-                if (name == "Finalize")
-                    continue;
-                if (name == "Invoke")
-                    continue;
-                if (name == "InvokeRepeating")
-                    continue;
-                if (name == "CancelInvoke")
-                    continue;
-                if (name == "BroadcastMessage")
-                    continue;
-                if (name == "Equals")
-                    continue;
-                if (name == "CompareTag")
-                    continue;
-                if (name == "ToString")
-                    continue;
-                if (name == "GetType")
-                    continue;
-                if (name == "GetHashCode")
-                    continue;
-                if (name == "GetInstanceID")
-                    continue;
-                if (name.StartsWith("StartCoroutine"))
-                    continue;
-                if (name.StartsWith("StopCoroutine"))
-                    continue;
-//                if (name.StartsWith("StopAllCoroutines"))
-//                    continue;
-                if (name.StartsWith("set_"))
-                    continue;
-                if (name.StartsWith("get_"))
-                    continue;
-                if (name.StartsWith("GetComponent"))
-                    continue;
-                if (name.StartsWith("SendMessage"))
-                    continue;
-                
-                Entry entry = new Entry();
-                entry.target = mb;
-                entry.name = name;
-                
-                if (ExistOverloadedMethod(methods, entry))
-                    continue;
-                
-                if (includeParams)
-                {
-                    ParameterInfo[] parameters = mi.GetParameters();
-                    
-                    entry.name += " (";
-                    if (parameters != null && parameters.Length > 0)
-                    {                    
-                        int count = 0;
-                        foreach (ParameterInfo paramInfo in parameters)
-                        {
-                            entry.name += GetSimpleName(paramInfo.ParameterType) + " " + paramInfo.Name;
-                            count++;
-                            
-                            //adding for next param
-                            if (count < parameters.Length)
-                                entry.name += ", ";
-                        }
-                    }
-                    entry.name += ")";
-                }
-                
-                list.Add(entry);
+				if(mi != null)
+                    FilterMethods(mi, list, methods, comp, includeParams);
             }
+        }
+
+		//add GameObject methods
+		methods = target.GetType().GetMethods(EventDelegate.MethodFlags);
+		for (int b = 0, len = methods.Length; b < len; ++b)
+        {
+            MethodInfo mi = methods [b];
+            
+            FilterMethods(mi, list, methods, target, includeParams);
         }
         
         list.Sort();
         
         return list;
     }
+
+	/// <summary>
+	/// Filter the available methods to show.
+	/// </summary>
+
+	static public void FilterMethods(MethodInfo mi, List<Entry> list, MethodInfo[] methods, UnityEngine.Object target, bool includeParams)
+	{
+		//filter methods
+		string name = mi.Name;
+
+		if (name == "obj_address")
+			return;
+		if (name == "MemberwiseClone")
+			return;
+		if (name == "Finalize")
+			return;
+		if (name == "Invoke")
+			return;
+		if (name == "InvokeRepeating")
+			return;
+		if (name == "CancelInvoke")
+			return;
+		if (name == "BroadcastMessage")
+			return;
+		if (name == "Equals")
+			return;
+		if (name == "CompareTag")
+			return;
+		if (name == "ToString")
+			return;
+		if (name == "GetType")
+			return;
+		if (name == "GetHashCode")
+			return;
+		if (name == "GetInstanceID")
+			return;
+		if (name.StartsWith("StartCoroutine"))
+			return;
+		if (name.StartsWith("StopCoroutine"))
+			return;
+		//if (name.StartsWith("StopAllCoroutines"))
+		//    return;
+		if (name.StartsWith("set_"))
+			return;
+		if (name.StartsWith("get_"))
+			return;
+		if (name.StartsWith("GetComponent"))
+			return;
+		if (name.StartsWith("SendMessage"))
+			return;
+		if (name.Contains("INTERNAL_"))
+			return;
+
+		Entry entry = new Entry();
+		entry.target = target;
+		entry.name = name;
+
+		if (ExistOverloadedMethod(methods, entry))
+			return;
+
+		if (includeParams)
+		{
+			ParameterInfo[] parameters = mi.GetParameters();
+
+			entry.name += " (";
+			if (parameters != null && parameters.Length > 0)
+			{                    
+				int count = 0;
+				ParameterInfo paramInfo = null;
+				for (int ind = 0, length = parameters.Length; ind < length; ++ind, paramInfo = null)
+				{
+					paramInfo = parameters[ind];
+					if(paramInfo != null)
+					{
+						entry.name += GetSimpleName(paramInfo.ParameterType) + " " + paramInfo.Name;
+						count++;
+
+						//adding for next param
+						if (count < parameters.Length)
+							entry.name += ", ";
+					}
+				}
+			}
+			entry.name += ")";
+		}
+
+		list.Add(entry);
+	}
     
     /// <summary>
     /// Collect a list of usable properties and fields.

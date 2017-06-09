@@ -211,7 +211,7 @@ public class EventDelegate
     [HideInInspector]
     static public BindingFlags MethodFlags = BindingFlags.OptionalParamBinding | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
 
-	[SerializeField] MonoBehaviour mTarget;
+	[SerializeField] UnityEngine.Object mTarget;
 	[SerializeField] string mMethodName;
 	[SerializeField] Parameter[] mParameters;
 
@@ -225,7 +225,7 @@ public class EventDelegate
 
 	//delegate prototypes
     public delegate bool BoolCallback();
-    public delegate MonoBehaviour MonoBehaviourCallback();
+    public delegate Behaviour BehaviourCallback();
     public delegate UnityEngine.Object UnityObjectCallback();
     public delegate System.Object SystemObjectCallback();
 	public delegate void Callback();
@@ -243,7 +243,7 @@ public class EventDelegate
 	/// Event delegate's target object.
 	/// </summary>
 
-	public MonoBehaviour target
+	public UnityEngine.Object target
 	{
 		get
 		{
@@ -339,14 +339,19 @@ public class EventDelegate
 			if (mTarget == null)
                 return false;
 			
-            MonoBehaviour mb = mTarget as MonoBehaviour;
-			return (mb == null || mb.enabled);
+			Behaviour behaviour = mTarget as Behaviour;
+			if (behaviour)
+			{
+				return behaviour.enabled;
+			}
+			
+			return true;
 		}
 	}
 
 	public EventDelegate () { }
 	public EventDelegate (Delegate call) { Set(call); }
-	public EventDelegate (MonoBehaviour target, string methodName) { Set(target, methodName); }
+	public EventDelegate (UnityEngine.Object target, string methodName) { Set(target, methodName); }
 
 	/// <summary>
 	/// GetMethodName is not supported on some platforms.
@@ -387,8 +392,9 @@ public class EventDelegate
 			Callback callback = obj as Callback;
 #if REFLECTION_SUPPORT
 			if (callback.Equals(mCachedCallback)) return true;
-			MonoBehaviour mb = callback.Target as MonoBehaviour;
-			return (mTarget == mb && string.Equals(mMethodName, GetMethodName(callback)));
+			
+			UnityEngine.Object target = callback.Target as UnityEngine.Object;
+			return (mTarget == target && string.Equals(mMethodName, GetMethodName(callback)));
 #elif UNITY_FLASH
 			return (callback == mCachedCallback);
 #else
@@ -403,9 +409,8 @@ public class EventDelegate
             if (callback.Equals(mCachedCallback))
                 return true;
            
-            MonoBehaviour mb = callback.Target as MonoBehaviour;
-            
-            return (mTarget == mb && string.Equals(mMethodName, GetMethodName(callback)));
+			UnityEngine.Object target = callback.Target as UnityEngine.Object;
+			return (mTarget == target && string.Equals(mMethodName, GetMethodName(callback)));
         }
 		
 		if (obj is EventDelegate)
@@ -435,7 +440,7 @@ public class EventDelegate
 		if (call != null && IsValid(call))
 		{
 #if REFLECTION_SUPPORT
-			mTarget = call.Target as MonoBehaviour;
+			mTarget = call.Target as UnityEngine.Object;
 
 			if (mTarget == null)
 			{
@@ -459,7 +464,7 @@ public class EventDelegate
 	/// Set the delegate callback using the target and method names.
 	/// </summary>
 
-	public void Set (MonoBehaviour target, string methodName)
+	public void Set (UnityEngine.Object target, string methodName)
 	{
 		Clear();
 		mTarget = target;
@@ -503,7 +508,7 @@ public class EventDelegate
 		if (mRawDelegate) return;
 
 #if REFLECTION_SUPPORT
-		if (mCachedCallback == null || (mCachedCallback.Target as MonoBehaviour) != mTarget || GetMethodName(mCachedCallback) != mMethodName)
+		if (mCachedCallback == null || (mCachedCallback.Target as UnityEngine.Object) != mTarget || GetMethodName(mCachedCallback) != mMethodName)
 		{
 			if (mTarget != null && !string.IsNullOrEmpty(mMethodName))
 			{
@@ -591,8 +596,8 @@ public class EventDelegate
                     //some UI components (like Button) need this specification for their methods to work
                     if(mMethod.ReturnType == typeof(System.Boolean))
                         mCachedCallback = Delegate.CreateDelegate(typeof(BoolCallback), mTarget, mMethodName);
-                    else if(mMethod.ReturnType.IsSubclassOf(typeof(MonoBehaviour)))
-                        mCachedCallback = Delegate.CreateDelegate(typeof(MonoBehaviourCallback), mTarget, mMethodName);
+                    else if(mMethod.ReturnType.IsSubclassOf(typeof(Behaviour)))
+                        mCachedCallback = Delegate.CreateDelegate(typeof(BehaviourCallback), mTarget, mMethodName);
                     else if(mMethod.ReturnType.IsSubclassOf(typeof(UnityEngine.Object)))
                         mCachedCallback = Delegate.CreateDelegate(typeof(UnityObjectCallback), mTarget, mMethodName);
                     else if (mMethod.ReturnType != typeof(void) && mMethod.ReturnType.IsSubclassOf(typeof(System.Object)))
@@ -1058,12 +1063,12 @@ public class EventDelegate
 [Serializable]
 public class Entry : IComparer<Entry>, IComparable<Entry>
 {
-    public Component target;
+	public UnityEngine.Object target;
     public string name;
     
     public Entry(){}
     
-    public Entry(Component target, string name)
+	public Entry(UnityEngine.Object target, string name)
     {
         this.target = target;
         this.name = name;

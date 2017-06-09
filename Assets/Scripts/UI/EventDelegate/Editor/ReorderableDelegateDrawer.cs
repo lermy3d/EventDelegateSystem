@@ -71,7 +71,7 @@ public class ReorderableDelegateDrawer : UnityEditor.PropertyDrawer
                 if (methodProp.stringValue == "<Choose>" || methodProp.stringValue.StartsWith("<Missing - "))
                     return lines;
 
-                eventDelegate.target = targetProp.objectReferenceValue as MonoBehaviour;
+				eventDelegate.target = targetProp.objectReferenceValue;
                 eventDelegate.methodName = methodProp.stringValue;
 
                 if (eventDelegate.isValid == false)
