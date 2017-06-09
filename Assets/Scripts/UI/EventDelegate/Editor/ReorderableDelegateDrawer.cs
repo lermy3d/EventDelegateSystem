@@ -82,8 +82,9 @@ public class ReorderableDelegateDrawer : UnityEditor.PropertyDrawer
 
                 if (ps != null)
                 {
-                    paramArrayProp.arraySize = ps.Length;
-                    for (int i = 0; i < ps.Length; i++)
+					int imax = ps.Length;
+                    paramArrayProp.arraySize = imax;
+                    for (int i = 0; i < imax; i++)
                     {
                         EventDelegate.Parameter param = ps[i];
 

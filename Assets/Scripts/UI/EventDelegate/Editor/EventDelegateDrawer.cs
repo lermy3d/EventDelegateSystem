@@ -82,10 +82,13 @@ public class EventDelegateDrawer : PropertyDrawer
 
         if (ps != null)
         {
-            paramArrayProp.arraySize = ps.Length;
-            for (int i = 0; i < ps.Length; i++)
+			EventDelegate.Parameter param = null;
+
+			int imax = ps.Length;
+            paramArrayProp.arraySize = imax;
+            for (int i = 0; i < imax; i++, param = null)
             {
-                EventDelegate.Parameter param = ps [i];
+                param = ps [i];
 
                 lines += lineHeight;
 
@@ -216,8 +219,9 @@ public class EventDelegateDrawer : PropertyDrawer
                     //get list from array
                     listWithParams = new List<Entry>();
                     SerializedProperty entryItem;
-
-                    for (int i = 0; i < entryArrayProp.arraySize; i++)
+					
+					int arraySize = entryArrayProp.arraySize;
+                    for (int i = 0; i < arraySize; i++, entryItem = null)
                     {
                         entryItem = entryArrayProp.GetArrayElementAtIndex(i);
 						UnityEngine.Object targetComp = entryItem.FindPropertyRelative("target").objectReferenceValue;
@@ -304,8 +308,9 @@ public class EventDelegateDrawer : PropertyDrawer
                     float lineOriginalMax = lineRect.xMax;
                     lineRect.xMax -= 68;
 
-                    paramArrayProp.arraySize = ps.Length;
-                    for (int i = 0; i < ps.Length; i++)
+					int imax = ps.Length;
+                    paramArrayProp.arraySize = imax;
+                    for (int i = 0; i < imax; i++)
                     {
                         EventDelegate.Parameter param = ps [i];
                         SerializedProperty paramProp = paramArrayProp.GetArrayElementAtIndex(i);
@@ -553,20 +558,25 @@ public class EventDelegateDrawer : PropertyDrawer
         SerializedProperty entryProp;
         
         //update serialized entries
-        foreach (Entry entryItem in listWithParams)
-        {
-            if (entryArrayProp.arraySize == 0)
-            {
-                entryArrayProp.InsertArrayElementAtIndex(0);
-                entryProp = entryArrayProp.GetArrayElementAtIndex(0);
-            } else
-            {
-                entryArrayProp.InsertArrayElementAtIndex(entryArrayProp.arraySize - 1);
-                entryProp = entryArrayProp.GetArrayElementAtIndex(entryArrayProp.arraySize - 1);
-            }
-            
-            entryProp.FindPropertyRelative("target").objectReferenceValue = entryItem.target;
-            entryProp.FindPropertyRelative("name").stringValue = entryItem.name;
+		Entry entryItem = null;
+		for (int ind = 0, length = listWithParams.Count; ind < length; ++ind, entryItem = null)
+		{
+			entryItem = listWithParams[ind];
+			if(entryItem != null)
+			{
+				if (entryArrayProp.arraySize == 0)
+				{
+				    entryArrayProp.InsertArrayElementAtIndex(0);
+				    entryProp = entryArrayProp.GetArrayElementAtIndex(0);
+				} else
+				{
+				    entryArrayProp.InsertArrayElementAtIndex(entryArrayProp.arraySize - 1);
+				    entryProp = entryArrayProp.GetArrayElementAtIndex(entryArrayProp.arraySize - 1);
+				}
+
+				entryProp.FindPropertyRelative("target").objectReferenceValue = entryItem.target;
+				entryProp.FindPropertyRelative("name").stringValue = entryItem.name;
+			}
         }
         
         updateMethodsProp.boolValue = false;
@@ -586,9 +596,14 @@ public class EventDelegateDrawer : PropertyDrawer
         string[] names = new string[list.Count + 1];
         names [0] = "<Choose>";
         
-        for (int i = 0; i < list.Count;)
+		Entry entry = null;
+		int imax = list.Count;
+        for (int i = 0; i < imax; entry = null)
         {
-            Entry entry = list [i];
+            entry = list [i];
+
+			if(entry == null)
+				continue;
             
             //check if comes with params and remove
             string del = entry.name;
@@ -911,10 +926,10 @@ public class EventDelegateDrawer : PropertyDrawer
         Component[] comps = target.GetComponents<Component>();
 		
         List<Entry> list = new List<Entry>();
-		
-        for (int i = 0, imax = comps.Length; i < imax; ++i)
+		Component comp = null;
+        for (int i = 0, imax = comps.Length; i < imax; ++i, comp = null)
         {
-            Component comp = comps [i];
+            comp = comps [i];
             if (comp == null)
                 continue;
 			
@@ -933,7 +948,7 @@ public class EventDelegateDrawer : PropertyDrawer
                     list.Add(ent);
             }
 			
-            for (int b = 0; b < fields.Length; ++b)
+            for (int b = 0, ilen = fields.Length; b < ilen; ++b)
             {
                 FieldInfo field = fields [b];
 				
@@ -953,7 +968,7 @@ public class EventDelegateDrawer : PropertyDrawer
                 list.Add(ent);
             }
 			
-            for (int b = 0; b < props.Length; ++b)
+            for (int b = 0, ilen = props.Length; b < ilen; ++b)
             {
                 PropertyInfo prop = props [b];
                 if (read && !prop.CanRead)
@@ -995,10 +1010,11 @@ public class EventDelegateDrawer : PropertyDrawer
             method = method.Remove(method.IndexOf(" ("));
         
         int count = 0;
-
-        foreach (MethodInfo methodInfo in methodArray)
+        MethodInfo methodInfo = null;
+        for (int i = 0, imax = methodArray.Length; i < imax; ++i, methodInfo = null)
         {
-            if (methodInfo.Name.Equals(method))
+			methodInfo = methodArray[i];
+            if (methodInfo != null && methodInfo.Name.Equals(method))
             { 
                 if (count > 0)
                     return true;

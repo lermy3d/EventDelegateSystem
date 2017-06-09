@@ -518,8 +518,13 @@ public class EventDelegate
 				{
 					IEnumerable<MethodInfo> methods = type.GetRuntimeMethods();
 
-					foreach (MethodInfo mi in methods)
+					MethodInfo mi = null;
+					for (int i = 0, imax = methods.Length; i < imax; ++i, mi = null)
 					{
+						mi = methods [i];
+						if (mi == null)
+							continue;
+
 						if (mi.Name == mMethodName)
 						{
 							mMethod = mi;
@@ -846,7 +851,8 @@ public class EventDelegate
 	{
 		if (list != null)
 		{
-			for (int i = 0; i < list.Count; )
+			int imax = list.Count;
+			for (int i = 0; i < imax; )
 			{
 				EventDelegate del = list[i];
 
@@ -888,9 +894,10 @@ public class EventDelegate
 	{
 		if (list != null)
 		{
-			for (int i = 0, imax = list.Count; i < imax; ++i)
+			EventDelegate del = null;
+			for (int i = 0, imax = list.Count; i < imax; ++i, del = null)
 			{
-				EventDelegate del = list[i];
+				del = list[i];
 				if (del != null && del.isValid)
 					return true;
 			}
@@ -941,9 +948,10 @@ public class EventDelegate
 	{
 		if (list != null)
 		{
-			for (int i = 0, imax = list.Count; i < imax; ++i)
+			EventDelegate del = null;
+			for (int i = 0, imax = list.Count; i < imax; ++i, del = null)
 			{
-				EventDelegate del = list[i];
+				del = list[i];
 				if (del != null && del.Equals(callback))
 					return del;
 			}
@@ -975,9 +983,10 @@ public class EventDelegate
 		}
 		else if (list != null)
 		{
-			for (int i = 0, imax = list.Count; i < imax; ++i)
+			EventDelegate del = null;
+			for (int i = 0, imax = list.Count; i < imax; ++i, del = null)
 			{
-				EventDelegate del = list[i];
+				del = list[i];
 				if (del != null && del.Equals(ev))
 					return;
 			}
@@ -1005,9 +1014,10 @@ public class EventDelegate
 	{
 		if (list != null)
 		{
-			for (int i = 0, imax = list.Count; i < imax; ++i)
+			EventDelegate del = null;
+			for (int i = 0, imax = list.Count; i < imax; ++i, del = null)
 			{
-				EventDelegate del = list[i];
+				del = list[i];
 				
 				if (del != null && del.Equals(callback))
 				{
@@ -1027,9 +1037,10 @@ public class EventDelegate
 	{
 		if (list != null)
 		{
-			for (int i = 0, imax = list.Count; i < imax; ++i)
+			EventDelegate del = null;
+			for (int i = 0, imax = list.Count; i < imax; ++i, del = null)
 			{
-				EventDelegate del = list[i];
+				del = list[i];
 
 				if (del != null && del.Equals(ev))
 				{
