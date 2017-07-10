@@ -296,9 +296,9 @@ public class EventDelegateDrawer : PropertyDrawer
                 {
                     bool showGameObject = false;
 
-                    EditorGUI.indentLevel++;
+                    //EditorGUI.indentLevel++;
 
-                    float paramTypeWidth = 100;
+                    float paramTypeWidth = 80;
                     float lineOriginalMax = lineRect.xMax;
                     lineRect.xMax -= 68;
 
@@ -328,7 +328,7 @@ public class EventDelegateDrawer : PropertyDrawer
                                 lineRect.xMax -= 68;
 
                             //only do this if parameter is a primitive type
-                            Rect paramTypeRect = new Rect(lineRect.x + lineRect.width - 28, lineRect.y, paramTypeWidth, lineHeight);
+                            Rect paramTypeRect = new Rect(lineRect.x + lineRect.width - 12, lineRect.y, paramTypeWidth, lineHeight);
 
                             SerializedProperty paramTypeProp = paramProp.FindPropertyRelative("paramRefType");
 
