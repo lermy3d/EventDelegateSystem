@@ -331,7 +331,6 @@ GameObject:
   - component: {fileID: 349578335}
   - component: {fileID: 349578336}
   - component: {fileID: 349578333}
-  - component: {fileID: 349578334}
   m_Layer: 0
   m_Name: Events Tests
   m_TagString: Untagged
@@ -352,117 +351,441 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   UnityReorderableDrawer:
     List:
+    - mEventName: Event 3
+      mShowGroup: 1
+      mUpdateEntryList: 0
+      mEntryList:
+      - target: {fileID: 815194662}
+        name: BasicEvent ()
+        isField: 0
+      - target: {fileID: 815194661}
+        name: CreatePrimitive (PrimitiveType type)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: DetachChildren ()
+        isField: 0
+      - target: {fileID: 815194662}
+        name: enabled
+        isField: 1
+      - target: {fileID: 815194663}
+        name: eulerAngles
+        isField: 1
+      - target: {fileID: 815194663}
+        name: Find (String name)
+        isField: 0
+      - target: {fileID: 815194661}
+        name: Find (String name)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: FindChild (String name)
+        isField: 0
+      - target: {fileID: 815194661}
+        name: FindGameObjectsWithTag (String tag)
+        isField: 0
+      - target: {fileID: 815194661}
+        name: FindGameObjectWithTag (String tag)
+        isField: 0
+      - target: {fileID: 815194661}
+        name: FindWithTag (String tag)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: forward
+        isField: 1
+      - target: {fileID: 815194663}
+        name: GetChild (Int32 index)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: GetChildCount ()
+        isField: 0
+      - target: {fileID: 815194663}
+        name: GetEnumerator ()
+        isField: 0
+      - target: {fileID: 815194663}
+        name: GetSiblingIndex ()
+        isField: 0
+      - target: {fileID: 815194663}
+        name: hasChanged
+        isField: 1
+      - target: {fileID: 815194663}
+        name: hideFlags
+        isField: 1
+      - target: {fileID: 815194662}
+        name: hideFlags
+        isField: 1
+      - target: {fileID: 815194663}
+        name: hierarchyCapacity
+        isField: 1
+      - target: {fileID: 815194663}
+        name: IsChildOf (Transform parent)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: localEulerAngles
+        isField: 1
+      - target: {fileID: 815194663}
+        name: localPosition
+        isField: 1
+      - target: {fileID: 815194663}
+        name: localRotation
+        isField: 1
+      - target: {fileID: 815194663}
+        name: localScale
+        isField: 1
+      - target: {fileID: 815194662}
+        name: myColor
+        isField: 1
+      - target: {fileID: 815194662}
+        name: myFireType
+        isField: 1
+      - target: {fileID: 815194662}
+        name: myMultiFireType
+        isField: 1
+      - target: {fileID: 815194662}
+        name: MyOptionalParameters (String childMessage)
+        isField: 0
+      - target: {fileID: 815194662}
+        name: MyStaticMethod (String sendMessage)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: name
+        isField: 1
+      - target: {fileID: 815194662}
+        name: name
+        isField: 1
+      - target: {fileID: 815194663}
+        name: parent
+        isField: 1
+      - target: {fileID: 815194662}
+        name: ParentMessage (String logMessage)
+        isField: 0
+      - target: {fileID: 815194661}
+        name: PlayAnimation (Object animation)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: position
+        isField: 1
+      - target: {fileID: 815194662}
+        name: ResturningString ()
+        isField: 0
+      - target: {fileID: 815194663}
+        name: right
+        isField: 1
+      - target: {fileID: 815194663}
+        name: RotateAroundLocal (Vector3 axis, Single angle)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: rotation
+        isField: 1
+      - target: {fileID: 815194662}
+        name: runInEditMode
+        isField: 1
+      - target: {fileID: 815194661}
+        name: SampleAnimation (Object clip, Single time)
+        isField: 0
+      - target: {fileID: 815194661}
+        name: SetActive (Boolean value)
+        isField: 0
+      - target: {fileID: 815194661}
+        name: SetActiveRecursively (Boolean state)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: SetAsFirstSibling ()
+        isField: 0
+      - target: {fileID: 815194663}
+        name: SetAsLastSibling ()
+        isField: 0
+      - target: {fileID: 815194662}
+        name: SetParent (Transform child, Transform newParent)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: SetPositionAndRotation (Vector3 position, Quaternion rotation)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: SetSiblingIndex (Int32 index)
+        isField: 0
+      - target: {fileID: 815194662}
+        name: StopAllCoroutines ()
+        isField: 0
+      - target: {fileID: 815194661}
+        name: StopAnimation ()
+        isField: 0
+      - target: {fileID: 815194662}
+        name: tag
+        isField: 1
+      - target: {fileID: 815194663}
+        name: tag
+        isField: 1
+      - target: {fileID: 815194662}
+        name: TestingColorParam (Color color)
+        isField: 0
+      - target: {fileID: 815194662}
+        name: TestingMultipleParameters (String message, Single number)
+        isField: 0
+      - target: {fileID: 815194662}
+        name: TestingReturn (String sendMessage)
+        isField: 0
+      - target: {fileID: 815194662}
+        name: TestingReturnInt (String sendMessage)
+        isField: 0
+      - target: {fileID: 815194662}
+        name: TestingVectorParameter (Vector2 vec2, Vector3 vec3, Vector4 vec4)
+        isField: 0
+      - target: {fileID: 815194662}
+        name: TestLogEnum (FireType fire)
+        isField: 0
+      - target: {fileID: 815194662}
+        name: TestLogInt (Int32 integerParam)
+        isField: 0
+      - target: {fileID: 815194662}
+        name: TestLogMultiFlag (MultiFireType multiFire)
+        isField: 0
+      - target: {fileID: 815194662}
+        name: TestMono (String message)
+        isField: 0
+      - target: {fileID: 815194662}
+        name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
+          Double valDouble, Boolean valBool, Transform valTranform, FireType fireType)
+        isField: 0
+      - target: {fileID: 815194662}
+        name: TestSerializedClassParam (DelegateHolder holderClass)
+        isField: 0
+      - target: {fileID: 815194662}
+        name: TestSystemObject (String message)
+        isField: 0
+      - target: {fileID: 815194662}
+        name: TestUnityObject (String message)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: up
+        isField: 1
+      - target: {fileID: 815194662}
+        name: useGUILayout
+        isField: 1
+      mTarget: {fileID: 815194662}
+      mMethodName: myColor
+      mParameters:
+      - obj: {fileID: 0}
+        field: 
+        paramRefType: 0
+        argStringValue: 
+        argIntValue: 0
+        argFloatValue: 0
+        argDoubleValue: 0
+        argBoolValue: 0
+        argColor: {r: 0.3027383, g: 1, b: 0.08088237, a: 1}
+        argVector2: {x: 0, y: 0}
+        argVector3: {x: 0, y: 0, z: 0}
+        argVector4: {x: 0, y: 0, z: 0, w: 0}
+      mCached: 0
+      oneShot: 0
     - mEventName: 
       mShowGroup: 1
       mUpdateEntryList: 0
       mEntryList:
-      - target: {fileID: 815194661}
-        name: AddComponentInternal (String className)
       - target: {fileID: 815194662}
         name: BasicEvent ()
+        isField: 0
       - target: {fileID: 815194661}
         name: CreatePrimitive (PrimitiveType type)
+        isField: 0
       - target: {fileID: 815194663}
         name: DetachChildren ()
+        isField: 0
+      - target: {fileID: 815194662}
+        name: enabled
+        isField: 1
+      - target: {fileID: 815194663}
+        name: eulerAngles
+        isField: 1
       - target: {fileID: 815194663}
         name: Find (String name)
+        isField: 0
       - target: {fileID: 815194661}
         name: Find (String name)
+        isField: 0
       - target: {fileID: 815194663}
         name: FindChild (String name)
+        isField: 0
       - target: {fileID: 815194661}
         name: FindGameObjectsWithTag (String tag)
+        isField: 0
       - target: {fileID: 815194661}
         name: FindGameObjectWithTag (String tag)
+        isField: 0
       - target: {fileID: 815194661}
         name: FindWithTag (String tag)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: forward
+        isField: 1
       - target: {fileID: 815194663}
         name: GetChild (Int32 index)
+        isField: 0
       - target: {fileID: 815194663}
         name: GetChildCount ()
+        isField: 0
       - target: {fileID: 815194663}
         name: GetEnumerator ()
-      - target: {fileID: 815194663}
-        name: GetLocalEulerAngles (RotationOrder order)
+        isField: 0
       - target: {fileID: 815194663}
         name: GetSiblingIndex ()
-      - target: {fileID: 815194661}
-        name: Internal_AddComponentWithType (Type componentType)
-      - target: {fileID: 815194661}
-        name: Internal_CreateGameObject (GameObject mono, String name)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: hasChanged
+        isField: 1
+      - target: {fileID: 815194663}
+        name: hideFlags
+        isField: 1
+      - target: {fileID: 815194662}
+        name: hideFlags
+        isField: 1
+      - target: {fileID: 815194663}
+        name: hierarchyCapacity
+        isField: 1
       - target: {fileID: 815194663}
         name: IsChildOf (Transform parent)
+        isField: 0
       - target: {fileID: 815194663}
-        name: IsNonUniformScaleTransform ()
+        name: localEulerAngles
+        isField: 1
+      - target: {fileID: 815194663}
+        name: localPosition
+        isField: 1
+      - target: {fileID: 815194663}
+        name: localRotation
+        isField: 1
+      - target: {fileID: 815194663}
+        name: localScale
+        isField: 1
+      - target: {fileID: 815194662}
+        name: myColor
+        isField: 1
+      - target: {fileID: 815194662}
+        name: myFireType
+        isField: 1
+      - target: {fileID: 815194662}
+        name: myMultiFireType
+        isField: 1
       - target: {fileID: 815194662}
         name: MyOptionalParameters (String childMessage)
+        isField: 0
       - target: {fileID: 815194662}
         name: MyStaticMethod (String sendMessage)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: name
+        isField: 1
+      - target: {fileID: 815194662}
+        name: name
+        isField: 1
+      - target: {fileID: 815194663}
+        name: parent
+        isField: 1
       - target: {fileID: 815194662}
         name: ParentMessage (String logMessage)
+        isField: 0
       - target: {fileID: 815194661}
         name: PlayAnimation (Object animation)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: position
+        isField: 1
       - target: {fileID: 815194662}
         name: ResturningString ()
+        isField: 0
       - target: {fileID: 815194663}
-        name: RotateAroundInternal (Vector3 axis, Single angle)
+        name: right
+        isField: 1
       - target: {fileID: 815194663}
         name: RotateAroundLocal (Vector3 axis, Single angle)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: rotation
+        isField: 1
+      - target: {fileID: 815194662}
+        name: runInEditMode
+        isField: 1
       - target: {fileID: 815194661}
         name: SampleAnimation (Object clip, Single time)
-      - target: {fileID: 815194663}
-        name: SendTransformChangedScale ()
+        isField: 0
       - target: {fileID: 815194661}
         name: SetActive (Boolean value)
+        isField: 0
       - target: {fileID: 815194661}
         name: SetActiveRecursively (Boolean state)
+        isField: 0
       - target: {fileID: 815194663}
         name: SetAsFirstSibling ()
+        isField: 0
       - target: {fileID: 815194663}
         name: SetAsLastSibling ()
-      - target: {fileID: 815194663}
-        name: SetLocalEulerAngles (Vector3 euler, RotationOrder order)
-      - target: {fileID: 815194663}
-        name: SetLocalEulerHint (Vector3 euler)
+        isField: 0
       - target: {fileID: 815194662}
         name: SetParent (Transform child, Transform newParent)
+        isField: 0
       - target: {fileID: 815194663}
         name: SetPositionAndRotation (Vector3 position, Quaternion rotation)
+        isField: 0
       - target: {fileID: 815194663}
         name: SetSiblingIndex (Int32 index)
+        isField: 0
       - target: {fileID: 815194662}
         name: StopAllCoroutines ()
+        isField: 0
       - target: {fileID: 815194661}
         name: StopAnimation ()
+        isField: 0
+      - target: {fileID: 815194662}
+        name: tag
+        isField: 1
+      - target: {fileID: 815194663}
+        name: tag
+        isField: 1
       - target: {fileID: 815194662}
         name: TestingColorParam (Color color)
-      - target: {fileID: 815194662}
-        name: TestingintInternalMethod (String sendMessage)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestingMultipleParameters (String message, Single number)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestingReturn (String sendMessage)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestingReturnInt (String sendMessage)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestingVectorParameter (Vector2 vec2, Vector3 vec3, Vector4 vec4)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestLogEnum (FireType fire)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestLogInt (Int32 integerParam)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestLogMultiFlag (MultiFireType multiFire)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestMono (String message)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
           Double valDouble, Boolean valBool, Transform valTranform, FireType fireType)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestSerializedClassParam (DelegateHolder holderClass)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestSystemObject (String message)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestUnityObject (String message)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: up
+        isField: 1
+      - target: {fileID: 815194662}
+        name: useGUILayout
+        isField: 1
       mTarget: {fileID: 815194662}
       mMethodName: TestPrimitiveParams
       mParameters:
@@ -550,119 +873,217 @@ MonoBehaviour:
         argVector2: {x: 0, y: 0}
         argVector3: {x: 0, y: 0, z: 0}
         argVector4: {x: 0, y: 0, z: 0, w: 0}
-      mCached: 0
+      mCached: 1
       oneShot: 0
     - mEventName: 
-      mShowGroup: 0
-      mUpdateEntryList: 1
+      mShowGroup: 1
+      mUpdateEntryList: 0
       mEntryList:
-      - target: {fileID: 815194661}
-        name: AddComponentInternal (String className)
       - target: {fileID: 815194662}
         name: BasicEvent ()
+        isField: 0
       - target: {fileID: 815194661}
         name: CreatePrimitive (PrimitiveType type)
+        isField: 0
       - target: {fileID: 815194663}
         name: DetachChildren ()
+        isField: 0
+      - target: {fileID: 815194662}
+        name: enabled
+        isField: 1
+      - target: {fileID: 815194663}
+        name: eulerAngles
+        isField: 1
       - target: {fileID: 815194663}
         name: Find (String name)
+        isField: 0
       - target: {fileID: 815194661}
         name: Find (String name)
+        isField: 0
       - target: {fileID: 815194663}
         name: FindChild (String name)
+        isField: 0
       - target: {fileID: 815194661}
         name: FindGameObjectsWithTag (String tag)
+        isField: 0
       - target: {fileID: 815194661}
         name: FindGameObjectWithTag (String tag)
+        isField: 0
       - target: {fileID: 815194661}
         name: FindWithTag (String tag)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: forward
+        isField: 1
       - target: {fileID: 815194663}
         name: GetChild (Int32 index)
+        isField: 0
       - target: {fileID: 815194663}
         name: GetChildCount ()
+        isField: 0
       - target: {fileID: 815194663}
         name: GetEnumerator ()
-      - target: {fileID: 815194663}
-        name: GetLocalEulerAngles (RotationOrder order)
+        isField: 0
       - target: {fileID: 815194663}
         name: GetSiblingIndex ()
-      - target: {fileID: 815194661}
-        name: Internal_AddComponentWithType (Type componentType)
-      - target: {fileID: 815194661}
-        name: Internal_CreateGameObject (GameObject mono, String name)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: hasChanged
+        isField: 1
+      - target: {fileID: 815194663}
+        name: hideFlags
+        isField: 1
+      - target: {fileID: 815194662}
+        name: hideFlags
+        isField: 1
+      - target: {fileID: 815194663}
+        name: hierarchyCapacity
+        isField: 1
       - target: {fileID: 815194663}
         name: IsChildOf (Transform parent)
+        isField: 0
       - target: {fileID: 815194663}
-        name: IsNonUniformScaleTransform ()
+        name: localEulerAngles
+        isField: 1
+      - target: {fileID: 815194663}
+        name: localPosition
+        isField: 1
+      - target: {fileID: 815194663}
+        name: localRotation
+        isField: 1
+      - target: {fileID: 815194663}
+        name: localScale
+        isField: 1
+      - target: {fileID: 815194662}
+        name: myColor
+        isField: 1
+      - target: {fileID: 815194662}
+        name: myFireType
+        isField: 1
+      - target: {fileID: 815194662}
+        name: myMultiFireType
+        isField: 1
       - target: {fileID: 815194662}
         name: MyOptionalParameters (String childMessage)
+        isField: 0
       - target: {fileID: 815194662}
         name: MyStaticMethod (String sendMessage)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: name
+        isField: 1
+      - target: {fileID: 815194662}
+        name: name
+        isField: 1
+      - target: {fileID: 815194663}
+        name: parent
+        isField: 1
       - target: {fileID: 815194662}
         name: ParentMessage (String logMessage)
+        isField: 0
       - target: {fileID: 815194661}
         name: PlayAnimation (Object animation)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: position
+        isField: 1
       - target: {fileID: 815194662}
         name: ResturningString ()
+        isField: 0
       - target: {fileID: 815194663}
-        name: RotateAroundInternal (Vector3 axis, Single angle)
+        name: right
+        isField: 1
       - target: {fileID: 815194663}
         name: RotateAroundLocal (Vector3 axis, Single angle)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: rotation
+        isField: 1
+      - target: {fileID: 815194662}
+        name: runInEditMode
+        isField: 1
       - target: {fileID: 815194661}
         name: SampleAnimation (Object clip, Single time)
-      - target: {fileID: 815194663}
-        name: SendTransformChangedScale ()
+        isField: 0
       - target: {fileID: 815194661}
         name: SetActive (Boolean value)
+        isField: 0
       - target: {fileID: 815194661}
         name: SetActiveRecursively (Boolean state)
+        isField: 0
       - target: {fileID: 815194663}
         name: SetAsFirstSibling ()
+        isField: 0
       - target: {fileID: 815194663}
         name: SetAsLastSibling ()
-      - target: {fileID: 815194663}
-        name: SetLocalEulerAngles (Vector3 euler, RotationOrder order)
-      - target: {fileID: 815194663}
-        name: SetLocalEulerHint (Vector3 euler)
+        isField: 0
       - target: {fileID: 815194662}
         name: SetParent (Transform child, Transform newParent)
+        isField: 0
       - target: {fileID: 815194663}
         name: SetPositionAndRotation (Vector3 position, Quaternion rotation)
+        isField: 0
       - target: {fileID: 815194663}
         name: SetSiblingIndex (Int32 index)
+        isField: 0
       - target: {fileID: 815194662}
         name: StopAllCoroutines ()
+        isField: 0
       - target: {fileID: 815194661}
         name: StopAnimation ()
+        isField: 0
+      - target: {fileID: 815194662}
+        name: tag
+        isField: 1
+      - target: {fileID: 815194663}
+        name: tag
+        isField: 1
       - target: {fileID: 815194662}
         name: TestingColorParam (Color color)
-      - target: {fileID: 815194662}
-        name: TestingintInternalMethod (String sendMessage)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestingMultipleParameters (String message, Single number)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestingReturn (String sendMessage)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestingReturnInt (String sendMessage)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestingVectorParameter (Vector2 vec2, Vector3 vec3, Vector4 vec4)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestLogEnum (FireType fire)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestLogInt (Int32 integerParam)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestLogMultiFlag (MultiFireType multiFire)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestMono (String message)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
           Double valDouble, Boolean valBool, Transform valTranform, FireType fireType)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestSerializedClassParam (DelegateHolder holderClass)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestSystemObject (String message)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestUnityObject (String message)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: up
+        isField: 1
+      - target: {fileID: 815194662}
+        name: useGUILayout
+        isField: 1
       mTarget: {fileID: 815194662}
       mMethodName: ParentMessage
       mParameters:
@@ -678,119 +1099,217 @@ MonoBehaviour:
         argVector2: {x: 0, y: 0}
         argVector3: {x: 0, y: 0, z: 0}
         argVector4: {x: 0, y: 0, z: 0, w: 0}
-      mCached: 0
+      mCached: 1
       oneShot: 0
     - mEventName: 
-      mShowGroup: 0
-      mUpdateEntryList: 1
+      mShowGroup: 1
+      mUpdateEntryList: 0
       mEntryList:
-      - target: {fileID: 815194661}
-        name: AddComponentInternal (String className)
       - target: {fileID: 815194662}
         name: BasicEvent ()
+        isField: 0
       - target: {fileID: 815194661}
         name: CreatePrimitive (PrimitiveType type)
+        isField: 0
       - target: {fileID: 815194663}
         name: DetachChildren ()
+        isField: 0
+      - target: {fileID: 815194662}
+        name: enabled
+        isField: 1
+      - target: {fileID: 815194663}
+        name: eulerAngles
+        isField: 1
       - target: {fileID: 815194663}
         name: Find (String name)
+        isField: 0
       - target: {fileID: 815194661}
         name: Find (String name)
+        isField: 0
       - target: {fileID: 815194663}
         name: FindChild (String name)
+        isField: 0
       - target: {fileID: 815194661}
         name: FindGameObjectsWithTag (String tag)
+        isField: 0
       - target: {fileID: 815194661}
         name: FindGameObjectWithTag (String tag)
+        isField: 0
       - target: {fileID: 815194661}
         name: FindWithTag (String tag)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: forward
+        isField: 1
       - target: {fileID: 815194663}
         name: GetChild (Int32 index)
+        isField: 0
       - target: {fileID: 815194663}
         name: GetChildCount ()
+        isField: 0
       - target: {fileID: 815194663}
         name: GetEnumerator ()
-      - target: {fileID: 815194663}
-        name: GetLocalEulerAngles (RotationOrder order)
+        isField: 0
       - target: {fileID: 815194663}
         name: GetSiblingIndex ()
-      - target: {fileID: 815194661}
-        name: Internal_AddComponentWithType (Type componentType)
-      - target: {fileID: 815194661}
-        name: Internal_CreateGameObject (GameObject mono, String name)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: hasChanged
+        isField: 1
+      - target: {fileID: 815194663}
+        name: hideFlags
+        isField: 1
+      - target: {fileID: 815194662}
+        name: hideFlags
+        isField: 1
+      - target: {fileID: 815194663}
+        name: hierarchyCapacity
+        isField: 1
       - target: {fileID: 815194663}
         name: IsChildOf (Transform parent)
+        isField: 0
       - target: {fileID: 815194663}
-        name: IsNonUniformScaleTransform ()
+        name: localEulerAngles
+        isField: 1
+      - target: {fileID: 815194663}
+        name: localPosition
+        isField: 1
+      - target: {fileID: 815194663}
+        name: localRotation
+        isField: 1
+      - target: {fileID: 815194663}
+        name: localScale
+        isField: 1
+      - target: {fileID: 815194662}
+        name: myColor
+        isField: 1
+      - target: {fileID: 815194662}
+        name: myFireType
+        isField: 1
+      - target: {fileID: 815194662}
+        name: myMultiFireType
+        isField: 1
       - target: {fileID: 815194662}
         name: MyOptionalParameters (String childMessage)
+        isField: 0
       - target: {fileID: 815194662}
         name: MyStaticMethod (String sendMessage)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: name
+        isField: 1
+      - target: {fileID: 815194662}
+        name: name
+        isField: 1
+      - target: {fileID: 815194663}
+        name: parent
+        isField: 1
       - target: {fileID: 815194662}
         name: ParentMessage (String logMessage)
+        isField: 0
       - target: {fileID: 815194661}
         name: PlayAnimation (Object animation)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: position
+        isField: 1
       - target: {fileID: 815194662}
         name: ResturningString ()
+        isField: 0
       - target: {fileID: 815194663}
-        name: RotateAroundInternal (Vector3 axis, Single angle)
+        name: right
+        isField: 1
       - target: {fileID: 815194663}
         name: RotateAroundLocal (Vector3 axis, Single angle)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: rotation
+        isField: 1
+      - target: {fileID: 815194662}
+        name: runInEditMode
+        isField: 1
       - target: {fileID: 815194661}
         name: SampleAnimation (Object clip, Single time)
-      - target: {fileID: 815194663}
-        name: SendTransformChangedScale ()
+        isField: 0
       - target: {fileID: 815194661}
         name: SetActive (Boolean value)
+        isField: 0
       - target: {fileID: 815194661}
         name: SetActiveRecursively (Boolean state)
+        isField: 0
       - target: {fileID: 815194663}
         name: SetAsFirstSibling ()
+        isField: 0
       - target: {fileID: 815194663}
         name: SetAsLastSibling ()
-      - target: {fileID: 815194663}
-        name: SetLocalEulerAngles (Vector3 euler, RotationOrder order)
-      - target: {fileID: 815194663}
-        name: SetLocalEulerHint (Vector3 euler)
+        isField: 0
       - target: {fileID: 815194662}
         name: SetParent (Transform child, Transform newParent)
+        isField: 0
       - target: {fileID: 815194663}
         name: SetPositionAndRotation (Vector3 position, Quaternion rotation)
+        isField: 0
       - target: {fileID: 815194663}
         name: SetSiblingIndex (Int32 index)
+        isField: 0
       - target: {fileID: 815194662}
         name: StopAllCoroutines ()
+        isField: 0
       - target: {fileID: 815194661}
         name: StopAnimation ()
+        isField: 0
+      - target: {fileID: 815194662}
+        name: tag
+        isField: 1
+      - target: {fileID: 815194663}
+        name: tag
+        isField: 1
       - target: {fileID: 815194662}
         name: TestingColorParam (Color color)
-      - target: {fileID: 815194662}
-        name: TestingintInternalMethod (String sendMessage)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestingMultipleParameters (String message, Single number)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestingReturn (String sendMessage)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestingReturnInt (String sendMessage)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestingVectorParameter (Vector2 vec2, Vector3 vec3, Vector4 vec4)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestLogEnum (FireType fire)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestLogInt (Int32 integerParam)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestLogMultiFlag (MultiFireType multiFire)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestMono (String message)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
           Double valDouble, Boolean valBool, Transform valTranform, FireType fireType)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestSerializedClassParam (DelegateHolder holderClass)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestSystemObject (String message)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestUnityObject (String message)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: up
+        isField: 1
+      - target: {fileID: 815194662}
+        name: useGUILayout
+        isField: 1
       mTarget: {fileID: 815194662}
       mMethodName: TestingColorParam
       mParameters:
@@ -806,119 +1325,217 @@ MonoBehaviour:
         argVector2: {x: 0, y: 0}
         argVector3: {x: 0, y: 0, z: 0}
         argVector4: {x: 0, y: 0, z: 0, w: 0}
-      mCached: 0
+      mCached: 1
       oneShot: 0
     - mEventName: Event 3
-      mShowGroup: 0
-      mUpdateEntryList: 1
+      mShowGroup: 1
+      mUpdateEntryList: 0
       mEntryList:
-      - target: {fileID: 815194661}
-        name: AddComponentInternal (String className)
       - target: {fileID: 815194662}
         name: BasicEvent ()
+        isField: 0
       - target: {fileID: 815194661}
         name: CreatePrimitive (PrimitiveType type)
+        isField: 0
       - target: {fileID: 815194663}
         name: DetachChildren ()
+        isField: 0
+      - target: {fileID: 815194662}
+        name: enabled
+        isField: 1
+      - target: {fileID: 815194663}
+        name: eulerAngles
+        isField: 1
       - target: {fileID: 815194663}
         name: Find (String name)
+        isField: 0
       - target: {fileID: 815194661}
         name: Find (String name)
+        isField: 0
       - target: {fileID: 815194663}
         name: FindChild (String name)
+        isField: 0
       - target: {fileID: 815194661}
         name: FindGameObjectsWithTag (String tag)
+        isField: 0
       - target: {fileID: 815194661}
         name: FindGameObjectWithTag (String tag)
+        isField: 0
       - target: {fileID: 815194661}
         name: FindWithTag (String tag)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: forward
+        isField: 1
       - target: {fileID: 815194663}
         name: GetChild (Int32 index)
+        isField: 0
       - target: {fileID: 815194663}
         name: GetChildCount ()
+        isField: 0
       - target: {fileID: 815194663}
         name: GetEnumerator ()
-      - target: {fileID: 815194663}
-        name: GetLocalEulerAngles (RotationOrder order)
+        isField: 0
       - target: {fileID: 815194663}
         name: GetSiblingIndex ()
-      - target: {fileID: 815194661}
-        name: Internal_AddComponentWithType (Type componentType)
-      - target: {fileID: 815194661}
-        name: Internal_CreateGameObject (GameObject mono, String name)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: hasChanged
+        isField: 1
+      - target: {fileID: 815194663}
+        name: hideFlags
+        isField: 1
+      - target: {fileID: 815194662}
+        name: hideFlags
+        isField: 1
+      - target: {fileID: 815194663}
+        name: hierarchyCapacity
+        isField: 1
       - target: {fileID: 815194663}
         name: IsChildOf (Transform parent)
+        isField: 0
       - target: {fileID: 815194663}
-        name: IsNonUniformScaleTransform ()
+        name: localEulerAngles
+        isField: 1
+      - target: {fileID: 815194663}
+        name: localPosition
+        isField: 1
+      - target: {fileID: 815194663}
+        name: localRotation
+        isField: 1
+      - target: {fileID: 815194663}
+        name: localScale
+        isField: 1
+      - target: {fileID: 815194662}
+        name: myColor
+        isField: 1
+      - target: {fileID: 815194662}
+        name: myFireType
+        isField: 1
+      - target: {fileID: 815194662}
+        name: myMultiFireType
+        isField: 1
       - target: {fileID: 815194662}
         name: MyOptionalParameters (String childMessage)
+        isField: 0
       - target: {fileID: 815194662}
         name: MyStaticMethod (String sendMessage)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: name
+        isField: 1
+      - target: {fileID: 815194662}
+        name: name
+        isField: 1
+      - target: {fileID: 815194663}
+        name: parent
+        isField: 1
       - target: {fileID: 815194662}
         name: ParentMessage (String logMessage)
+        isField: 0
       - target: {fileID: 815194661}
         name: PlayAnimation (Object animation)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: position
+        isField: 1
       - target: {fileID: 815194662}
         name: ResturningString ()
+        isField: 0
       - target: {fileID: 815194663}
-        name: RotateAroundInternal (Vector3 axis, Single angle)
+        name: right
+        isField: 1
       - target: {fileID: 815194663}
         name: RotateAroundLocal (Vector3 axis, Single angle)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: rotation
+        isField: 1
+      - target: {fileID: 815194662}
+        name: runInEditMode
+        isField: 1
       - target: {fileID: 815194661}
         name: SampleAnimation (Object clip, Single time)
-      - target: {fileID: 815194663}
-        name: SendTransformChangedScale ()
+        isField: 0
       - target: {fileID: 815194661}
         name: SetActive (Boolean value)
+        isField: 0
       - target: {fileID: 815194661}
         name: SetActiveRecursively (Boolean state)
+        isField: 0
       - target: {fileID: 815194663}
         name: SetAsFirstSibling ()
+        isField: 0
       - target: {fileID: 815194663}
         name: SetAsLastSibling ()
-      - target: {fileID: 815194663}
-        name: SetLocalEulerAngles (Vector3 euler, RotationOrder order)
-      - target: {fileID: 815194663}
-        name: SetLocalEulerHint (Vector3 euler)
+        isField: 0
       - target: {fileID: 815194662}
         name: SetParent (Transform child, Transform newParent)
+        isField: 0
       - target: {fileID: 815194663}
         name: SetPositionAndRotation (Vector3 position, Quaternion rotation)
+        isField: 0
       - target: {fileID: 815194663}
         name: SetSiblingIndex (Int32 index)
+        isField: 0
       - target: {fileID: 815194662}
         name: StopAllCoroutines ()
+        isField: 0
       - target: {fileID: 815194661}
         name: StopAnimation ()
+        isField: 0
+      - target: {fileID: 815194662}
+        name: tag
+        isField: 1
+      - target: {fileID: 815194663}
+        name: tag
+        isField: 1
       - target: {fileID: 815194662}
         name: TestingColorParam (Color color)
-      - target: {fileID: 815194662}
-        name: TestingintInternalMethod (String sendMessage)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestingMultipleParameters (String message, Single number)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestingReturn (String sendMessage)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestingReturnInt (String sendMessage)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestingVectorParameter (Vector2 vec2, Vector3 vec3, Vector4 vec4)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestLogEnum (FireType fire)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestLogInt (Int32 integerParam)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestLogMultiFlag (MultiFireType multiFire)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestMono (String message)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
           Double valDouble, Boolean valBool, Transform valTranform, FireType fireType)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestSerializedClassParam (DelegateHolder holderClass)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestSystemObject (String message)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestUnityObject (String message)
+        isField: 0
+      - target: {fileID: 815194663}
+        name: up
+        isField: 1
+      - target: {fileID: 815194662}
+        name: useGUILayout
+        isField: 1
       mTarget: {fileID: 815194662}
       mMethodName: TestingVectorParameter
       mParameters:
@@ -958,1346 +1575,7 @@ MonoBehaviour:
         argVector2: {x: 0, y: 0}
         argVector3: {x: 0, y: 0, z: 0}
         argVector4: {x: 0, y: 0, z: 0, w: 0}
-      mCached: 0
-      oneShot: 0
-    - mEventName: Event 3
-      mShowGroup: 0
-      mUpdateEntryList: 1
-      mEntryList:
-      - target: {fileID: 815194661}
-        name: AddComponentInternal (String className)
-      - target: {fileID: 815194662}
-        name: BasicEvent ()
-      - target: {fileID: 815194661}
-        name: CreatePrimitive (PrimitiveType type)
-      - target: {fileID: 815194663}
-        name: DetachChildren ()
-      - target: {fileID: 815194663}
-        name: Find (String name)
-      - target: {fileID: 815194661}
-        name: Find (String name)
-      - target: {fileID: 815194663}
-        name: FindChild (String name)
-      - target: {fileID: 815194661}
-        name: FindGameObjectsWithTag (String tag)
-      - target: {fileID: 815194661}
-        name: FindGameObjectWithTag (String tag)
-      - target: {fileID: 815194661}
-        name: FindWithTag (String tag)
-      - target: {fileID: 815194663}
-        name: GetChild (Int32 index)
-      - target: {fileID: 815194663}
-        name: GetChildCount ()
-      - target: {fileID: 815194663}
-        name: GetEnumerator ()
-      - target: {fileID: 815194663}
-        name: GetLocalEulerAngles (RotationOrder order)
-      - target: {fileID: 815194663}
-        name: GetSiblingIndex ()
-      - target: {fileID: 815194661}
-        name: Internal_AddComponentWithType (Type componentType)
-      - target: {fileID: 815194661}
-        name: Internal_CreateGameObject (GameObject mono, String name)
-      - target: {fileID: 815194663}
-        name: IsChildOf (Transform parent)
-      - target: {fileID: 815194663}
-        name: IsNonUniformScaleTransform ()
-      - target: {fileID: 815194662}
-        name: MyOptionalParameters (String childMessage)
-      - target: {fileID: 815194662}
-        name: MyStaticMethod (String sendMessage)
-      - target: {fileID: 815194662}
-        name: ParentMessage (String logMessage)
-      - target: {fileID: 815194661}
-        name: PlayAnimation (Object animation)
-      - target: {fileID: 815194662}
-        name: ResturningString ()
-      - target: {fileID: 815194663}
-        name: RotateAroundInternal (Vector3 axis, Single angle)
-      - target: {fileID: 815194663}
-        name: RotateAroundLocal (Vector3 axis, Single angle)
-      - target: {fileID: 815194661}
-        name: SampleAnimation (Object clip, Single time)
-      - target: {fileID: 815194663}
-        name: SendTransformChangedScale ()
-      - target: {fileID: 815194661}
-        name: SetActive (Boolean value)
-      - target: {fileID: 815194661}
-        name: SetActiveRecursively (Boolean state)
-      - target: {fileID: 815194663}
-        name: SetAsFirstSibling ()
-      - target: {fileID: 815194663}
-        name: SetAsLastSibling ()
-      - target: {fileID: 815194663}
-        name: SetLocalEulerAngles (Vector3 euler, RotationOrder order)
-      - target: {fileID: 815194663}
-        name: SetLocalEulerHint (Vector3 euler)
-      - target: {fileID: 815194662}
-        name: SetParent (Transform child, Transform newParent)
-      - target: {fileID: 815194663}
-        name: SetPositionAndRotation (Vector3 position, Quaternion rotation)
-      - target: {fileID: 815194663}
-        name: SetSiblingIndex (Int32 index)
-      - target: {fileID: 815194662}
-        name: StopAllCoroutines ()
-      - target: {fileID: 815194661}
-        name: StopAnimation ()
-      - target: {fileID: 815194662}
-        name: TestingColorParam (Color color)
-      - target: {fileID: 815194662}
-        name: TestingintInternalMethod (String sendMessage)
-      - target: {fileID: 815194662}
-        name: TestingMultipleParameters (String message, Single number)
-      - target: {fileID: 815194662}
-        name: TestingReturn (String sendMessage)
-      - target: {fileID: 815194662}
-        name: TestingReturnInt (String sendMessage)
-      - target: {fileID: 815194662}
-        name: TestingVectorParameter (Vector2 vec2, Vector3 vec3, Vector4 vec4)
-      - target: {fileID: 815194662}
-        name: TestLogEnum (FireType fire)
-      - target: {fileID: 815194662}
-        name: TestLogInt (Int32 integerParam)
-      - target: {fileID: 815194662}
-        name: TestLogMultiFlag (MultiFireType multiFire)
-      - target: {fileID: 815194662}
-        name: TestMono (String message)
-      - target: {fileID: 815194662}
-        name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
-          Double valDouble, Boolean valBool, Transform valTranform, FireType fireType)
-      - target: {fileID: 815194662}
-        name: TestSerializedClassParam (DelegateHolder holderClass)
-      - target: {fileID: 815194662}
-        name: TestSystemObject (String message)
-      - target: {fileID: 815194662}
-        name: TestUnityObject (String message)
-      mTarget: {fileID: 815194662}
-      mMethodName: BasicEvent
-      mParameters:
-      - obj: {fileID: 0}
-        field: 
-        paramRefType: 0
-        argStringValue: 
-        argIntValue: 0
-        argFloatValue: 0
-        argDoubleValue: 0
-        argBoolValue: 0
-        argColor: {r: 0, g: 0, b: 0, a: 0}
-        argVector2: {x: 0, y: 0}
-        argVector3: {x: 0, y: 0, z: 0}
-        argVector4: {x: 0, y: 0, z: 0, w: 0}
-      - obj: {fileID: 0}
-        field: 
-        paramRefType: 0
-        argStringValue: 
-        argIntValue: 0
-        argFloatValue: 0
-        argDoubleValue: 0
-        argBoolValue: 0
-        argColor: {r: 0, g: 0, b: 0, a: 0}
-        argVector2: {x: 0, y: 0}
-        argVector3: {x: 0, y: 0, z: 0}
-        argVector4: {x: 0, y: 0, z: 0, w: 0}
-      - obj: {fileID: 0}
-        field: 
-        paramRefType: 0
-        argStringValue: 
-        argIntValue: 0
-        argFloatValue: 0
-        argDoubleValue: 0
-        argBoolValue: 0
-        argColor: {r: 0, g: 0, b: 0, a: 0}
-        argVector2: {x: 0, y: 0}
-        argVector3: {x: 0, y: 0, z: 0}
-        argVector4: {x: 0, y: 0, z: 0, w: 0}
-      mCached: 0
-      oneShot: 0
-  OnEnableEvents:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 815194662}
-        m_MethodName: MyChildEvent
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: text 2
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 0}
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  AnotherCustomTest:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 815194662}
-        m_MethodName: TestLogInt
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_TypeName: UnityCustomTest, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-  CustomDelegates:
-  - mEventName: Set Parent
-    mShowGroup: 1
-    mUpdateEntryList: 0
-    mEntryList:
-    - target: {fileID: 349578336}
-      name: MyOptionalParameters (String childMessage)
-    - target: {fileID: 349578336}
-      name: MyStaticMethod (String sendMessage)
-    - target: {fileID: 349578333}
-      name: OnEnable ()
-    - target: {fileID: 349578336}
-      name: ParentMessage (String logMessage)
-    - target: {fileID: 349578336}
-      name: ResturningString ()
-    - target: {fileID: 349578336}
-      name: SetParent (Transform child, Transform newParent)
-    - target: {fileID: 349578333}
-      name: SetParent (Transform child, Transform newParent)
-    - target: {fileID: 349578333}
-      name: StopAllCoroutines ()
-    - target: {fileID: 349578336}
-      name: StopAllCoroutines ()
-    - target: {fileID: 349578336}
-      name: TestingColorParam (Color color)
-    - target: {fileID: 349578336}
-      name: TestingintInternalMethod (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingMultipleParameters (String message, Single number)
-    - target: {fileID: 349578336}
-      name: TestingReturn (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingReturnInt (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingVectorParameter (Vector2 vec2, Vector3 vec3, Vector4 vec4)
-    - target: {fileID: 349578336}
-      name: TestLogEnum (FireType fire)
-    - target: {fileID: 349578336}
-      name: TestLogInt (Int32 integerParam)
-    - target: {fileID: 349578336}
-      name: TestMono (String message)
-    - target: {fileID: 349578333}
-      name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
-        Double valDouble, Boolean valBool, Transform valTranform)
-    - target: {fileID: 349578336}
-      name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
-        Double valDouble, Boolean valBool, Transform valTranform, FireType fireType)
-    - target: {fileID: 349578336}
-      name: TestSerializedClassParam (DelegateHolder holderClass)
-    - target: {fileID: 349578336}
-      name: TestSystemObject (String message)
-    - target: {fileID: 349578336}
-      name: TestUnityObject (String message)
-    mTarget: {fileID: 349578336}
-    mMethodName: SetParent
-    mParameters:
-    - obj: {fileID: 399537535}
-      field: 
-      paramRefType: 0
-      argStringValue: 'this is another event gfdgfg '
-      argIntValue: 0
-      argFloatValue: 0
-      argDoubleValue: 0
-      argBoolValue: 0
-      argColor: {r: 0, g: 0, b: 0, a: 0}
-      argVector2: {x: 0, y: 0}
-      argVector3: {x: 0, y: 0, z: 0}
-      argVector4: {x: 0, y: 0, z: 0, w: 0}
-    - obj: {fileID: 253157680}
-      field: 
-      paramRefType: 0
-      argStringValue: 'this is another event gfdgfg '
-      argIntValue: 0
-      argFloatValue: 0
-      argDoubleValue: 0
-      argBoolValue: 0
-      argColor: {r: 0, g: 0, b: 0, a: 0}
-      argVector2: {x: 0, y: 0}
-      argVector3: {x: 0, y: 0, z: 0}
-      argVector4: {x: 0, y: 0, z: 0, w: 0}
-    mCached: 0
-    oneShot: 0
-  - mEventName: Testing all types
-    mShowGroup: 1
-    mUpdateEntryList: 0
-    mEntryList:
-    - target: {fileID: 349578336}
-      name: MyOptionalParameters (String childMessage)
-    - target: {fileID: 349578336}
-      name: MyStaticMethod (String sendMessage)
-    - target: {fileID: 349578333}
-      name: OnEnable ()
-    - target: {fileID: 349578336}
-      name: ParentMessage (String logMessage)
-    - target: {fileID: 349578336}
-      name: ResturningString ()
-    - target: {fileID: 349578336}
-      name: SetParent (Transform child, Transform newParent)
-    - target: {fileID: 349578333}
-      name: SetParent (Transform child, Transform newParent)
-    - target: {fileID: 349578333}
-      name: StopAllCoroutines ()
-    - target: {fileID: 349578336}
-      name: StopAllCoroutines ()
-    - target: {fileID: 349578336}
-      name: TestingColorParam (Color color)
-    - target: {fileID: 349578336}
-      name: TestingintInternalMethod (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingMultipleParameters (String message, Single number)
-    - target: {fileID: 349578336}
-      name: TestingReturn (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingReturnInt (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingVectorParameter (Vector2 vec2, Vector3 vec3, Vector4 vec4)
-    - target: {fileID: 349578336}
-      name: TestLogEnum (FireType fire)
-    - target: {fileID: 349578336}
-      name: TestLogInt (Int32 integerParam)
-    - target: {fileID: 349578336}
-      name: TestMono (String message)
-    - target: {fileID: 349578333}
-      name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
-        Double valDouble, Boolean valBool, Transform valTranform)
-    - target: {fileID: 349578336}
-      name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
-        Double valDouble, Boolean valBool, Transform valTranform, FireType fireType)
-    - target: {fileID: 349578336}
-      name: TestSerializedClassParam (DelegateHolder holderClass)
-    - target: {fileID: 349578336}
-      name: TestSystemObject (String message)
-    - target: {fileID: 349578336}
-      name: TestUnityObject (String message)
-    mTarget: {fileID: 349578333}
-    mMethodName: TestPrimitiveParams
-    mParameters:
-    - obj: {fileID: 399537535}
-      field: transform
-      paramRefType: 0
-      argStringValue: my message
-      argIntValue: 0
-      argFloatValue: 0
-      argDoubleValue: 0
-      argBoolValue: 0
-      argColor: {r: 0, g: 0, b: 0, a: 0}
-      argVector2: {x: 0, y: 0}
-      argVector3: {x: 0, y: 0, z: 0}
-      argVector4: {x: 0, y: 0, z: 0, w: 0}
-    - obj: {fileID: 399537535}
-      field: transform
-      paramRefType: 0
-      argStringValue: my message
-      argIntValue: 1
-      argFloatValue: 0
-      argDoubleValue: 0
-      argBoolValue: 0
-      argColor: {r: 0, g: 0, b: 0, a: 0}
-      argVector2: {x: 0, y: 0}
-      argVector3: {x: 0, y: 0, z: 0}
-      argVector4: {x: 0, y: 0, z: 0, w: 0}
-    - obj: {fileID: 399537535}
-      field: transform
-      paramRefType: 0
-      argStringValue: my message
-      argIntValue: 0
-      argFloatValue: 3.14
-      argDoubleValue: 0
-      argBoolValue: 0
-      argColor: {r: 0, g: 0, b: 0, a: 0}
-      argVector2: {x: 0, y: 0}
-      argVector3: {x: 0, y: 0, z: 0}
-      argVector4: {x: 0, y: 0, z: 0, w: 0}
-    - obj: {fileID: 399537535}
-      field: transform
-      paramRefType: 0
-      argStringValue: my message
-      argIntValue: 0
-      argFloatValue: 0
-      argDoubleValue: 3.14159265
-      argBoolValue: 0
-      argColor: {r: 0, g: 0, b: 0, a: 0}
-      argVector2: {x: 0, y: 0}
-      argVector3: {x: 0, y: 0, z: 0}
-      argVector4: {x: 0, y: 0, z: 0, w: 0}
-    - obj: {fileID: 399537535}
-      field: transform
-      paramRefType: 0
-      argStringValue: my message
-      argIntValue: 0
-      argFloatValue: 0
-      argDoubleValue: 0
-      argBoolValue: 1
-      argColor: {r: 0, g: 0, b: 0, a: 0}
-      argVector2: {x: 0, y: 0}
-      argVector3: {x: 0, y: 0, z: 0}
-      argVector4: {x: 0, y: 0, z: 0, w: 0}
-    - obj: {fileID: 399537535}
-      field: 
-      paramRefType: 0
-      argStringValue: my message
-      argIntValue: 0
-      argFloatValue: 0
-      argDoubleValue: 0
-      argBoolValue: 0
-      argColor: {r: 0, g: 0, b: 0, a: 0}
-      argVector2: {x: 0, y: 0}
-      argVector3: {x: 0, y: 0, z: 0}
-      argVector4: {x: 0, y: 0, z: 0, w: 0}
-    mCached: 0
-    oneShot: 0
-  - mEventName: optional params
-    mShowGroup: 1
-    mUpdateEntryList: 0
-    mEntryList:
-    - target: {fileID: 349578336}
-      name: MyOptionalParameters (String childMessage)
-    - target: {fileID: 349578336}
-      name: MyStaticMethod (String sendMessage)
-    - target: {fileID: 349578333}
-      name: OnEnable ()
-    - target: {fileID: 349578336}
-      name: ParentMessage (String logMessage)
-    - target: {fileID: 349578336}
-      name: ResturningString ()
-    - target: {fileID: 349578336}
-      name: SetParent (Transform child, Transform newParent)
-    - target: {fileID: 349578333}
-      name: SetParent (Transform child, Transform newParent)
-    - target: {fileID: 349578333}
-      name: StopAllCoroutines ()
-    - target: {fileID: 349578336}
-      name: StopAllCoroutines ()
-    - target: {fileID: 349578336}
-      name: TestingColorParam (Color color)
-    - target: {fileID: 349578336}
-      name: TestingintInternalMethod (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingMultipleParameters (String message, Single number)
-    - target: {fileID: 349578336}
-      name: TestingReturn (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingReturnInt (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingVectorParameter (Vector2 vec2, Vector3 vec3, Vector4 vec4)
-    - target: {fileID: 349578336}
-      name: TestLogEnum (FireType fire)
-    - target: {fileID: 349578336}
-      name: TestLogInt (Int32 integerParam)
-    - target: {fileID: 349578336}
-      name: TestMono (String message)
-    - target: {fileID: 349578333}
-      name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
-        Double valDouble, Boolean valBool, Transform valTranform)
-    - target: {fileID: 349578336}
-      name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
-        Double valDouble, Boolean valBool, Transform valTranform, FireType fireType)
-    - target: {fileID: 349578336}
-      name: TestSerializedClassParam (DelegateHolder holderClass)
-    - target: {fileID: 349578336}
-      name: TestSystemObject (String message)
-    - target: {fileID: 349578336}
-      name: TestUnityObject (String message)
-    mTarget: {fileID: 349578336}
-    mMethodName: MyOptionalParameters
-    mParameters:
-    - obj: {fileID: 0}
-      field: 
-      paramRefType: 0
-      argStringValue: optional params
-      argIntValue: 0
-      argFloatValue: 0
-      argDoubleValue: 0
-      argBoolValue: 0
-      argColor: {r: 0, g: 0, b: 0, a: 0}
-      argVector2: {x: 0, y: 0}
-      argVector3: {x: 0, y: 0, z: 0}
-      argVector4: {x: 0, y: 0, z: 0, w: 0}
-    mCached: 0
-    oneShot: 0
-  - mEventName: testing static
-    mShowGroup: 1
-    mUpdateEntryList: 0
-    mEntryList:
-    - target: {fileID: 349578336}
-      name: MyOptionalParameters (String childMessage)
-    - target: {fileID: 349578336}
-      name: MyStaticMethod (String sendMessage)
-    - target: {fileID: 349578333}
-      name: OnEnable ()
-    - target: {fileID: 349578336}
-      name: ParentMessage (String logMessage)
-    - target: {fileID: 349578336}
-      name: ResturningString ()
-    - target: {fileID: 349578336}
-      name: SetParent (Transform child, Transform newParent)
-    - target: {fileID: 349578333}
-      name: SetParent (Transform child, Transform newParent)
-    - target: {fileID: 349578333}
-      name: StopAllCoroutines ()
-    - target: {fileID: 349578336}
-      name: StopAllCoroutines ()
-    - target: {fileID: 349578336}
-      name: TestingColorParam (Color color)
-    - target: {fileID: 349578336}
-      name: TestingintInternalMethod (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingMultipleParameters (String message, Single number)
-    - target: {fileID: 349578336}
-      name: TestingReturn (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingReturnInt (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingVectorParameter (Vector2 vec2, Vector3 vec3, Vector4 vec4)
-    - target: {fileID: 349578336}
-      name: TestLogEnum (FireType fire)
-    - target: {fileID: 349578336}
-      name: TestLogInt (Int32 integerParam)
-    - target: {fileID: 349578336}
-      name: TestMono (String message)
-    - target: {fileID: 349578333}
-      name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
-        Double valDouble, Boolean valBool, Transform valTranform)
-    - target: {fileID: 349578336}
-      name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
-        Double valDouble, Boolean valBool, Transform valTranform, FireType fireType)
-    - target: {fileID: 349578336}
-      name: TestSerializedClassParam (DelegateHolder holderClass)
-    - target: {fileID: 349578336}
-      name: TestSystemObject (String message)
-    - target: {fileID: 349578336}
-      name: TestUnityObject (String message)
-    mTarget: {fileID: 349578336}
-    mMethodName: MyStaticMethod
-    mParameters:
-    - obj: {fileID: 0}
-      field: 
-      paramRefType: 0
-      argStringValue: testing static
-      argIntValue: 0
-      argFloatValue: 0
-      argDoubleValue: 0
-      argBoolValue: 0
-      argColor: {r: 0, g: 0, b: 0, a: 0}
-      argVector2: {x: 0, y: 0}
-      argVector3: {x: 0, y: 0, z: 0}
-      argVector4: {x: 0, y: 0, z: 0, w: 0}
-    mCached: 0
-    oneShot: 0
-  - mEventName: testing return method
-    mShowGroup: 1
-    mUpdateEntryList: 0
-    mEntryList:
-    - target: {fileID: 349578336}
-      name: MyOptionalParameters (String childMessage)
-    - target: {fileID: 349578336}
-      name: MyStaticMethod (String sendMessage)
-    - target: {fileID: 349578333}
-      name: OnEnable ()
-    - target: {fileID: 349578336}
-      name: ParentMessage (String logMessage)
-    - target: {fileID: 349578336}
-      name: ResturningString ()
-    - target: {fileID: 349578336}
-      name: SetParent (Transform child, Transform newParent)
-    - target: {fileID: 349578333}
-      name: SetParent (Transform child, Transform newParent)
-    - target: {fileID: 349578333}
-      name: StopAllCoroutines ()
-    - target: {fileID: 349578336}
-      name: StopAllCoroutines ()
-    - target: {fileID: 349578336}
-      name: TestingColorParam (Color color)
-    - target: {fileID: 349578336}
-      name: TestingintInternalMethod (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingMultipleParameters (String message, Single number)
-    - target: {fileID: 349578336}
-      name: TestingReturn (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingReturnInt (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingVectorParameter (Vector2 vec2, Vector3 vec3, Vector4 vec4)
-    - target: {fileID: 349578336}
-      name: TestLogEnum (FireType fire)
-    - target: {fileID: 349578336}
-      name: TestLogInt (Int32 integerParam)
-    - target: {fileID: 349578336}
-      name: TestMono (String message)
-    - target: {fileID: 349578333}
-      name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
-        Double valDouble, Boolean valBool, Transform valTranform)
-    - target: {fileID: 349578336}
-      name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
-        Double valDouble, Boolean valBool, Transform valTranform, FireType fireType)
-    - target: {fileID: 349578336}
-      name: TestSerializedClassParam (DelegateHolder holderClass)
-    - target: {fileID: 349578336}
-      name: TestSystemObject (String message)
-    - target: {fileID: 349578336}
-      name: TestUnityObject (String message)
-    mTarget: {fileID: 349578336}
-    mMethodName: TestingReturn
-    mParameters:
-    - obj: {fileID: 0}
-      field: 
-      paramRefType: 0
-      argStringValue: testing return method
-      argIntValue: 0
-      argFloatValue: 0
-      argDoubleValue: 0
-      argBoolValue: 0
-      argColor: {r: 0, g: 0, b: 0, a: 0}
-      argVector2: {x: 0, y: 0}
-      argVector3: {x: 0, y: 0, z: 0}
-      argVector4: {x: 0, y: 0, z: 0, w: 0}
-    mCached: 0
-    oneShot: 0
-  - mEventName: Vector param
-    mShowGroup: 1
-    mUpdateEntryList: 0
-    mEntryList:
-    - target: {fileID: 349578336}
-      name: MyOptionalParameters (String childMessage)
-    - target: {fileID: 349578336}
-      name: MyStaticMethod (String sendMessage)
-    - target: {fileID: 349578333}
-      name: OnEnable ()
-    - target: {fileID: 349578336}
-      name: ParentMessage (String logMessage)
-    - target: {fileID: 349578336}
-      name: ResturningString ()
-    - target: {fileID: 349578336}
-      name: SetParent (Transform child, Transform newParent)
-    - target: {fileID: 349578333}
-      name: SetParent (Transform child, Transform newParent)
-    - target: {fileID: 349578333}
-      name: StopAllCoroutines ()
-    - target: {fileID: 349578336}
-      name: StopAllCoroutines ()
-    - target: {fileID: 349578336}
-      name: TestingColorParam (Color color)
-    - target: {fileID: 349578336}
-      name: TestingintInternalMethod (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingMultipleParameters (String message, Single number)
-    - target: {fileID: 349578336}
-      name: TestingReturn (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingReturnInt (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingVectorParameter (Vector2 vec2, Vector3 vec3, Vector4 vec4)
-    - target: {fileID: 349578336}
-      name: TestLogEnum (FireType fire)
-    - target: {fileID: 349578336}
-      name: TestLogInt (Int32 integerParam)
-    - target: {fileID: 349578336}
-      name: TestMono (String message)
-    - target: {fileID: 349578333}
-      name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
-        Double valDouble, Boolean valBool, Transform valTranform)
-    - target: {fileID: 349578336}
-      name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
-        Double valDouble, Boolean valBool, Transform valTranform, FireType fireType)
-    - target: {fileID: 349578336}
-      name: TestSerializedClassParam (DelegateHolder holderClass)
-    - target: {fileID: 349578336}
-      name: TestSystemObject (String message)
-    - target: {fileID: 349578336}
-      name: TestUnityObject (String message)
-    mTarget: {fileID: 349578336}
-    mMethodName: TestingVectorParameter
-    mParameters:
-    - obj: {fileID: 0}
-      field: 
-      paramRefType: 0
-      argStringValue: testing private method
-      argIntValue: 0
-      argFloatValue: 0
-      argDoubleValue: 0
-      argBoolValue: 0
-      argColor: {r: 0, g: 0, b: 0, a: 0}
-      argVector2: {x: 0.1, y: 0.2}
-      argVector3: {x: 0, y: 0, z: 0}
-      argVector4: {x: 0, y: 0, z: 0, w: 0}
-    - obj: {fileID: 0}
-      field: 
-      paramRefType: 0
-      argStringValue: testing private method
-      argIntValue: 0
-      argFloatValue: 0
-      argDoubleValue: 0
-      argBoolValue: 0
-      argColor: {r: 0, g: 0, b: 0, a: 0}
-      argVector2: {x: 0, y: 0}
-      argVector3: {x: 0.2, y: 0.3, z: 0.4}
-      argVector4: {x: 0, y: 0, z: 0, w: 0}
-    - obj: {fileID: 0}
-      field: 
-      paramRefType: 0
-      argStringValue: testing private method
-      argIntValue: 0
-      argFloatValue: 0
-      argDoubleValue: 0
-      argBoolValue: 0
-      argColor: {r: 0, g: 0, b: 0, a: 0}
-      argVector2: {x: 0, y: 0}
-      argVector3: {x: 0, y: 0, z: 0}
-      argVector4: {x: 0.3, y: 0.4, z: 0.5, w: 0.6}
-    mCached: 0
-    oneShot: 0
-  - mEventName: Color param
-    mShowGroup: 1
-    mUpdateEntryList: 0
-    mEntryList:
-    - target: {fileID: 349578336}
-      name: MyOptionalParameters (String childMessage)
-    - target: {fileID: 349578336}
-      name: MyStaticMethod (String sendMessage)
-    - target: {fileID: 349578333}
-      name: OnEnable ()
-    - target: {fileID: 349578336}
-      name: ParentMessage (String logMessage)
-    - target: {fileID: 349578336}
-      name: ResturningString ()
-    - target: {fileID: 349578336}
-      name: SetParent (Transform child, Transform newParent)
-    - target: {fileID: 349578333}
-      name: SetParent (Transform child, Transform newParent)
-    - target: {fileID: 349578333}
-      name: StopAllCoroutines ()
-    - target: {fileID: 349578336}
-      name: StopAllCoroutines ()
-    - target: {fileID: 349578336}
-      name: TestingColorParam (Color color)
-    - target: {fileID: 349578336}
-      name: TestingintInternalMethod (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingMultipleParameters (String message, Single number)
-    - target: {fileID: 349578336}
-      name: TestingReturn (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingReturnInt (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingVectorParameter (Vector2 vec2, Vector3 vec3, Vector4 vec4)
-    - target: {fileID: 349578336}
-      name: TestLogEnum (FireType fire)
-    - target: {fileID: 349578336}
-      name: TestLogInt (Int32 integerParam)
-    - target: {fileID: 349578336}
-      name: TestMono (String message)
-    - target: {fileID: 349578333}
-      name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
-        Double valDouble, Boolean valBool, Transform valTranform)
-    - target: {fileID: 349578336}
-      name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
-        Double valDouble, Boolean valBool, Transform valTranform, FireType fireType)
-    - target: {fileID: 349578336}
-      name: TestSerializedClassParam (DelegateHolder holderClass)
-    - target: {fileID: 349578336}
-      name: TestSystemObject (String message)
-    - target: {fileID: 349578336}
-      name: TestUnityObject (String message)
-    mTarget: {fileID: 349578336}
-    mMethodName: TestingColorParam
-    mParameters:
-    - obj: {fileID: 0}
-      field: 
-      paramRefType: 0
-      argStringValue: testing private method
-      argIntValue: 0
-      argFloatValue: 0
-      argDoubleValue: 0
-      argBoolValue: 0
-      argColor: {r: 0.8235294, g: 0.3148789, b: 0.3148789, a: 0.866}
-      argVector2: {x: 0, y: 0}
-      argVector3: {x: 0, y: 0, z: 0}
-      argVector4: {x: 0, y: 0, z: 0, w: 0}
-    mCached: 0
-    oneShot: 0
-  - mEventName: testing private method
-    mShowGroup: 1
-    mUpdateEntryList: 0
-    mEntryList:
-    - target: {fileID: 349578336}
-      name: MyOptionalParameters (String childMessage)
-    - target: {fileID: 349578336}
-      name: MyStaticMethod (String sendMessage)
-    - target: {fileID: 349578333}
-      name: OnEnable ()
-    - target: {fileID: 349578336}
-      name: ParentMessage (String logMessage)
-    - target: {fileID: 349578336}
-      name: ResturningString ()
-    - target: {fileID: 349578336}
-      name: SetParent (Transform child, Transform newParent)
-    - target: {fileID: 349578333}
-      name: SetParent (Transform child, Transform newParent)
-    - target: {fileID: 349578333}
-      name: StopAllCoroutines ()
-    - target: {fileID: 349578336}
-      name: StopAllCoroutines ()
-    - target: {fileID: 349578336}
-      name: TestingColorParam (Color color)
-    - target: {fileID: 349578336}
-      name: TestingintInternalMethod (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingMultipleParameters (String message, Single number)
-    - target: {fileID: 349578336}
-      name: TestingReturn (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingReturnInt (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingVectorParameter (Vector2 vec2, Vector3 vec3, Vector4 vec4)
-    - target: {fileID: 349578336}
-      name: TestLogEnum (FireType fire)
-    - target: {fileID: 349578336}
-      name: TestLogInt (Int32 integerParam)
-    - target: {fileID: 349578336}
-      name: TestMono (String message)
-    - target: {fileID: 349578333}
-      name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
-        Double valDouble, Boolean valBool, Transform valTranform)
-    - target: {fileID: 349578336}
-      name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
-        Double valDouble, Boolean valBool, Transform valTranform, FireType fireType)
-    - target: {fileID: 349578336}
-      name: TestSerializedClassParam (DelegateHolder holderClass)
-    - target: {fileID: 349578336}
-      name: TestSystemObject (String message)
-    - target: {fileID: 349578336}
-      name: TestUnityObject (String message)
-    mTarget: {fileID: 349578336}
-    mMethodName: TestingintInternalMethod
-    mParameters:
-    - obj: {fileID: 0}
-      field: 
-      paramRefType: 0
-      argStringValue: testing private method
-      argIntValue: 0
-      argFloatValue: 0
-      argDoubleValue: 0
-      argBoolValue: 0
-      argColor: {r: 0, g: 0, b: 0, a: 0}
-      argVector2: {x: 0, y: 0}
-      argVector3: {x: 0, y: 0, z: 0}
-      argVector4: {x: 0, y: 0, z: 0, w: 0}
-    mCached: 0
-    oneShot: 0
-  - mEventName: testing mono return
-    mShowGroup: 1
-    mUpdateEntryList: 0
-    mEntryList:
-    - target: {fileID: 349578336}
-      name: MyOptionalParameters (String childMessage)
-    - target: {fileID: 349578336}
-      name: MyStaticMethod (String sendMessage)
-    - target: {fileID: 349578333}
-      name: OnEnable ()
-    - target: {fileID: 349578336}
-      name: ParentMessage (String logMessage)
-    - target: {fileID: 349578336}
-      name: ResturningString ()
-    - target: {fileID: 349578336}
-      name: SetParent (Transform child, Transform newParent)
-    - target: {fileID: 349578333}
-      name: SetParent (Transform child, Transform newParent)
-    - target: {fileID: 349578333}
-      name: StopAllCoroutines ()
-    - target: {fileID: 349578336}
-      name: StopAllCoroutines ()
-    - target: {fileID: 349578336}
-      name: TestingColorParam (Color color)
-    - target: {fileID: 349578336}
-      name: TestingintInternalMethod (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingMultipleParameters (String message, Single number)
-    - target: {fileID: 349578336}
-      name: TestingReturn (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingReturnInt (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingVectorParameter (Vector2 vec2, Vector3 vec3, Vector4 vec4)
-    - target: {fileID: 349578336}
-      name: TestLogEnum (FireType fire)
-    - target: {fileID: 349578336}
-      name: TestLogInt (Int32 integerParam)
-    - target: {fileID: 349578336}
-      name: TestMono (String message)
-    - target: {fileID: 349578333}
-      name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
-        Double valDouble, Boolean valBool, Transform valTranform)
-    - target: {fileID: 349578336}
-      name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
-        Double valDouble, Boolean valBool, Transform valTranform, FireType fireType)
-    - target: {fileID: 349578336}
-      name: TestSerializedClassParam (DelegateHolder holderClass)
-    - target: {fileID: 349578336}
-      name: TestSystemObject (String message)
-    - target: {fileID: 349578336}
-      name: TestUnityObject (String message)
-    mTarget: {fileID: 349578336}
-    mMethodName: TestMono
-    mParameters:
-    - obj: {fileID: 0}
-      field: 
-      paramRefType: 0
-      argStringValue: testing mono return
-      argIntValue: 0
-      argFloatValue: 0
-      argDoubleValue: 0
-      argBoolValue: 0
-      argColor: {r: 0, g: 0, b: 0, a: 0}
-      argVector2: {x: 0, y: 0}
-      argVector3: {x: 0, y: 0, z: 0}
-      argVector4: {x: 0, y: 0, z: 0, w: 0}
-    mCached: 0
-    oneShot: 0
-  - mEventName: testing system obejct return
-    mShowGroup: 1
-    mUpdateEntryList: 0
-    mEntryList:
-    - target: {fileID: 349578336}
-      name: MyOptionalParameters (String childMessage)
-    - target: {fileID: 349578336}
-      name: MyStaticMethod (String sendMessage)
-    - target: {fileID: 349578333}
-      name: OnEnable ()
-    - target: {fileID: 349578336}
-      name: ParentMessage (String logMessage)
-    - target: {fileID: 349578336}
-      name: ResturningString ()
-    - target: {fileID: 349578336}
-      name: SetParent (Transform child, Transform newParent)
-    - target: {fileID: 349578333}
-      name: SetParent (Transform child, Transform newParent)
-    - target: {fileID: 349578333}
-      name: StopAllCoroutines ()
-    - target: {fileID: 349578336}
-      name: StopAllCoroutines ()
-    - target: {fileID: 349578336}
-      name: TestingColorParam (Color color)
-    - target: {fileID: 349578336}
-      name: TestingintInternalMethod (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingMultipleParameters (String message, Single number)
-    - target: {fileID: 349578336}
-      name: TestingReturn (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingReturnInt (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingVectorParameter (Vector2 vec2, Vector3 vec3, Vector4 vec4)
-    - target: {fileID: 349578336}
-      name: TestLogEnum (FireType fire)
-    - target: {fileID: 349578336}
-      name: TestLogInt (Int32 integerParam)
-    - target: {fileID: 349578336}
-      name: TestMono (String message)
-    - target: {fileID: 349578333}
-      name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
-        Double valDouble, Boolean valBool, Transform valTranform)
-    - target: {fileID: 349578336}
-      name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
-        Double valDouble, Boolean valBool, Transform valTranform, FireType fireType)
-    - target: {fileID: 349578336}
-      name: TestSerializedClassParam (DelegateHolder holderClass)
-    - target: {fileID: 349578336}
-      name: TestSystemObject (String message)
-    - target: {fileID: 349578336}
-      name: TestUnityObject (String message)
-    mTarget: {fileID: 349578336}
-    mMethodName: TestSystemObject
-    mParameters:
-    - obj: {fileID: 0}
-      field: 
-      paramRefType: 0
-      argStringValue: testing system obejct return
-      argIntValue: 0
-      argFloatValue: 0
-      argDoubleValue: 0
-      argBoolValue: 0
-      argColor: {r: 0, g: 0, b: 0, a: 0}
-      argVector2: {x: 0, y: 0}
-      argVector3: {x: 0, y: 0, z: 0}
-      argVector4: {x: 0, y: 0, z: 0, w: 0}
-    mCached: 0
-    oneShot: 0
-  - mEventName: testing serialized param
-    mShowGroup: 1
-    mUpdateEntryList: 0
-    mEntryList:
-    - target: {fileID: 349578336}
-      name: MyOptionalParameters (String childMessage)
-    - target: {fileID: 349578336}
-      name: MyStaticMethod (String sendMessage)
-    - target: {fileID: 349578333}
-      name: OnEnable ()
-    - target: {fileID: 349578336}
-      name: ParentMessage (String logMessage)
-    - target: {fileID: 349578336}
-      name: ResturningString ()
-    - target: {fileID: 349578336}
-      name: SetParent (Transform child, Transform newParent)
-    - target: {fileID: 349578333}
-      name: SetParent (Transform child, Transform newParent)
-    - target: {fileID: 349578333}
-      name: StopAllCoroutines ()
-    - target: {fileID: 349578336}
-      name: StopAllCoroutines ()
-    - target: {fileID: 349578336}
-      name: TestingColorParam (Color color)
-    - target: {fileID: 349578336}
-      name: TestingintInternalMethod (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingMultipleParameters (String message, Single number)
-    - target: {fileID: 349578336}
-      name: TestingReturn (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingReturnInt (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingVectorParameter (Vector2 vec2, Vector3 vec3, Vector4 vec4)
-    - target: {fileID: 349578336}
-      name: TestLogEnum (FireType fire)
-    - target: {fileID: 349578336}
-      name: TestLogInt (Int32 integerParam)
-    - target: {fileID: 349578336}
-      name: TestMono (String message)
-    - target: {fileID: 349578333}
-      name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
-        Double valDouble, Boolean valBool, Transform valTranform)
-    - target: {fileID: 349578336}
-      name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
-        Double valDouble, Boolean valBool, Transform valTranform, FireType fireType)
-    - target: {fileID: 349578336}
-      name: TestSerializedClassParam (DelegateHolder holderClass)
-    - target: {fileID: 349578336}
-      name: TestSystemObject (String message)
-    - target: {fileID: 349578336}
-      name: TestUnityObject (String message)
-    mTarget: {fileID: 349578336}
-    mMethodName: TestSerializedClassParam
-    mParameters:
-    - obj: {fileID: 1313838041}
-      field: TopMostClass
-      paramRefType: 0
-      argStringValue: testing system obejct return
-      argIntValue: 0
-      argFloatValue: 0
-      argDoubleValue: 0
-      argBoolValue: 0
-      argColor: {r: 0, g: 0, b: 0, a: 0}
-      argVector2: {x: 0, y: 0}
-      argVector3: {x: 0, y: 0, z: 0}
-      argVector4: {x: 0, y: 0, z: 0, w: 0}
-    mCached: 0
-    oneShot: 0
-  - mEventName: testing Enums
-    mShowGroup: 1
-    mUpdateEntryList: 0
-    mEntryList:
-    - target: {fileID: 349578336}
-      name: MyOptionalParameters (String childMessage)
-    - target: {fileID: 349578336}
-      name: MyStaticMethod (String sendMessage)
-    - target: {fileID: 349578333}
-      name: OnEnable ()
-    - target: {fileID: 349578336}
-      name: ParentMessage (String logMessage)
-    - target: {fileID: 349578336}
-      name: ResturningString ()
-    - target: {fileID: 349578336}
-      name: SetParent (Transform child, Transform newParent)
-    - target: {fileID: 349578333}
-      name: SetParent (Transform child, Transform newParent)
-    - target: {fileID: 349578333}
-      name: StopAllCoroutines ()
-    - target: {fileID: 349578336}
-      name: StopAllCoroutines ()
-    - target: {fileID: 349578336}
-      name: TestingColorParam (Color color)
-    - target: {fileID: 349578336}
-      name: TestingintInternalMethod (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingMultipleParameters (String message, Single number)
-    - target: {fileID: 349578336}
-      name: TestingReturn (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingReturnInt (String sendMessage)
-    - target: {fileID: 349578336}
-      name: TestingVectorParameter (Vector2 vec2, Vector3 vec3, Vector4 vec4)
-    - target: {fileID: 349578336}
-      name: TestLogEnum (FireType fire)
-    - target: {fileID: 349578336}
-      name: TestLogInt (Int32 integerParam)
-    - target: {fileID: 349578336}
-      name: TestMono (String message)
-    - target: {fileID: 349578333}
-      name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
-        Double valDouble, Boolean valBool, Transform valTranform)
-    - target: {fileID: 349578336}
-      name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
-        Double valDouble, Boolean valBool, Transform valTranform, FireType fireType)
-    - target: {fileID: 349578336}
-      name: TestSerializedClassParam (DelegateHolder holderClass)
-    - target: {fileID: 349578336}
-      name: TestSystemObject (String message)
-    - target: {fileID: 349578336}
-      name: TestUnityObject (String message)
-    mTarget: {fileID: 349578336}
-    mMethodName: TestLogEnum
-    mParameters:
-    - obj: {fileID: 1313838041}
-      field: TopMostClass
-      paramRefType: 0
-      argStringValue: Blast
-      argIntValue: 0
-      argFloatValue: 0
-      argDoubleValue: 0
-      argBoolValue: 0
-      argColor: {r: 0, g: 0, b: 0, a: 0}
-      argVector2: {x: 0, y: 0}
-      argVector3: {x: 0, y: 0, z: 0}
-      argVector4: {x: 0, y: 0, z: 0, w: 0}
-    mCached: 0
-    oneShot: 0
---- !u!114 &349578334
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 349578332}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fb8fb9a17960db41bbfa3960f45ff49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  UnityReorderableDrawer:
-    List:
-    - mEventName: 
-      mShowGroup: 1
-      mUpdateEntryList: 0
-      mEntryList:
-      - target: {fileID: 349578332}
-        name: AddComponentInternal (String className)
-      - target: {fileID: 349578336}
-        name: BasicEvent ()
-      - target: {fileID: 349578332}
-        name: CreatePrimitive (PrimitiveType type)
-      - target: {fileID: 349578335}
-        name: DetachChildren ()
-      - target: {fileID: 349578335}
-        name: Find (String name)
-      - target: {fileID: 349578332}
-        name: Find (String name)
-      - target: {fileID: 349578335}
-        name: FindChild (String name)
-      - target: {fileID: 349578332}
-        name: FindGameObjectsWithTag (String tag)
-      - target: {fileID: 349578332}
-        name: FindGameObjectWithTag (String tag)
-      - target: {fileID: 349578332}
-        name: FindWithTag (String tag)
-      - target: {fileID: 349578335}
-        name: GetChild (Int32 index)
-      - target: {fileID: 349578335}
-        name: GetChildCount ()
-      - target: {fileID: 349578335}
-        name: GetEnumerator ()
-      - target: {fileID: 349578335}
-        name: GetLocalEulerAngles (RotationOrder order)
-      - target: {fileID: 349578335}
-        name: GetSiblingIndex ()
-      - target: {fileID: 349578332}
-        name: Internal_AddComponentWithType (Type componentType)
-      - target: {fileID: 349578332}
-        name: Internal_CreateGameObject (GameObject mono, String name)
-      - target: {fileID: 349578335}
-        name: IsChildOf (Transform parent)
-      - target: {fileID: 349578335}
-        name: IsNonUniformScaleTransform ()
-      - target: {fileID: 349578336}
-        name: MyOptionalParameters (String childMessage)
-      - target: {fileID: 349578336}
-        name: MyStaticMethod (String sendMessage)
-      - target: {fileID: 349578334}
-        name: OnEnable ()
-      - target: {fileID: 349578333}
-        name: OnEnable ()
-      - target: {fileID: 349578336}
-        name: ParentMessage (String logMessage)
-      - target: {fileID: 349578332}
-        name: PlayAnimation (Object animation)
-      - target: {fileID: 349578336}
-        name: ResturningString ()
-      - target: {fileID: 349578335}
-        name: RotateAroundInternal (Vector3 axis, Single angle)
-      - target: {fileID: 349578335}
-        name: RotateAroundLocal (Vector3 axis, Single angle)
-      - target: {fileID: 349578332}
-        name: SampleAnimation (Object clip, Single time)
-      - target: {fileID: 349578335}
-        name: SendTransformChangedScale ()
-      - target: {fileID: 349578332}
-        name: SetActive (Boolean value)
-      - target: {fileID: 349578332}
-        name: SetActiveRecursively (Boolean state)
-      - target: {fileID: 349578335}
-        name: SetAsFirstSibling ()
-      - target: {fileID: 349578335}
-        name: SetAsLastSibling ()
-      - target: {fileID: 349578335}
-        name: SetLocalEulerAngles (Vector3 euler, RotationOrder order)
-      - target: {fileID: 349578335}
-        name: SetLocalEulerHint (Vector3 euler)
-      - target: {fileID: 349578333}
-        name: SetParent (Transform child, Transform newParent)
-      - target: {fileID: 349578336}
-        name: SetParent (Transform child, Transform newParent)
-      - target: {fileID: 349578334}
-        name: SetParent (Transform child, Transform newParent)
-      - target: {fileID: 349578335}
-        name: SetPositionAndRotation (Vector3 position, Quaternion rotation)
-      - target: {fileID: 349578335}
-        name: SetSiblingIndex (Int32 index)
-      - target: {fileID: 349578333}
-        name: StopAllCoroutines ()
-      - target: {fileID: 349578334}
-        name: StopAllCoroutines ()
-      - target: {fileID: 349578336}
-        name: StopAllCoroutines ()
-      - target: {fileID: 349578332}
-        name: StopAnimation ()
-      - target: {fileID: 349578336}
-        name: TestingColorParam (Color color)
-      - target: {fileID: 349578336}
-        name: TestingintInternalMethod (String sendMessage)
-      - target: {fileID: 349578336}
-        name: TestingMultipleParameters (String message, Single number)
-      - target: {fileID: 349578336}
-        name: TestingReturn (String sendMessage)
-      - target: {fileID: 349578336}
-        name: TestingReturnInt (String sendMessage)
-      - target: {fileID: 349578336}
-        name: TestingVectorParameter (Vector2 vec2, Vector3 vec3, Vector4 vec4)
-      - target: {fileID: 349578336}
-        name: TestLogEnum (FireType fire)
-      - target: {fileID: 349578336}
-        name: TestLogInt (Int32 integerParam)
-      - target: {fileID: 349578336}
-        name: TestLogMultiFlag (MultiFireType multiFire)
-      - target: {fileID: 349578336}
-        name: TestMono (String message)
-      - target: {fileID: 349578333}
-        name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
-          Double valDouble, Boolean valBool, Transform valTranform)
-      - target: {fileID: 349578334}
-        name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
-          Double valDouble, Boolean valBool, Transform valTranform)
-      - target: {fileID: 349578336}
-        name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
-          Double valDouble, Boolean valBool, Transform valTranform, FireType fireType)
-      - target: {fileID: 349578336}
-        name: TestSerializedClassParam (DelegateHolder holderClass)
-      - target: {fileID: 349578336}
-        name: TestSystemObject (String message)
-      - target: {fileID: 349578336}
-        name: TestUnityObject (String message)
-      mTarget: {fileID: 349578333}
-      mMethodName: TestPrimitiveParams
-      mParameters:
-      - obj: {fileID: 0}
-        field: 
-        paramRefType: 0
-        argStringValue: 
-        argIntValue: 0
-        argFloatValue: 0
-        argDoubleValue: 0
-        argBoolValue: 0
-        argColor: {r: 0, g: 0, b: 0, a: 0}
-        argVector2: {x: 0, y: 0}
-        argVector3: {x: 0, y: 0, z: 0}
-        argVector4: {x: 0, y: 0, z: 0, w: 0}
-      - obj: {fileID: 0}
-        field: 
-        paramRefType: 0
-        argStringValue: 
-        argIntValue: 0
-        argFloatValue: 0
-        argDoubleValue: 0
-        argBoolValue: 0
-        argColor: {r: 0, g: 0, b: 0, a: 0}
-        argVector2: {x: 0, y: 0}
-        argVector3: {x: 0, y: 0, z: 0}
-        argVector4: {x: 0, y: 0, z: 0, w: 0}
-      - obj: {fileID: 0}
-        field: 
-        paramRefType: 0
-        argStringValue: 
-        argIntValue: 0
-        argFloatValue: 0
-        argDoubleValue: 0
-        argBoolValue: 0
-        argColor: {r: 0, g: 0, b: 0, a: 0}
-        argVector2: {x: 0, y: 0}
-        argVector3: {x: 0, y: 0, z: 0}
-        argVector4: {x: 0, y: 0, z: 0, w: 0}
-      - obj: {fileID: 0}
-        field: 
-        paramRefType: 0
-        argStringValue: 
-        argIntValue: 0
-        argFloatValue: 0
-        argDoubleValue: 0
-        argBoolValue: 0
-        argColor: {r: 0, g: 0, b: 0, a: 0}
-        argVector2: {x: 0, y: 0}
-        argVector3: {x: 0, y: 0, z: 0}
-        argVector4: {x: 0, y: 0, z: 0, w: 0}
-      - obj: {fileID: 0}
-        field: 
-        paramRefType: 0
-        argStringValue: 
-        argIntValue: 0
-        argFloatValue: 0
-        argDoubleValue: 0
-        argBoolValue: 0
-        argColor: {r: 0, g: 0, b: 0, a: 0}
-        argVector2: {x: 0, y: 0}
-        argVector3: {x: 0, y: 0, z: 0}
-        argVector4: {x: 0, y: 0, z: 0, w: 0}
-      - obj: {fileID: 0}
-        field: 
-        paramRefType: 0
-        argStringValue: 
-        argIntValue: 0
-        argFloatValue: 0
-        argDoubleValue: 0
-        argBoolValue: 0
-        argColor: {r: 0, g: 0, b: 0, a: 0}
-        argVector2: {x: 0, y: 0}
-        argVector3: {x: 0, y: 0, z: 0}
-        argVector4: {x: 0, y: 0, z: 0, w: 0}
-      mCached: 0
+      mCached: 1
       oneShot: 0
   OnEnableEvents:
     m_PersistentCalls:
@@ -2512,7 +1790,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1313838041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2533,111 +1811,164 @@ MonoBehaviour:
       mEntryList:
       - target: {fileID: 815194661}
         name: AddComponentInternal (String className)
+        isField: 0
       - target: {fileID: 815194662}
         name: BasicEvent ()
+        isField: 0
       - target: {fileID: 815194661}
         name: CreatePrimitive (PrimitiveType type)
+        isField: 0
       - target: {fileID: 815194663}
         name: DetachChildren ()
+        isField: 0
       - target: {fileID: 815194663}
         name: Find (String name)
+        isField: 0
       - target: {fileID: 815194661}
         name: Find (String name)
+        isField: 0
       - target: {fileID: 815194663}
         name: FindChild (String name)
+        isField: 0
       - target: {fileID: 815194661}
         name: FindGameObjectsWithTag (String tag)
+        isField: 0
       - target: {fileID: 815194661}
         name: FindGameObjectWithTag (String tag)
+        isField: 0
       - target: {fileID: 815194661}
         name: FindWithTag (String tag)
+        isField: 0
       - target: {fileID: 815194663}
         name: GetChild (Int32 index)
+        isField: 0
       - target: {fileID: 815194663}
         name: GetChildCount ()
+        isField: 0
       - target: {fileID: 815194663}
         name: GetEnumerator ()
+        isField: 0
       - target: {fileID: 815194663}
         name: GetLocalEulerAngles (RotationOrder order)
+        isField: 0
       - target: {fileID: 815194663}
         name: GetSiblingIndex ()
+        isField: 0
       - target: {fileID: 815194661}
         name: Internal_AddComponentWithType (Type componentType)
+        isField: 0
       - target: {fileID: 815194661}
         name: Internal_CreateGameObject (GameObject mono, String name)
+        isField: 0
       - target: {fileID: 815194663}
         name: IsChildOf (Transform parent)
+        isField: 0
       - target: {fileID: 815194663}
         name: IsNonUniformScaleTransform ()
+        isField: 0
       - target: {fileID: 815194662}
         name: MyOptionalParameters (String childMessage)
+        isField: 0
       - target: {fileID: 815194662}
         name: MyStaticMethod (String sendMessage)
+        isField: 0
       - target: {fileID: 815194662}
         name: ParentMessage (String logMessage)
+        isField: 0
       - target: {fileID: 815194661}
         name: PlayAnimation (Object animation)
+        isField: 0
       - target: {fileID: 815194662}
         name: ResturningString ()
+        isField: 0
       - target: {fileID: 815194663}
         name: RotateAroundInternal (Vector3 axis, Single angle)
+        isField: 0
       - target: {fileID: 815194663}
         name: RotateAroundLocal (Vector3 axis, Single angle)
+        isField: 0
       - target: {fileID: 815194661}
         name: SampleAnimation (Object clip, Single time)
+        isField: 0
       - target: {fileID: 815194663}
         name: SendTransformChangedScale ()
+        isField: 0
       - target: {fileID: 815194661}
         name: SetActive (Boolean value)
+        isField: 0
       - target: {fileID: 815194661}
         name: SetActiveRecursively (Boolean state)
+        isField: 0
       - target: {fileID: 815194663}
         name: SetAsFirstSibling ()
+        isField: 0
       - target: {fileID: 815194663}
         name: SetAsLastSibling ()
+        isField: 0
       - target: {fileID: 815194663}
         name: SetLocalEulerAngles (Vector3 euler, RotationOrder order)
+        isField: 0
       - target: {fileID: 815194663}
         name: SetLocalEulerHint (Vector3 euler)
+        isField: 0
       - target: {fileID: 815194662}
         name: SetParent (Transform child, Transform newParent)
+        isField: 0
       - target: {fileID: 815194663}
         name: SetPositionAndRotation (Vector3 position, Quaternion rotation)
+        isField: 0
       - target: {fileID: 815194663}
         name: SetSiblingIndex (Int32 index)
+        isField: 0
       - target: {fileID: 815194662}
         name: StopAllCoroutines ()
+        isField: 0
       - target: {fileID: 815194661}
         name: StopAnimation ()
+        isField: 0
       - target: {fileID: 815194662}
         name: TestingColorParam (Color color)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestingintInternalMethod (String sendMessage)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestingMultipleParameters (String message, Single number)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestingReturn (String sendMessage)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestingReturnInt (String sendMessage)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestingVectorParameter (Vector2 vec2, Vector3 vec3, Vector4 vec4)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestLogEnum (FireType fire)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestLogInt (Int32 integerParam)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestLogMultiFlag (MultiFireType multiFire)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestMono (String message)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
           Double valDouble, Boolean valBool, Transform valTranform, FireType fireType)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestSerializedClassParam (DelegateHolder holderClass)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestSystemObject (String message)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestUnityObject (String message)
+        isField: 0
       mTarget: {fileID: 815194662}
       mMethodName: TestingColorParam
       mParameters:
@@ -2661,111 +1992,164 @@ MonoBehaviour:
       mEntryList:
       - target: {fileID: 815194661}
         name: AddComponentInternal (String className)
+        isField: 0
       - target: {fileID: 815194662}
         name: BasicEvent ()
+        isField: 0
       - target: {fileID: 815194661}
         name: CreatePrimitive (PrimitiveType type)
+        isField: 0
       - target: {fileID: 815194663}
         name: DetachChildren ()
+        isField: 0
       - target: {fileID: 815194663}
         name: Find (String name)
+        isField: 0
       - target: {fileID: 815194661}
         name: Find (String name)
+        isField: 0
       - target: {fileID: 815194663}
         name: FindChild (String name)
+        isField: 0
       - target: {fileID: 815194661}
         name: FindGameObjectsWithTag (String tag)
+        isField: 0
       - target: {fileID: 815194661}
         name: FindGameObjectWithTag (String tag)
+        isField: 0
       - target: {fileID: 815194661}
         name: FindWithTag (String tag)
+        isField: 0
       - target: {fileID: 815194663}
         name: GetChild (Int32 index)
+        isField: 0
       - target: {fileID: 815194663}
         name: GetChildCount ()
+        isField: 0
       - target: {fileID: 815194663}
         name: GetEnumerator ()
+        isField: 0
       - target: {fileID: 815194663}
         name: GetLocalEulerAngles (RotationOrder order)
+        isField: 0
       - target: {fileID: 815194663}
         name: GetSiblingIndex ()
+        isField: 0
       - target: {fileID: 815194661}
         name: Internal_AddComponentWithType (Type componentType)
+        isField: 0
       - target: {fileID: 815194661}
         name: Internal_CreateGameObject (GameObject mono, String name)
+        isField: 0
       - target: {fileID: 815194663}
         name: IsChildOf (Transform parent)
+        isField: 0
       - target: {fileID: 815194663}
         name: IsNonUniformScaleTransform ()
+        isField: 0
       - target: {fileID: 815194662}
         name: MyOptionalParameters (String childMessage)
+        isField: 0
       - target: {fileID: 815194662}
         name: MyStaticMethod (String sendMessage)
+        isField: 0
       - target: {fileID: 815194662}
         name: ParentMessage (String logMessage)
+        isField: 0
       - target: {fileID: 815194661}
         name: PlayAnimation (Object animation)
+        isField: 0
       - target: {fileID: 815194662}
         name: ResturningString ()
+        isField: 0
       - target: {fileID: 815194663}
         name: RotateAroundInternal (Vector3 axis, Single angle)
+        isField: 0
       - target: {fileID: 815194663}
         name: RotateAroundLocal (Vector3 axis, Single angle)
+        isField: 0
       - target: {fileID: 815194661}
         name: SampleAnimation (Object clip, Single time)
+        isField: 0
       - target: {fileID: 815194663}
         name: SendTransformChangedScale ()
+        isField: 0
       - target: {fileID: 815194661}
         name: SetActive (Boolean value)
+        isField: 0
       - target: {fileID: 815194661}
         name: SetActiveRecursively (Boolean state)
+        isField: 0
       - target: {fileID: 815194663}
         name: SetAsFirstSibling ()
+        isField: 0
       - target: {fileID: 815194663}
         name: SetAsLastSibling ()
+        isField: 0
       - target: {fileID: 815194663}
         name: SetLocalEulerAngles (Vector3 euler, RotationOrder order)
+        isField: 0
       - target: {fileID: 815194663}
         name: SetLocalEulerHint (Vector3 euler)
+        isField: 0
       - target: {fileID: 815194662}
         name: SetParent (Transform child, Transform newParent)
+        isField: 0
       - target: {fileID: 815194663}
         name: SetPositionAndRotation (Vector3 position, Quaternion rotation)
+        isField: 0
       - target: {fileID: 815194663}
         name: SetSiblingIndex (Int32 index)
+        isField: 0
       - target: {fileID: 815194662}
         name: StopAllCoroutines ()
+        isField: 0
       - target: {fileID: 815194661}
         name: StopAnimation ()
+        isField: 0
       - target: {fileID: 815194662}
         name: TestingColorParam (Color color)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestingintInternalMethod (String sendMessage)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestingMultipleParameters (String message, Single number)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestingReturn (String sendMessage)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestingReturnInt (String sendMessage)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestingVectorParameter (Vector2 vec2, Vector3 vec3, Vector4 vec4)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestLogEnum (FireType fire)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestLogInt (Int32 integerParam)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestLogMultiFlag (MultiFireType multiFire)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestMono (String message)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
           Double valDouble, Boolean valBool, Transform valTranform, FireType fireType)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestSerializedClassParam (DelegateHolder holderClass)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestSystemObject (String message)
+        isField: 0
       - target: {fileID: 815194662}
         name: TestUnityObject (String message)
+        isField: 0
       mTarget: {fileID: 815194662}
       mMethodName: MyStaticMethod
       mParameters:

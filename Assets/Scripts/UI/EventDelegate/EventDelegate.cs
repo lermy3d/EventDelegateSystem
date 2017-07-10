@@ -206,7 +206,7 @@ public class EventDelegate
     public Entry[] mEntryList;
     
     [HideInInspector]
-    static public BindingFlags MethodFlags = BindingFlags.OptionalParamBinding | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
+    static public BindingFlags MethodFlags = BindingFlags.OptionalParamBinding | BindingFlags.Instance | BindingFlags.Public | BindingFlags.Static;
 
 	[HideInInspector]
     static public BindingFlags FieldFlags = BindingFlags.Instance | BindingFlags.Public;

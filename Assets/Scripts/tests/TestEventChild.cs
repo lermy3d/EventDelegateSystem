@@ -5,6 +5,12 @@ public class TestEventChild : TestEventsParent
     public FireType myFireType;
     public Color myColor;
 
+	public string MyLastName
+	{
+		get;
+		set;
+	}
+
     //TODO: a custom drawer is needed for drawing flag type (use MaskField)
     public MultiFireType myMultiFireType;
 
@@ -52,12 +58,12 @@ public class TestEventChild : TestEventsParent
         Debug.Log(message + ", number: " + number);
     }
     
-    static void MyStaticMethod(string sendMessage)
+    public static void MyStaticMethod(string sendMessage)
     {
         Debug.Log(sendMessage);
     }
     
-    void TestingVectorParameter(Vector2 vec2, Vector3 vec3, Vector4 vec4)
+    public void TestingVectorParameter(Vector2 vec2, Vector3 vec3, Vector4 vec4)
     {
         Debug.Log("Testing Vector Parameter:");
 		Debug.Log("Vec2: " + vec2);
@@ -65,7 +71,7 @@ public class TestEventChild : TestEventsParent
 		Debug.Log("Vec4: " + vec4);
     }
     
-    void TestSerializedClassParam(DelegateHolder holderClass)
+    public void TestSerializedClassParam(DelegateHolder holderClass)
     {
 		Debug.Log("Testing Serialized Class Param: " + holderClass.name);
     }
