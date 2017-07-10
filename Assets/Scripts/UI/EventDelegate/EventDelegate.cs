@@ -208,6 +208,9 @@ public class EventDelegate
     [HideInInspector]
     static public BindingFlags MethodFlags = BindingFlags.OptionalParamBinding | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
 
+	[HideInInspector]
+    static public BindingFlags FieldFlags = BindingFlags.Instance | BindingFlags.Public;
+
 	[SerializeField] UnityEngine.Object mTarget;
 	[SerializeField] string mMethodName;
 	[SerializeField] Parameter[] mParameters;
@@ -229,6 +232,9 @@ public class EventDelegate
     
     // Private variables
 	[System.NonSerialized] Delegate mCachedCallback;
+	[System.NonSerialized] FieldInfo mCachedFieldInfo;
+	[System.NonSerialized] PropertyInfo mCachedPropertyInfo;
+
 	[System.NonSerialized] bool mRawDelegate = false;
 #if REFLECTION_SUPPORT
 	[System.NonSerialized] MethodInfo mMethod;
@@ -250,6 +256,8 @@ public class EventDelegate
 		{
 			mTarget = value;
 			mCachedCallback = null;
+			mCachedFieldInfo = null;
+			mCachedPropertyInfo = null;
 			mRawDelegate = false;
 			mCached = false;
 #if REFLECTION_SUPPORT
@@ -274,6 +282,8 @@ public class EventDelegate
 		{
 			mMethodName = value;
 			mCachedCallback = null;
+			mCachedFieldInfo = null;
+			mCachedPropertyInfo = null;
 			mRawDelegate = false;
 			mCached = false;
 #if REFLECTION_SUPPORT
@@ -314,7 +324,8 @@ public class EventDelegate
                 Cache();
             }
 
-			return (mRawDelegate && mCachedCallback != null) || ExistMethod();
+			return (mRawDelegate && mCachedCallback != null) || (mCachedFieldInfo != null || mCachedPropertyInfo != null)
+					|| ExistMethod() || ExistField();
 		}
 	}
 
@@ -496,6 +507,38 @@ public class EventDelegate
         return false;
     }
 
+    public bool ExistField()
+    {
+        if (mTarget != null && string.IsNullOrEmpty(mMethodName) == false)
+        {
+            System.Type type = mTarget.GetType();
+
+            FieldInfo fieldInfo = null;
+            PropertyInfo propertyInfo = null;
+            
+            try
+            {
+                while(type != null)
+                {
+                    fieldInfo = type.GetField(mMethodName, FieldFlags);
+                    if (fieldInfo != null)
+                        break;
+
+                    propertyInfo = type.GetProperty(mMethodName, FieldFlags);
+                    if (propertyInfo != null)
+                        break;
+
+                    type = type.BaseType;
+                }
+             }
+            catch(System.Exception){}
+            
+            return fieldInfo != null || propertyInfo != null;
+        }
+            
+        return false;
+    }
+
 	/// <summary>
 	/// Cache the callback and create the list of the necessary parameters.
 	/// </summary>
@@ -544,7 +587,10 @@ public class EventDelegate
 						if (mMethod != null)
                             break;
 					}
-					catch (System.Exception) { }
+					catch(System.Exception exc)
+                    {
+                        Debug.LogError(exc.Message + " Inner exception: " +  exc.InnerException);
+                    }
   #if UNITY_WP8 || UNITY_WP_8_1
 					// For some odd reason Type.GetMethod(name, bindingFlags) doesn't seem to work on WP8...
 					try
@@ -557,32 +603,72 @@ public class EventDelegate
 					type = type.BaseType;
 				}
  #endif // NETFX_CORE
- 
-                for (mMethod = null; type != null; )
-                {
-                    try
-                    {
-                        mMethod = type.GetMethod(mMethodName, MethodFlags);
-                        if (mMethod != null)
-                            break;
-                    }
-                    catch(System.Exception exc)
-                    {
-                        Debug.LogError(exc.Message + " Inner exception: " +  exc.InnerException);
-                    }
-
-                    type = type.BaseType;
-                }
 
 				if (mMethod == null)
 				{
+					//clearing prev cached values, if ever...
+					mArgs = null;
+					mParameterInfos = null;
+					mCachedCallback = null;
+
+					//check if field or property
+					FieldInfo fieldInfo = null;
+					PropertyInfo propertyInfo = null;
+					
+					type = mTarget.GetType();
+					try
+					{
+						while(type != null)
+						{
+							fieldInfo = type.GetField(mMethodName, FieldFlags);
+							if (fieldInfo != null)
+								break;
+							
+							propertyInfo = type.GetProperty(mMethodName, FieldFlags);
+							if (propertyInfo != null)
+								break;
+							
+							type = type.BaseType;
+						}
+					}
+					catch(System.Exception){}
+
+					if(fieldInfo != null)
+					{
+						mCachedFieldInfo = fieldInfo;
+
+						if (mParameters == null || mParameters.Length != 1)
+						{
+							mParameters = new Parameter[1];
+							mParameters[0] = new Parameter();
+						}
+						
+						mParameters[0].expectedType = fieldInfo.FieldType;
+						mParameters[0].name = mMethodName;
+
+						return;
+					}
+					else if(propertyInfo != null)
+					{
+						mCachedPropertyInfo = propertyInfo;
+
+						if (mParameters == null || mParameters.Length != 1)
+						{
+							mParameters = new Parameter[1];
+							mParameters[0] = new Parameter();
+						}
+
+						mParameters[0].expectedType = propertyInfo.PropertyType;
+						mParameters[0].name = mMethodName;
+
+						return;
+					}
+					
+					//at this point
                     //method or target was most likely changed
                     
-                    mArgs = null;
-                    mParameters = null;
-                    
                     if(showError)
-					    Debug.LogError("Could not find method '" + mMethodName + "' on " + mTarget.GetType(), mTarget);
+					    Debug.LogError("Could not find method or field '" + mMethodName + "' on " + mTarget.GetType(), mTarget);
 
 					return;
 				}
@@ -652,10 +738,31 @@ public class EventDelegate
 			return true;
 		}
 #else
-        if (!mCached)
+
+        if (!mCached || !(mCachedFieldInfo == null || mCachedPropertyInfo == null) || mMethod == null)
         {
             Cache();
         }
+		
+		//check if field or property
+		if(mCachedFieldInfo != null)
+		{
+			if (mParameters != null && mParameters[0] != null)
+			{
+				//apply value in parameter to target property
+				mCachedFieldInfo.SetValue(mTarget, mParameters[0].value);
+				return true;
+			}
+		}
+		else if(mCachedPropertyInfo != null)
+		{
+			if (mParameters != null && mParameters[0] != null)
+			{
+				//apply value in parameter to target property
+				mCachedPropertyInfo.SetValue(mTarget, mParameters[0].value, null);
+				return true;
+			}
+		}
 
 		if (mCachedCallback != null)
 		{
@@ -811,6 +918,8 @@ public class EventDelegate
 		mMethodName = null;
 		mRawDelegate = false;
 		mCachedCallback = null;
+		mCachedFieldInfo = null;
+		mCachedPropertyInfo = null;
 		mParameters = null;
 		mCached = false;
 #if REFLECTION_SUPPORT

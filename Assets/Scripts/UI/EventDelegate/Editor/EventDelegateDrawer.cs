@@ -240,9 +240,9 @@ public class EventDelegateDrawer : PropertyDrawer
 
                 lineRect.yMin += lineHeight;
                 lineRect.yMax += lineHeight;
-                choice = EditorGUI.Popup(lineRect, "Method", index, names);
+                choice = EditorGUI.Popup(lineRect, "Event", index, names);
     
-                //saving selected method
+                //saving selected method or field
                 if (choice > 0) //&& choice != index
                 {
                     Entry entry = listWithParams [choice - 1];
@@ -820,10 +820,16 @@ public class EventDelegateDrawer : PropertyDrawer
             
             FilterMethods(mi, list, methods, target, includeParams);
         }
-        
+
         list.Sort();
+
+		List<Entry> fieldList = GetProperties(target, false, true);
+		fieldList.Sort();
+
+		//obtaining properties and fields to show in list
+		fieldList.AddRange(list);
         
-        return list;
+        return fieldList;
     }
 
 	/// <summary>
@@ -928,67 +934,71 @@ public class EventDelegateDrawer : PropertyDrawer
             if (comp == null)
                 continue;
 			
-            Type type = comp.GetType();
-            BindingFlags flags = BindingFlags.Instance | BindingFlags.Public;
-            FieldInfo[] fields = type.GetFields(flags);
-            PropertyInfo[] props = type.GetProperties(flags);
-			
-            // The component itself without any method
-            if (Convert(comp, filter))
-            {
-                Entry ent = new Entry();
-                ent.target = comp;
-                
-                if (list.Contains(ent) == false)                
-                    list.Add(ent);
-            }
-			
-            for (int b = 0, ilen = fields.Length; b < ilen; ++b)
-            {
-                FieldInfo field = fields [b];
-				
-                if (filter != typeof(void))
-                {
-                    if (canConvert)
-                    {
-                        if (!Convert(field.FieldType, filter))
-                            continue;
-                    } else if (!filter.IsAssignableFrom(field.FieldType))
-                        continue;
-                }
-				
-                Entry ent = new Entry();
-                ent.target = comp;
-                ent.name = field.Name;
-                list.Add(ent);
-            }
-			
-            for (int b = 0, ilen = props.Length; b < ilen; ++b)
-            {
-                PropertyInfo prop = props [b];
-                if (read && !prop.CanRead)
-                    continue;
-                if (write && !prop.CanWrite)
-                    continue;
-				
-                if (filter != typeof(void))
-                {
-                    if (canConvert)
-                    {
-                        if (!Convert(prop.PropertyType, filter))
-                            continue;
-                    } else if (!filter.IsAssignableFrom(prop.PropertyType))
-                        continue;
-                }
-				
-                Entry ent = new Entry();
-                ent.target = comp;
-                ent.name = prop.Name;
-                list.Add(ent);
-            }
+			AddProperties(list, comp, read, write);
         }
+
+		AddProperties(list, target, read, write);
+
         return list;
     }
+
+	static private void AddProperties(List<Entry> list, UnityEngine.Object comp, bool read, bool write)
+	{
+		Type type = comp.GetType();
+        BindingFlags flags = EventDelegate.FieldFlags;
+        FieldInfo[] fields = type.GetFields(flags);
+        PropertyInfo[] props = type.GetProperties(flags);
+		
+        // The component itself without any method
+        if (read && Convert(comp, filter))
+        {
+            Entry ent = new Entry();
+            ent.target = comp;
+            
+            if (list.Contains(ent) == false)
+                list.Add(ent);
+        }
+		
+        for (int b = 0, ilen = fields.Length; b < ilen; ++b)
+        {
+            FieldInfo field = fields [b];
+			
+            if (filter != typeof(void))
+            {
+                if (canConvert)
+                {
+                    if (!Convert(field.FieldType, filter))
+                        continue;
+                } else if (!filter.IsAssignableFrom(field.FieldType))
+                    continue;
+            }
+			
+            Entry ent = new Entry(comp, field.Name);
+            list.Add(ent);
+        }
+		
+        for (int b = 0, ilen = props.Length; b < ilen; ++b)
+        {
+            PropertyInfo prop = props [b];
+            if (read && !prop.CanRead)
+                continue;
+            if (write && !prop.CanWrite)
+                continue;
+			
+            if (filter != typeof(void))
+            {
+                if (canConvert)
+                {
+                    if (!Convert(prop.PropertyType, filter))
+                        continue;
+                } else if (!filter.IsAssignableFrom(prop.PropertyType))
+                    continue;
+            }
+			
+            Entry ent = new Entry(comp, prop.Name);
+            list.Add(ent);
+        }
+	}
 
     /// <summary>
     /// Returns if an overloaded method exists in an array of functions.
