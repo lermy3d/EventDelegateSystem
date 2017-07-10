@@ -200,9 +200,6 @@ public class EventDelegate
     public bool mShowGroup = true;
 
     [HideInInspector]
-    public float mYOffset = 0;  //this offset is used to fix the properties overlap in reorderable list per item
-
-    [HideInInspector]
     public bool mUpdateEntryList = true;
     
     [HideInInspector]

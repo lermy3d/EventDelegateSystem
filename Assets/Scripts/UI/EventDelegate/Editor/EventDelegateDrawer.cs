@@ -49,16 +49,11 @@ public class EventDelegateDrawer : PropertyDrawer
 
     public override float GetPropertyHeight(SerializedProperty prop, GUIContent label)
     {
-        float yOffset = 0;
-        SerializedProperty yOffsetProp = prop.FindPropertyRelative("mYOffset");
-        if (yOffsetProp != null)
-            yOffset = yOffsetProp.floatValue;
-
         SerializedProperty showGroup = prop.FindPropertyRelative("mShowGroup");
         if (!showGroup.boolValue)
-            return lineHeight + yOffset;
+            return lineHeight;
 
-        float lines = (3 * lineHeight) + yOffset;
+        float lines = (3 * lineHeight);
 
         SerializedProperty targetProp = prop.FindPropertyRelative("mTarget");
         if (targetProp.objectReferenceValue == null)
@@ -170,14 +165,8 @@ public class EventDelegateDrawer : PropertyDrawer
         {
             EditorGUI.indentLevel++;
 
-            //this offset is used to fix the properties overlap in reorderable list per item
-            float yOffset = 0;
-            SerializedProperty yOffsetProp = prop.FindPropertyRelative("mYOffset");
-            if (yOffsetProp != null)
-                yOffset = yOffsetProp.floatValue;
-
             lineRect = rect;
-            lineRect.yMin = rect.yMin + lineHeight + yOffset;
+            lineRect.yMin = rect.yMin + lineHeight;
             lineRect.yMax = lineRect.yMin + lineHeight;
             
             eventName = EditorGUI.TextField(lineRect, eventName);
@@ -224,6 +213,10 @@ public class EventDelegateDrawer : PropertyDrawer
                     for (int i = 0; i < arraySize; i++, entryItem = null)
                     {
                         entryItem = entryArrayProp.GetArrayElementAtIndex(i);
+						
+						if(entryItem == null)
+							continue;
+						
 						UnityEngine.Object targetComp = entryItem.FindPropertyRelative("target").objectReferenceValue;
                         string name = entryItem.FindPropertyRelative("name").stringValue;
                         
