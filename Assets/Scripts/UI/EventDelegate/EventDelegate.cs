@@ -739,7 +739,7 @@ public class EventDelegate
 		}
 #else
 
-        if (!mCached || !(mCachedFieldInfo == null || mCachedPropertyInfo == null) || mMethod == null)
+        if (!mCached || !(mCachedFieldInfo != null || mCachedPropertyInfo != null || mMethod != null))
         {
             Cache();
         }
@@ -749,6 +749,9 @@ public class EventDelegate
 		{
 			if (mParameters != null && mParameters[0] != null)
 			{
+				//removing cached value, fetching new value when calling the 'get'
+				mParameters[0].value = null;
+
 				//apply value in parameter to target property
 				mCachedFieldInfo.SetValue(mTarget, mParameters[0].value);
 				return true;
@@ -758,6 +761,9 @@ public class EventDelegate
 		{
 			if (mParameters != null && mParameters[0] != null)
 			{
+				//removing cached value, fetching new value when calling the 'get'
+				mParameters[0].value = null;
+
 				//apply value in parameter to target property
 				mCachedPropertyInfo.SetValue(mTarget, mParameters[0].value, null);
 				return true;
@@ -833,7 +839,7 @@ public class EventDelegate
                     if(paramItem == null)
                         continue;
 
-                    //update the parameter is a reference (assuming value parameters will never change in realtime)
+                    //update the parameter if is a reference (assuming value parameters will never change in realtime)
                     //or if in editor mode (for testing purpose)
                     if (paramItem.paramRefType == ParameterType.Reference || Application.isEditor)
                     {
