@@ -1,19 +1,19 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
 --- !u!29 &1
-SceneSettings:
+OcclusionCullingSettings:
   m_ObjectHideFlags: 0
-  m_PVSData: 
-  m_PVSObjectsArray: []
-  m_PVSPortalsArray: []
+  serializedVersion: 2
   m_OcclusionBakeSettings:
     smallestOccluder: 5
     smallestHole: 0.25
     backfaceThreshold: 100
+  m_SceneGUID: 00000000000000000000000000000000
+  m_OcclusionCullingData: {fileID: 0}
 --- !u!104 &2
 RenderSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 7
+  serializedVersion: 8
   m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
@@ -25,6 +25,7 @@ RenderSettings:
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
   m_AmbientMode: 3
+  m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
@@ -41,7 +42,7 @@ RenderSettings:
 --- !u!157 &3
 LightmapSettings:
   m_ObjectHideFlags: 0
-  serializedVersion: 7
+  serializedVersion: 9
   m_GIWorkflowMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -53,7 +54,7 @@ LightmapSettings:
     m_EnableBakedLightmaps: 0
     m_EnableRealtimeLightmaps: 0
   m_LightmapEditorSettings:
-    serializedVersion: 4
+    serializedVersion: 8
     m_Resolution: 2
     m_BakeResolution: 40
     m_TextureWidth: 1024
@@ -66,38 +67,55 @@ LightmapSettings:
     m_LightmapParameters: {fileID: 0}
     m_LightmapsBakeMode: 1
     m_TextureCompression: 1
-    m_DirectLightInLightProbes: 1
     m_FinalGather: 0
     m_FinalGatherFiltering: 1
     m_FinalGatherRayCount: 1024
     m_ReflectionCompression: 2
+    m_MixedBakeMode: 1
+    m_BakeBackend: 0
+    m_PVRSampling: 1
+    m_PVRDirectSampleCount: 32
+    m_PVRSampleCount: 500
+    m_PVRBounces: 2
+    m_PVRFiltering: 0
+    m_PVRFilteringMode: 1
+    m_PVRCulling: 1
+    m_PVRFilteringGaussRadiusDirect: 1
+    m_PVRFilteringGaussRadiusIndirect: 5
+    m_PVRFilteringGaussRadiusAO: 2
+    m_PVRFilteringAtrousColorSigma: 1
+    m_PVRFilteringAtrousNormalSigma: 1
+    m_PVRFilteringAtrousPositionSigma: 1
   m_LightingDataAsset: {fileID: 0}
-  m_RuntimeCPUUsage: 25
+  m_ShadowMaskMode: 2
 --- !u!196 &4
 NavMeshSettings:
   serializedVersion: 2
   m_ObjectHideFlags: 0
   m_BuildSettings:
     serializedVersion: 2
+    agentTypeID: 0
     agentRadius: 0.5
     agentHeight: 2
     agentSlope: 45
     agentClimb: 0.4
     ledgeDropHeight: 0
     maxJumpAcrossDistance: 0
-    accuratePlacement: 0
     minRegionArea: 2
-    cellSize: 0.16666667
     manualCellSize: 0
+    cellSize: 0.16666667
+    manualTileSize: 0
+    tileSize: 256
+    accuratePlacement: 0
   m_NavMeshData: {fileID: 0}
 --- !u!1 &253157679
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 253157680}
+  - component: {fileID: 253157680}
   m_Layer: 0
   m_Name: Parent
   m_TagString: Untagged
@@ -114,21 +132,21 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &335725102
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 335725106}
-  - 222: {fileID: 335725105}
-  - 114: {fileID: 335725104}
-  - 114: {fileID: 335725103}
+  - component: {fileID: 335725106}
+  - component: {fileID: 335725105}
+  - component: {fileID: 335725104}
+  - component: {fileID: 335725103}
   m_Layer: 5
   m_Name: Button
   m_TagString: Untagged
@@ -219,11 +237,11 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 340501147}
   m_Father: {fileID: 1727009954}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -84.5, y: -159.92}
@@ -234,11 +252,11 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 340501147}
-  - 222: {fileID: 340501149}
-  - 114: {fileID: 340501148}
+  - component: {fileID: 340501147}
+  - component: {fileID: 340501149}
+  - component: {fileID: 340501148}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -255,10 +273,10 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 335725106}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -308,11 +326,12 @@ GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 349578335}
-  - 114: {fileID: 349578336}
-  - 114: {fileID: 349578333}
+  - component: {fileID: 349578335}
+  - component: {fileID: 349578336}
+  - component: {fileID: 349578333}
+  - component: {fileID: 349578334}
   m_Layer: 0
   m_Name: Events Tests
   m_TagString: Untagged
@@ -335,21 +354,86 @@ MonoBehaviour:
     List:
     - mEventName: 
       mShowGroup: 1
-      mYOffset: 6
       mUpdateEntryList: 0
       mEntryList:
+      - target: {fileID: 815194661}
+        name: AddComponentInternal (String className)
+      - target: {fileID: 815194662}
+        name: BasicEvent ()
+      - target: {fileID: 815194661}
+        name: CreatePrimitive (PrimitiveType type)
+      - target: {fileID: 815194663}
+        name: DetachChildren ()
+      - target: {fileID: 815194663}
+        name: Find (String name)
+      - target: {fileID: 815194661}
+        name: Find (String name)
+      - target: {fileID: 815194663}
+        name: FindChild (String name)
+      - target: {fileID: 815194661}
+        name: FindGameObjectsWithTag (String tag)
+      - target: {fileID: 815194661}
+        name: FindGameObjectWithTag (String tag)
+      - target: {fileID: 815194661}
+        name: FindWithTag (String tag)
+      - target: {fileID: 815194663}
+        name: GetChild (Int32 index)
+      - target: {fileID: 815194663}
+        name: GetChildCount ()
+      - target: {fileID: 815194663}
+        name: GetEnumerator ()
+      - target: {fileID: 815194663}
+        name: GetLocalEulerAngles (RotationOrder order)
+      - target: {fileID: 815194663}
+        name: GetSiblingIndex ()
+      - target: {fileID: 815194661}
+        name: Internal_AddComponentWithType (Type componentType)
+      - target: {fileID: 815194661}
+        name: Internal_CreateGameObject (GameObject mono, String name)
+      - target: {fileID: 815194663}
+        name: IsChildOf (Transform parent)
+      - target: {fileID: 815194663}
+        name: IsNonUniformScaleTransform ()
       - target: {fileID: 815194662}
         name: MyOptionalParameters (String childMessage)
       - target: {fileID: 815194662}
         name: MyStaticMethod (String sendMessage)
       - target: {fileID: 815194662}
         name: ParentMessage (String logMessage)
+      - target: {fileID: 815194661}
+        name: PlayAnimation (Object animation)
       - target: {fileID: 815194662}
         name: ResturningString ()
+      - target: {fileID: 815194663}
+        name: RotateAroundInternal (Vector3 axis, Single angle)
+      - target: {fileID: 815194663}
+        name: RotateAroundLocal (Vector3 axis, Single angle)
+      - target: {fileID: 815194661}
+        name: SampleAnimation (Object clip, Single time)
+      - target: {fileID: 815194663}
+        name: SendTransformChangedScale ()
+      - target: {fileID: 815194661}
+        name: SetActive (Boolean value)
+      - target: {fileID: 815194661}
+        name: SetActiveRecursively (Boolean state)
+      - target: {fileID: 815194663}
+        name: SetAsFirstSibling ()
+      - target: {fileID: 815194663}
+        name: SetAsLastSibling ()
+      - target: {fileID: 815194663}
+        name: SetLocalEulerAngles (Vector3 euler, RotationOrder order)
+      - target: {fileID: 815194663}
+        name: SetLocalEulerHint (Vector3 euler)
       - target: {fileID: 815194662}
         name: SetParent (Transform child, Transform newParent)
+      - target: {fileID: 815194663}
+        name: SetPositionAndRotation (Vector3 position, Quaternion rotation)
+      - target: {fileID: 815194663}
+        name: SetSiblingIndex (Int32 index)
       - target: {fileID: 815194662}
         name: StopAllCoroutines ()
+      - target: {fileID: 815194661}
+        name: StopAnimation ()
       - target: {fileID: 815194662}
         name: TestingColorParam (Color color)
       - target: {fileID: 815194662}
@@ -366,6 +450,8 @@ MonoBehaviour:
         name: TestLogEnum (FireType fire)
       - target: {fileID: 815194662}
         name: TestLogInt (Int32 integerParam)
+      - target: {fileID: 815194662}
+        name: TestLogMultiFlag (MultiFireType multiFire)
       - target: {fileID: 815194662}
         name: TestMono (String message)
       - target: {fileID: 815194662}
@@ -464,24 +550,90 @@ MonoBehaviour:
         argVector2: {x: 0, y: 0}
         argVector3: {x: 0, y: 0, z: 0}
         argVector4: {x: 0, y: 0, z: 0, w: 0}
+      mCached: 0
       oneShot: 0
     - mEventName: 
-      mShowGroup: 1
-      mYOffset: 6
-      mUpdateEntryList: 0
+      mShowGroup: 0
+      mUpdateEntryList: 1
       mEntryList:
+      - target: {fileID: 815194661}
+        name: AddComponentInternal (String className)
+      - target: {fileID: 815194662}
+        name: BasicEvent ()
+      - target: {fileID: 815194661}
+        name: CreatePrimitive (PrimitiveType type)
+      - target: {fileID: 815194663}
+        name: DetachChildren ()
+      - target: {fileID: 815194663}
+        name: Find (String name)
+      - target: {fileID: 815194661}
+        name: Find (String name)
+      - target: {fileID: 815194663}
+        name: FindChild (String name)
+      - target: {fileID: 815194661}
+        name: FindGameObjectsWithTag (String tag)
+      - target: {fileID: 815194661}
+        name: FindGameObjectWithTag (String tag)
+      - target: {fileID: 815194661}
+        name: FindWithTag (String tag)
+      - target: {fileID: 815194663}
+        name: GetChild (Int32 index)
+      - target: {fileID: 815194663}
+        name: GetChildCount ()
+      - target: {fileID: 815194663}
+        name: GetEnumerator ()
+      - target: {fileID: 815194663}
+        name: GetLocalEulerAngles (RotationOrder order)
+      - target: {fileID: 815194663}
+        name: GetSiblingIndex ()
+      - target: {fileID: 815194661}
+        name: Internal_AddComponentWithType (Type componentType)
+      - target: {fileID: 815194661}
+        name: Internal_CreateGameObject (GameObject mono, String name)
+      - target: {fileID: 815194663}
+        name: IsChildOf (Transform parent)
+      - target: {fileID: 815194663}
+        name: IsNonUniformScaleTransform ()
       - target: {fileID: 815194662}
         name: MyOptionalParameters (String childMessage)
       - target: {fileID: 815194662}
         name: MyStaticMethod (String sendMessage)
       - target: {fileID: 815194662}
         name: ParentMessage (String logMessage)
+      - target: {fileID: 815194661}
+        name: PlayAnimation (Object animation)
       - target: {fileID: 815194662}
         name: ResturningString ()
+      - target: {fileID: 815194663}
+        name: RotateAroundInternal (Vector3 axis, Single angle)
+      - target: {fileID: 815194663}
+        name: RotateAroundLocal (Vector3 axis, Single angle)
+      - target: {fileID: 815194661}
+        name: SampleAnimation (Object clip, Single time)
+      - target: {fileID: 815194663}
+        name: SendTransformChangedScale ()
+      - target: {fileID: 815194661}
+        name: SetActive (Boolean value)
+      - target: {fileID: 815194661}
+        name: SetActiveRecursively (Boolean state)
+      - target: {fileID: 815194663}
+        name: SetAsFirstSibling ()
+      - target: {fileID: 815194663}
+        name: SetAsLastSibling ()
+      - target: {fileID: 815194663}
+        name: SetLocalEulerAngles (Vector3 euler, RotationOrder order)
+      - target: {fileID: 815194663}
+        name: SetLocalEulerHint (Vector3 euler)
       - target: {fileID: 815194662}
         name: SetParent (Transform child, Transform newParent)
+      - target: {fileID: 815194663}
+        name: SetPositionAndRotation (Vector3 position, Quaternion rotation)
+      - target: {fileID: 815194663}
+        name: SetSiblingIndex (Int32 index)
       - target: {fileID: 815194662}
         name: StopAllCoroutines ()
+      - target: {fileID: 815194661}
+        name: StopAnimation ()
       - target: {fileID: 815194662}
         name: TestingColorParam (Color color)
       - target: {fileID: 815194662}
@@ -498,6 +650,8 @@ MonoBehaviour:
         name: TestLogEnum (FireType fire)
       - target: {fileID: 815194662}
         name: TestLogInt (Int32 integerParam)
+      - target: {fileID: 815194662}
+        name: TestLogMultiFlag (MultiFireType multiFire)
       - target: {fileID: 815194662}
         name: TestMono (String message)
       - target: {fileID: 815194662}
@@ -524,24 +678,90 @@ MonoBehaviour:
         argVector2: {x: 0, y: 0}
         argVector3: {x: 0, y: 0, z: 0}
         argVector4: {x: 0, y: 0, z: 0, w: 0}
+      mCached: 0
       oneShot: 0
     - mEventName: 
-      mShowGroup: 1
-      mYOffset: 6
-      mUpdateEntryList: 0
+      mShowGroup: 0
+      mUpdateEntryList: 1
       mEntryList:
+      - target: {fileID: 815194661}
+        name: AddComponentInternal (String className)
+      - target: {fileID: 815194662}
+        name: BasicEvent ()
+      - target: {fileID: 815194661}
+        name: CreatePrimitive (PrimitiveType type)
+      - target: {fileID: 815194663}
+        name: DetachChildren ()
+      - target: {fileID: 815194663}
+        name: Find (String name)
+      - target: {fileID: 815194661}
+        name: Find (String name)
+      - target: {fileID: 815194663}
+        name: FindChild (String name)
+      - target: {fileID: 815194661}
+        name: FindGameObjectsWithTag (String tag)
+      - target: {fileID: 815194661}
+        name: FindGameObjectWithTag (String tag)
+      - target: {fileID: 815194661}
+        name: FindWithTag (String tag)
+      - target: {fileID: 815194663}
+        name: GetChild (Int32 index)
+      - target: {fileID: 815194663}
+        name: GetChildCount ()
+      - target: {fileID: 815194663}
+        name: GetEnumerator ()
+      - target: {fileID: 815194663}
+        name: GetLocalEulerAngles (RotationOrder order)
+      - target: {fileID: 815194663}
+        name: GetSiblingIndex ()
+      - target: {fileID: 815194661}
+        name: Internal_AddComponentWithType (Type componentType)
+      - target: {fileID: 815194661}
+        name: Internal_CreateGameObject (GameObject mono, String name)
+      - target: {fileID: 815194663}
+        name: IsChildOf (Transform parent)
+      - target: {fileID: 815194663}
+        name: IsNonUniformScaleTransform ()
       - target: {fileID: 815194662}
         name: MyOptionalParameters (String childMessage)
       - target: {fileID: 815194662}
         name: MyStaticMethod (String sendMessage)
       - target: {fileID: 815194662}
         name: ParentMessage (String logMessage)
+      - target: {fileID: 815194661}
+        name: PlayAnimation (Object animation)
       - target: {fileID: 815194662}
         name: ResturningString ()
+      - target: {fileID: 815194663}
+        name: RotateAroundInternal (Vector3 axis, Single angle)
+      - target: {fileID: 815194663}
+        name: RotateAroundLocal (Vector3 axis, Single angle)
+      - target: {fileID: 815194661}
+        name: SampleAnimation (Object clip, Single time)
+      - target: {fileID: 815194663}
+        name: SendTransformChangedScale ()
+      - target: {fileID: 815194661}
+        name: SetActive (Boolean value)
+      - target: {fileID: 815194661}
+        name: SetActiveRecursively (Boolean state)
+      - target: {fileID: 815194663}
+        name: SetAsFirstSibling ()
+      - target: {fileID: 815194663}
+        name: SetAsLastSibling ()
+      - target: {fileID: 815194663}
+        name: SetLocalEulerAngles (Vector3 euler, RotationOrder order)
+      - target: {fileID: 815194663}
+        name: SetLocalEulerHint (Vector3 euler)
       - target: {fileID: 815194662}
         name: SetParent (Transform child, Transform newParent)
+      - target: {fileID: 815194663}
+        name: SetPositionAndRotation (Vector3 position, Quaternion rotation)
+      - target: {fileID: 815194663}
+        name: SetSiblingIndex (Int32 index)
       - target: {fileID: 815194662}
         name: StopAllCoroutines ()
+      - target: {fileID: 815194661}
+        name: StopAnimation ()
       - target: {fileID: 815194662}
         name: TestingColorParam (Color color)
       - target: {fileID: 815194662}
@@ -558,6 +778,8 @@ MonoBehaviour:
         name: TestLogEnum (FireType fire)
       - target: {fileID: 815194662}
         name: TestLogInt (Int32 integerParam)
+      - target: {fileID: 815194662}
+        name: TestLogMultiFlag (MultiFireType multiFire)
       - target: {fileID: 815194662}
         name: TestMono (String message)
       - target: {fileID: 815194662}
@@ -580,28 +802,94 @@ MonoBehaviour:
         argFloatValue: 0
         argDoubleValue: 0
         argBoolValue: 0
-        argColor: {r: 0, g: 0, b: 0, a: 0}
+        argColor: {r: 1, g: 1, b: 1, a: 1}
         argVector2: {x: 0, y: 0}
         argVector3: {x: 0, y: 0, z: 0}
         argVector4: {x: 0, y: 0, z: 0, w: 0}
+      mCached: 0
       oneShot: 0
     - mEventName: Event 3
-      mShowGroup: 1
-      mYOffset: 6
-      mUpdateEntryList: 0
+      mShowGroup: 0
+      mUpdateEntryList: 1
       mEntryList:
+      - target: {fileID: 815194661}
+        name: AddComponentInternal (String className)
+      - target: {fileID: 815194662}
+        name: BasicEvent ()
+      - target: {fileID: 815194661}
+        name: CreatePrimitive (PrimitiveType type)
+      - target: {fileID: 815194663}
+        name: DetachChildren ()
+      - target: {fileID: 815194663}
+        name: Find (String name)
+      - target: {fileID: 815194661}
+        name: Find (String name)
+      - target: {fileID: 815194663}
+        name: FindChild (String name)
+      - target: {fileID: 815194661}
+        name: FindGameObjectsWithTag (String tag)
+      - target: {fileID: 815194661}
+        name: FindGameObjectWithTag (String tag)
+      - target: {fileID: 815194661}
+        name: FindWithTag (String tag)
+      - target: {fileID: 815194663}
+        name: GetChild (Int32 index)
+      - target: {fileID: 815194663}
+        name: GetChildCount ()
+      - target: {fileID: 815194663}
+        name: GetEnumerator ()
+      - target: {fileID: 815194663}
+        name: GetLocalEulerAngles (RotationOrder order)
+      - target: {fileID: 815194663}
+        name: GetSiblingIndex ()
+      - target: {fileID: 815194661}
+        name: Internal_AddComponentWithType (Type componentType)
+      - target: {fileID: 815194661}
+        name: Internal_CreateGameObject (GameObject mono, String name)
+      - target: {fileID: 815194663}
+        name: IsChildOf (Transform parent)
+      - target: {fileID: 815194663}
+        name: IsNonUniformScaleTransform ()
       - target: {fileID: 815194662}
         name: MyOptionalParameters (String childMessage)
       - target: {fileID: 815194662}
         name: MyStaticMethod (String sendMessage)
       - target: {fileID: 815194662}
         name: ParentMessage (String logMessage)
+      - target: {fileID: 815194661}
+        name: PlayAnimation (Object animation)
       - target: {fileID: 815194662}
         name: ResturningString ()
+      - target: {fileID: 815194663}
+        name: RotateAroundInternal (Vector3 axis, Single angle)
+      - target: {fileID: 815194663}
+        name: RotateAroundLocal (Vector3 axis, Single angle)
+      - target: {fileID: 815194661}
+        name: SampleAnimation (Object clip, Single time)
+      - target: {fileID: 815194663}
+        name: SendTransformChangedScale ()
+      - target: {fileID: 815194661}
+        name: SetActive (Boolean value)
+      - target: {fileID: 815194661}
+        name: SetActiveRecursively (Boolean state)
+      - target: {fileID: 815194663}
+        name: SetAsFirstSibling ()
+      - target: {fileID: 815194663}
+        name: SetAsLastSibling ()
+      - target: {fileID: 815194663}
+        name: SetLocalEulerAngles (Vector3 euler, RotationOrder order)
+      - target: {fileID: 815194663}
+        name: SetLocalEulerHint (Vector3 euler)
       - target: {fileID: 815194662}
         name: SetParent (Transform child, Transform newParent)
+      - target: {fileID: 815194663}
+        name: SetPositionAndRotation (Vector3 position, Quaternion rotation)
+      - target: {fileID: 815194663}
+        name: SetSiblingIndex (Int32 index)
       - target: {fileID: 815194662}
         name: StopAllCoroutines ()
+      - target: {fileID: 815194661}
+        name: StopAnimation ()
       - target: {fileID: 815194662}
         name: TestingColorParam (Color color)
       - target: {fileID: 815194662}
@@ -618,6 +906,8 @@ MonoBehaviour:
         name: TestLogEnum (FireType fire)
       - target: {fileID: 815194662}
         name: TestLogInt (Int32 integerParam)
+      - target: {fileID: 815194662}
+        name: TestLogMultiFlag (MultiFireType multiFire)
       - target: {fileID: 815194662}
         name: TestMono (String message)
       - target: {fileID: 815194662}
@@ -668,26 +958,90 @@ MonoBehaviour:
         argVector2: {x: 0, y: 0}
         argVector3: {x: 0, y: 0, z: 0}
         argVector4: {x: 0, y: 0, z: 0, w: 0}
+      mCached: 0
       oneShot: 0
     - mEventName: Event 3
-      mShowGroup: 1
-      mYOffset: 6
-      mUpdateEntryList: 0
+      mShowGroup: 0
+      mUpdateEntryList: 1
       mEntryList:
+      - target: {fileID: 815194661}
+        name: AddComponentInternal (String className)
       - target: {fileID: 815194662}
         name: BasicEvent ()
+      - target: {fileID: 815194661}
+        name: CreatePrimitive (PrimitiveType type)
+      - target: {fileID: 815194663}
+        name: DetachChildren ()
+      - target: {fileID: 815194663}
+        name: Find (String name)
+      - target: {fileID: 815194661}
+        name: Find (String name)
+      - target: {fileID: 815194663}
+        name: FindChild (String name)
+      - target: {fileID: 815194661}
+        name: FindGameObjectsWithTag (String tag)
+      - target: {fileID: 815194661}
+        name: FindGameObjectWithTag (String tag)
+      - target: {fileID: 815194661}
+        name: FindWithTag (String tag)
+      - target: {fileID: 815194663}
+        name: GetChild (Int32 index)
+      - target: {fileID: 815194663}
+        name: GetChildCount ()
+      - target: {fileID: 815194663}
+        name: GetEnumerator ()
+      - target: {fileID: 815194663}
+        name: GetLocalEulerAngles (RotationOrder order)
+      - target: {fileID: 815194663}
+        name: GetSiblingIndex ()
+      - target: {fileID: 815194661}
+        name: Internal_AddComponentWithType (Type componentType)
+      - target: {fileID: 815194661}
+        name: Internal_CreateGameObject (GameObject mono, String name)
+      - target: {fileID: 815194663}
+        name: IsChildOf (Transform parent)
+      - target: {fileID: 815194663}
+        name: IsNonUniformScaleTransform ()
       - target: {fileID: 815194662}
         name: MyOptionalParameters (String childMessage)
       - target: {fileID: 815194662}
         name: MyStaticMethod (String sendMessage)
       - target: {fileID: 815194662}
         name: ParentMessage (String logMessage)
+      - target: {fileID: 815194661}
+        name: PlayAnimation (Object animation)
       - target: {fileID: 815194662}
         name: ResturningString ()
+      - target: {fileID: 815194663}
+        name: RotateAroundInternal (Vector3 axis, Single angle)
+      - target: {fileID: 815194663}
+        name: RotateAroundLocal (Vector3 axis, Single angle)
+      - target: {fileID: 815194661}
+        name: SampleAnimation (Object clip, Single time)
+      - target: {fileID: 815194663}
+        name: SendTransformChangedScale ()
+      - target: {fileID: 815194661}
+        name: SetActive (Boolean value)
+      - target: {fileID: 815194661}
+        name: SetActiveRecursively (Boolean state)
+      - target: {fileID: 815194663}
+        name: SetAsFirstSibling ()
+      - target: {fileID: 815194663}
+        name: SetAsLastSibling ()
+      - target: {fileID: 815194663}
+        name: SetLocalEulerAngles (Vector3 euler, RotationOrder order)
+      - target: {fileID: 815194663}
+        name: SetLocalEulerHint (Vector3 euler)
       - target: {fileID: 815194662}
         name: SetParent (Transform child, Transform newParent)
+      - target: {fileID: 815194663}
+        name: SetPositionAndRotation (Vector3 position, Quaternion rotation)
+      - target: {fileID: 815194663}
+        name: SetSiblingIndex (Int32 index)
       - target: {fileID: 815194662}
         name: StopAllCoroutines ()
+      - target: {fileID: 815194661}
+        name: StopAnimation ()
       - target: {fileID: 815194662}
         name: TestingColorParam (Color color)
       - target: {fileID: 815194662}
@@ -704,6 +1058,8 @@ MonoBehaviour:
         name: TestLogEnum (FireType fire)
       - target: {fileID: 815194662}
         name: TestLogInt (Int32 integerParam)
+      - target: {fileID: 815194662}
+        name: TestLogMultiFlag (MultiFireType multiFire)
       - target: {fileID: 815194662}
         name: TestMono (String message)
       - target: {fileID: 815194662}
@@ -754,6 +1110,7 @@ MonoBehaviour:
         argVector2: {x: 0, y: 0}
         argVector3: {x: 0, y: 0, z: 0}
         argVector4: {x: 0, y: 0, z: 0, w: 0}
+      mCached: 0
       oneShot: 0
   OnEnableEvents:
     m_PersistentCalls:
@@ -801,7 +1158,6 @@ MonoBehaviour:
   CustomDelegates:
   - mEventName: Set Parent
     mShowGroup: 1
-    mYOffset: 0
     mUpdateEntryList: 0
     mEntryList:
     - target: {fileID: 349578336}
@@ -879,10 +1235,10 @@ MonoBehaviour:
       argVector2: {x: 0, y: 0}
       argVector3: {x: 0, y: 0, z: 0}
       argVector4: {x: 0, y: 0, z: 0, w: 0}
+    mCached: 0
     oneShot: 0
   - mEventName: Testing all types
     mShowGroup: 1
-    mYOffset: 0
     mUpdateEntryList: 0
     mEntryList:
     - target: {fileID: 349578336}
@@ -1008,10 +1364,10 @@ MonoBehaviour:
       argVector2: {x: 0, y: 0}
       argVector3: {x: 0, y: 0, z: 0}
       argVector4: {x: 0, y: 0, z: 0, w: 0}
+    mCached: 0
     oneShot: 0
   - mEventName: optional params
     mShowGroup: 1
-    mYOffset: 0
     mUpdateEntryList: 0
     mEntryList:
     - target: {fileID: 349578336}
@@ -1077,10 +1433,10 @@ MonoBehaviour:
       argVector2: {x: 0, y: 0}
       argVector3: {x: 0, y: 0, z: 0}
       argVector4: {x: 0, y: 0, z: 0, w: 0}
+    mCached: 0
     oneShot: 0
   - mEventName: testing static
     mShowGroup: 1
-    mYOffset: 0
     mUpdateEntryList: 0
     mEntryList:
     - target: {fileID: 349578336}
@@ -1146,10 +1502,10 @@ MonoBehaviour:
       argVector2: {x: 0, y: 0}
       argVector3: {x: 0, y: 0, z: 0}
       argVector4: {x: 0, y: 0, z: 0, w: 0}
+    mCached: 0
     oneShot: 0
   - mEventName: testing return method
     mShowGroup: 1
-    mYOffset: 0
     mUpdateEntryList: 0
     mEntryList:
     - target: {fileID: 349578336}
@@ -1215,10 +1571,10 @@ MonoBehaviour:
       argVector2: {x: 0, y: 0}
       argVector3: {x: 0, y: 0, z: 0}
       argVector4: {x: 0, y: 0, z: 0, w: 0}
+    mCached: 0
     oneShot: 0
   - mEventName: Vector param
     mShowGroup: 1
-    mYOffset: 0
     mUpdateEntryList: 0
     mEntryList:
     - target: {fileID: 349578336}
@@ -1308,10 +1664,10 @@ MonoBehaviour:
       argVector2: {x: 0, y: 0}
       argVector3: {x: 0, y: 0, z: 0}
       argVector4: {x: 0.3, y: 0.4, z: 0.5, w: 0.6}
+    mCached: 0
     oneShot: 0
   - mEventName: Color param
     mShowGroup: 1
-    mYOffset: 0
     mUpdateEntryList: 0
     mEntryList:
     - target: {fileID: 349578336}
@@ -1377,10 +1733,10 @@ MonoBehaviour:
       argVector2: {x: 0, y: 0}
       argVector3: {x: 0, y: 0, z: 0}
       argVector4: {x: 0, y: 0, z: 0, w: 0}
+    mCached: 0
     oneShot: 0
   - mEventName: testing private method
     mShowGroup: 1
-    mYOffset: 0
     mUpdateEntryList: 0
     mEntryList:
     - target: {fileID: 349578336}
@@ -1446,10 +1802,10 @@ MonoBehaviour:
       argVector2: {x: 0, y: 0}
       argVector3: {x: 0, y: 0, z: 0}
       argVector4: {x: 0, y: 0, z: 0, w: 0}
+    mCached: 0
     oneShot: 0
   - mEventName: testing mono return
     mShowGroup: 1
-    mYOffset: 0
     mUpdateEntryList: 0
     mEntryList:
     - target: {fileID: 349578336}
@@ -1515,10 +1871,10 @@ MonoBehaviour:
       argVector2: {x: 0, y: 0}
       argVector3: {x: 0, y: 0, z: 0}
       argVector4: {x: 0, y: 0, z: 0, w: 0}
+    mCached: 0
     oneShot: 0
   - mEventName: testing system obejct return
     mShowGroup: 1
-    mYOffset: 0
     mUpdateEntryList: 0
     mEntryList:
     - target: {fileID: 349578336}
@@ -1584,10 +1940,10 @@ MonoBehaviour:
       argVector2: {x: 0, y: 0}
       argVector3: {x: 0, y: 0, z: 0}
       argVector4: {x: 0, y: 0, z: 0, w: 0}
+    mCached: 0
     oneShot: 0
   - mEventName: testing serialized param
     mShowGroup: 1
-    mYOffset: 0
     mUpdateEntryList: 0
     mEntryList:
     - target: {fileID: 349578336}
@@ -1653,10 +2009,10 @@ MonoBehaviour:
       argVector2: {x: 0, y: 0}
       argVector3: {x: 0, y: 0, z: 0}
       argVector4: {x: 0, y: 0, z: 0, w: 0}
+    mCached: 0
     oneShot: 0
   - mEventName: testing Enums
     mShowGroup: 1
-    mYOffset: 0
     mUpdateEntryList: 0
     mEntryList:
     - target: {fileID: 349578336}
@@ -1722,7 +2078,238 @@ MonoBehaviour:
       argVector2: {x: 0, y: 0}
       argVector3: {x: 0, y: 0, z: 0}
       argVector4: {x: 0, y: 0, z: 0, w: 0}
+    mCached: 0
     oneShot: 0
+--- !u!114 &349578334
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 349578332}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4fb8fb9a17960db41bbfa3960f45ff49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  UnityReorderableDrawer:
+    List:
+    - mEventName: 
+      mShowGroup: 1
+      mUpdateEntryList: 0
+      mEntryList:
+      - target: {fileID: 349578332}
+        name: AddComponentInternal (String className)
+      - target: {fileID: 349578336}
+        name: BasicEvent ()
+      - target: {fileID: 349578332}
+        name: CreatePrimitive (PrimitiveType type)
+      - target: {fileID: 349578335}
+        name: DetachChildren ()
+      - target: {fileID: 349578335}
+        name: Find (String name)
+      - target: {fileID: 349578332}
+        name: Find (String name)
+      - target: {fileID: 349578335}
+        name: FindChild (String name)
+      - target: {fileID: 349578332}
+        name: FindGameObjectsWithTag (String tag)
+      - target: {fileID: 349578332}
+        name: FindGameObjectWithTag (String tag)
+      - target: {fileID: 349578332}
+        name: FindWithTag (String tag)
+      - target: {fileID: 349578335}
+        name: GetChild (Int32 index)
+      - target: {fileID: 349578335}
+        name: GetChildCount ()
+      - target: {fileID: 349578335}
+        name: GetEnumerator ()
+      - target: {fileID: 349578335}
+        name: GetLocalEulerAngles (RotationOrder order)
+      - target: {fileID: 349578335}
+        name: GetSiblingIndex ()
+      - target: {fileID: 349578332}
+        name: Internal_AddComponentWithType (Type componentType)
+      - target: {fileID: 349578332}
+        name: Internal_CreateGameObject (GameObject mono, String name)
+      - target: {fileID: 349578335}
+        name: IsChildOf (Transform parent)
+      - target: {fileID: 349578335}
+        name: IsNonUniformScaleTransform ()
+      - target: {fileID: 349578336}
+        name: MyOptionalParameters (String childMessage)
+      - target: {fileID: 349578336}
+        name: MyStaticMethod (String sendMessage)
+      - target: {fileID: 349578334}
+        name: OnEnable ()
+      - target: {fileID: 349578333}
+        name: OnEnable ()
+      - target: {fileID: 349578336}
+        name: ParentMessage (String logMessage)
+      - target: {fileID: 349578332}
+        name: PlayAnimation (Object animation)
+      - target: {fileID: 349578336}
+        name: ResturningString ()
+      - target: {fileID: 349578335}
+        name: RotateAroundInternal (Vector3 axis, Single angle)
+      - target: {fileID: 349578335}
+        name: RotateAroundLocal (Vector3 axis, Single angle)
+      - target: {fileID: 349578332}
+        name: SampleAnimation (Object clip, Single time)
+      - target: {fileID: 349578335}
+        name: SendTransformChangedScale ()
+      - target: {fileID: 349578332}
+        name: SetActive (Boolean value)
+      - target: {fileID: 349578332}
+        name: SetActiveRecursively (Boolean state)
+      - target: {fileID: 349578335}
+        name: SetAsFirstSibling ()
+      - target: {fileID: 349578335}
+        name: SetAsLastSibling ()
+      - target: {fileID: 349578335}
+        name: SetLocalEulerAngles (Vector3 euler, RotationOrder order)
+      - target: {fileID: 349578335}
+        name: SetLocalEulerHint (Vector3 euler)
+      - target: {fileID: 349578333}
+        name: SetParent (Transform child, Transform newParent)
+      - target: {fileID: 349578336}
+        name: SetParent (Transform child, Transform newParent)
+      - target: {fileID: 349578334}
+        name: SetParent (Transform child, Transform newParent)
+      - target: {fileID: 349578335}
+        name: SetPositionAndRotation (Vector3 position, Quaternion rotation)
+      - target: {fileID: 349578335}
+        name: SetSiblingIndex (Int32 index)
+      - target: {fileID: 349578333}
+        name: StopAllCoroutines ()
+      - target: {fileID: 349578334}
+        name: StopAllCoroutines ()
+      - target: {fileID: 349578336}
+        name: StopAllCoroutines ()
+      - target: {fileID: 349578332}
+        name: StopAnimation ()
+      - target: {fileID: 349578336}
+        name: TestingColorParam (Color color)
+      - target: {fileID: 349578336}
+        name: TestingintInternalMethod (String sendMessage)
+      - target: {fileID: 349578336}
+        name: TestingMultipleParameters (String message, Single number)
+      - target: {fileID: 349578336}
+        name: TestingReturn (String sendMessage)
+      - target: {fileID: 349578336}
+        name: TestingReturnInt (String sendMessage)
+      - target: {fileID: 349578336}
+        name: TestingVectorParameter (Vector2 vec2, Vector3 vec3, Vector4 vec4)
+      - target: {fileID: 349578336}
+        name: TestLogEnum (FireType fire)
+      - target: {fileID: 349578336}
+        name: TestLogInt (Int32 integerParam)
+      - target: {fileID: 349578336}
+        name: TestLogMultiFlag (MultiFireType multiFire)
+      - target: {fileID: 349578336}
+        name: TestMono (String message)
+      - target: {fileID: 349578333}
+        name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
+          Double valDouble, Boolean valBool, Transform valTranform)
+      - target: {fileID: 349578334}
+        name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
+          Double valDouble, Boolean valBool, Transform valTranform)
+      - target: {fileID: 349578336}
+        name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
+          Double valDouble, Boolean valBool, Transform valTranform, FireType fireType)
+      - target: {fileID: 349578336}
+        name: TestSerializedClassParam (DelegateHolder holderClass)
+      - target: {fileID: 349578336}
+        name: TestSystemObject (String message)
+      - target: {fileID: 349578336}
+        name: TestUnityObject (String message)
+      mTarget: {fileID: 349578333}
+      mMethodName: TestPrimitiveParams
+      mParameters:
+      - obj: {fileID: 0}
+        field: 
+        paramRefType: 0
+        argStringValue: 
+        argIntValue: 0
+        argFloatValue: 0
+        argDoubleValue: 0
+        argBoolValue: 0
+        argColor: {r: 0, g: 0, b: 0, a: 0}
+        argVector2: {x: 0, y: 0}
+        argVector3: {x: 0, y: 0, z: 0}
+        argVector4: {x: 0, y: 0, z: 0, w: 0}
+      - obj: {fileID: 0}
+        field: 
+        paramRefType: 0
+        argStringValue: 
+        argIntValue: 0
+        argFloatValue: 0
+        argDoubleValue: 0
+        argBoolValue: 0
+        argColor: {r: 0, g: 0, b: 0, a: 0}
+        argVector2: {x: 0, y: 0}
+        argVector3: {x: 0, y: 0, z: 0}
+        argVector4: {x: 0, y: 0, z: 0, w: 0}
+      - obj: {fileID: 0}
+        field: 
+        paramRefType: 0
+        argStringValue: 
+        argIntValue: 0
+        argFloatValue: 0
+        argDoubleValue: 0
+        argBoolValue: 0
+        argColor: {r: 0, g: 0, b: 0, a: 0}
+        argVector2: {x: 0, y: 0}
+        argVector3: {x: 0, y: 0, z: 0}
+        argVector4: {x: 0, y: 0, z: 0, w: 0}
+      - obj: {fileID: 0}
+        field: 
+        paramRefType: 0
+        argStringValue: 
+        argIntValue: 0
+        argFloatValue: 0
+        argDoubleValue: 0
+        argBoolValue: 0
+        argColor: {r: 0, g: 0, b: 0, a: 0}
+        argVector2: {x: 0, y: 0}
+        argVector3: {x: 0, y: 0, z: 0}
+        argVector4: {x: 0, y: 0, z: 0, w: 0}
+      - obj: {fileID: 0}
+        field: 
+        paramRefType: 0
+        argStringValue: 
+        argIntValue: 0
+        argFloatValue: 0
+        argDoubleValue: 0
+        argBoolValue: 0
+        argColor: {r: 0, g: 0, b: 0, a: 0}
+        argVector2: {x: 0, y: 0}
+        argVector3: {x: 0, y: 0, z: 0}
+        argVector4: {x: 0, y: 0, z: 0, w: 0}
+      - obj: {fileID: 0}
+        field: 
+        paramRefType: 0
+        argStringValue: 
+        argIntValue: 0
+        argFloatValue: 0
+        argDoubleValue: 0
+        argBoolValue: 0
+        argColor: {r: 0, g: 0, b: 0, a: 0}
+        argVector2: {x: 0, y: 0}
+        argVector3: {x: 0, y: 0, z: 0}
+        argVector4: {x: 0, y: 0, z: 0, w: 0}
+      mCached: 0
+      oneShot: 0
+  OnEnableEvents:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  AnotherCustomTest:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityCustomTest, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+  CustomDelegates: []
 --- !u!4 &349578335
 Transform:
   m_ObjectHideFlags: 0
@@ -1732,10 +2319,10 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: -33.8926, z: 90}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &349578336
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1749,15 +2336,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myFireType: 0
   myColor: {r: 0, g: 0, b: 0, a: 0}
-  myMultiFireType: 0
+  myMultiFireType: 2
 --- !u!1 &399537534
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 399537535}
+  - component: {fileID: 399537535}
   m_Layer: 0
   m_Name: Child GameObject
   m_TagString: Untagged
@@ -1774,19 +2361,19 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &815194661
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 815194663}
-  - 114: {fileID: 815194662}
+  - component: {fileID: 815194663}
+  - component: {fileID: 815194662}
   m_Layer: 0
   m_Name: event child test
   m_TagString: Untagged
@@ -1807,7 +2394,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   myFireType: 0
   myColor: {r: 0, g: 0, b: 0, a: 0}
-  myMultiFireType: 0
+  myMultiFireType: 4
 --- !u!4 &815194663
 Transform:
   m_ObjectHideFlags: 0
@@ -1817,22 +2404,22 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -5.31533, y: 5.562145, z: 90}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1149660459
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1149660464}
-  - 20: {fileID: 1149660463}
-  - 124: {fileID: 1149660462}
-  - 92: {fileID: 1149660461}
-  - 81: {fileID: 1149660460}
+  - component: {fileID: 1149660464}
+  - component: {fileID: 1149660463}
+  - component: {fileID: 1149660462}
+  - component: {fileID: 1149660461}
+  - component: {fileID: 1149660460}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -1891,6 +2478,8 @@ Camera:
   m_TargetDisplay: 0
   m_TargetEye: 3
   m_HDR: 0
+  m_AllowMSAA: 1
+  m_ForceIntoRT: 0
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
@@ -1904,26 +2493,26 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1313838040
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1313838042}
-  - 114: {fileID: 1313838041}
+  - component: {fileID: 1313838042}
+  - component: {fileID: 1313838041}
   m_Layer: 0
   m_Name: Serialized Draw Behaviour
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1313838041
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1940,17 +2529,86 @@ MonoBehaviour:
     CustomDelegates:
     - mEventName: test 1
       mShowGroup: 1
-      mYOffset: 0
       mUpdateEntryList: 0
       mEntryList:
+      - target: {fileID: 815194661}
+        name: AddComponentInternal (String className)
+      - target: {fileID: 815194662}
+        name: BasicEvent ()
+      - target: {fileID: 815194661}
+        name: CreatePrimitive (PrimitiveType type)
+      - target: {fileID: 815194663}
+        name: DetachChildren ()
+      - target: {fileID: 815194663}
+        name: Find (String name)
+      - target: {fileID: 815194661}
+        name: Find (String name)
+      - target: {fileID: 815194663}
+        name: FindChild (String name)
+      - target: {fileID: 815194661}
+        name: FindGameObjectsWithTag (String tag)
+      - target: {fileID: 815194661}
+        name: FindGameObjectWithTag (String tag)
+      - target: {fileID: 815194661}
+        name: FindWithTag (String tag)
+      - target: {fileID: 815194663}
+        name: GetChild (Int32 index)
+      - target: {fileID: 815194663}
+        name: GetChildCount ()
+      - target: {fileID: 815194663}
+        name: GetEnumerator ()
+      - target: {fileID: 815194663}
+        name: GetLocalEulerAngles (RotationOrder order)
+      - target: {fileID: 815194663}
+        name: GetSiblingIndex ()
+      - target: {fileID: 815194661}
+        name: Internal_AddComponentWithType (Type componentType)
+      - target: {fileID: 815194661}
+        name: Internal_CreateGameObject (GameObject mono, String name)
+      - target: {fileID: 815194663}
+        name: IsChildOf (Transform parent)
+      - target: {fileID: 815194663}
+        name: IsNonUniformScaleTransform ()
       - target: {fileID: 815194662}
         name: MyOptionalParameters (String childMessage)
       - target: {fileID: 815194662}
         name: MyStaticMethod (String sendMessage)
       - target: {fileID: 815194662}
         name: ParentMessage (String logMessage)
+      - target: {fileID: 815194661}
+        name: PlayAnimation (Object animation)
+      - target: {fileID: 815194662}
+        name: ResturningString ()
+      - target: {fileID: 815194663}
+        name: RotateAroundInternal (Vector3 axis, Single angle)
+      - target: {fileID: 815194663}
+        name: RotateAroundLocal (Vector3 axis, Single angle)
+      - target: {fileID: 815194661}
+        name: SampleAnimation (Object clip, Single time)
+      - target: {fileID: 815194663}
+        name: SendTransformChangedScale ()
+      - target: {fileID: 815194661}
+        name: SetActive (Boolean value)
+      - target: {fileID: 815194661}
+        name: SetActiveRecursively (Boolean state)
+      - target: {fileID: 815194663}
+        name: SetAsFirstSibling ()
+      - target: {fileID: 815194663}
+        name: SetAsLastSibling ()
+      - target: {fileID: 815194663}
+        name: SetLocalEulerAngles (Vector3 euler, RotationOrder order)
+      - target: {fileID: 815194663}
+        name: SetLocalEulerHint (Vector3 euler)
+      - target: {fileID: 815194662}
+        name: SetParent (Transform child, Transform newParent)
+      - target: {fileID: 815194663}
+        name: SetPositionAndRotation (Vector3 position, Quaternion rotation)
+      - target: {fileID: 815194663}
+        name: SetSiblingIndex (Int32 index)
       - target: {fileID: 815194662}
         name: StopAllCoroutines ()
+      - target: {fileID: 815194661}
+        name: StopAnimation ()
       - target: {fileID: 815194662}
         name: TestingColorParam (Color color)
       - target: {fileID: 815194662}
@@ -1964,7 +2622,16 @@ MonoBehaviour:
       - target: {fileID: 815194662}
         name: TestingVectorParameter (Vector2 vec2, Vector3 vec3, Vector4 vec4)
       - target: {fileID: 815194662}
+        name: TestLogEnum (FireType fire)
+      - target: {fileID: 815194662}
+        name: TestLogInt (Int32 integerParam)
+      - target: {fileID: 815194662}
+        name: TestLogMultiFlag (MultiFireType multiFire)
+      - target: {fileID: 815194662}
         name: TestMono (String message)
+      - target: {fileID: 815194662}
+        name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
+          Double valDouble, Boolean valBool, Transform valTranform, FireType fireType)
       - target: {fileID: 815194662}
         name: TestSerializedClassParam (DelegateHolder holderClass)
       - target: {fileID: 815194662}
@@ -1986,20 +2653,90 @@ MonoBehaviour:
         argVector2: {x: 0, y: 0}
         argVector3: {x: 0, y: 0, z: 0}
         argVector4: {x: 0, y: 0, z: 0, w: 0}
+      mCached: 0
       oneShot: 0
     - mEventName: test 2
       mShowGroup: 1
-      mYOffset: 0
       mUpdateEntryList: 0
       mEntryList:
+      - target: {fileID: 815194661}
+        name: AddComponentInternal (String className)
+      - target: {fileID: 815194662}
+        name: BasicEvent ()
+      - target: {fileID: 815194661}
+        name: CreatePrimitive (PrimitiveType type)
+      - target: {fileID: 815194663}
+        name: DetachChildren ()
+      - target: {fileID: 815194663}
+        name: Find (String name)
+      - target: {fileID: 815194661}
+        name: Find (String name)
+      - target: {fileID: 815194663}
+        name: FindChild (String name)
+      - target: {fileID: 815194661}
+        name: FindGameObjectsWithTag (String tag)
+      - target: {fileID: 815194661}
+        name: FindGameObjectWithTag (String tag)
+      - target: {fileID: 815194661}
+        name: FindWithTag (String tag)
+      - target: {fileID: 815194663}
+        name: GetChild (Int32 index)
+      - target: {fileID: 815194663}
+        name: GetChildCount ()
+      - target: {fileID: 815194663}
+        name: GetEnumerator ()
+      - target: {fileID: 815194663}
+        name: GetLocalEulerAngles (RotationOrder order)
+      - target: {fileID: 815194663}
+        name: GetSiblingIndex ()
+      - target: {fileID: 815194661}
+        name: Internal_AddComponentWithType (Type componentType)
+      - target: {fileID: 815194661}
+        name: Internal_CreateGameObject (GameObject mono, String name)
+      - target: {fileID: 815194663}
+        name: IsChildOf (Transform parent)
+      - target: {fileID: 815194663}
+        name: IsNonUniformScaleTransform ()
       - target: {fileID: 815194662}
         name: MyOptionalParameters (String childMessage)
       - target: {fileID: 815194662}
         name: MyStaticMethod (String sendMessage)
       - target: {fileID: 815194662}
         name: ParentMessage (String logMessage)
+      - target: {fileID: 815194661}
+        name: PlayAnimation (Object animation)
+      - target: {fileID: 815194662}
+        name: ResturningString ()
+      - target: {fileID: 815194663}
+        name: RotateAroundInternal (Vector3 axis, Single angle)
+      - target: {fileID: 815194663}
+        name: RotateAroundLocal (Vector3 axis, Single angle)
+      - target: {fileID: 815194661}
+        name: SampleAnimation (Object clip, Single time)
+      - target: {fileID: 815194663}
+        name: SendTransformChangedScale ()
+      - target: {fileID: 815194661}
+        name: SetActive (Boolean value)
+      - target: {fileID: 815194661}
+        name: SetActiveRecursively (Boolean state)
+      - target: {fileID: 815194663}
+        name: SetAsFirstSibling ()
+      - target: {fileID: 815194663}
+        name: SetAsLastSibling ()
+      - target: {fileID: 815194663}
+        name: SetLocalEulerAngles (Vector3 euler, RotationOrder order)
+      - target: {fileID: 815194663}
+        name: SetLocalEulerHint (Vector3 euler)
+      - target: {fileID: 815194662}
+        name: SetParent (Transform child, Transform newParent)
+      - target: {fileID: 815194663}
+        name: SetPositionAndRotation (Vector3 position, Quaternion rotation)
+      - target: {fileID: 815194663}
+        name: SetSiblingIndex (Int32 index)
       - target: {fileID: 815194662}
         name: StopAllCoroutines ()
+      - target: {fileID: 815194661}
+        name: StopAnimation ()
       - target: {fileID: 815194662}
         name: TestingColorParam (Color color)
       - target: {fileID: 815194662}
@@ -2013,7 +2750,16 @@ MonoBehaviour:
       - target: {fileID: 815194662}
         name: TestingVectorParameter (Vector2 vec2, Vector3 vec3, Vector4 vec4)
       - target: {fileID: 815194662}
+        name: TestLogEnum (FireType fire)
+      - target: {fileID: 815194662}
+        name: TestLogInt (Int32 integerParam)
+      - target: {fileID: 815194662}
+        name: TestLogMultiFlag (MultiFireType multiFire)
+      - target: {fileID: 815194662}
         name: TestMono (String message)
+      - target: {fileID: 815194662}
+        name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
+          Double valDouble, Boolean valBool, Transform valTranform, FireType fireType)
       - target: {fileID: 815194662}
         name: TestSerializedClassParam (DelegateHolder holderClass)
       - target: {fileID: 815194662}
@@ -2035,6 +2781,7 @@ MonoBehaviour:
         argVector2: {x: 0, y: 0}
         argVector3: {x: 0, y: 0, z: 0}
         argVector4: {x: 0, y: 0, z: 0, w: 0}
+      mCached: 0
       oneShot: 0
 --- !u!4 &1313838042
 Transform:
@@ -2045,21 +2792,21 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1342528215
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 4: {fileID: 1342528219}
-  - 114: {fileID: 1342528218}
-  - 114: {fileID: 1342528217}
-  - 114: {fileID: 1342528216}
+  - component: {fileID: 1342528219}
+  - component: {fileID: 1342528218}
+  - component: {fileID: 1342528217}
+  - component: {fileID: 1342528216}
   m_Layer: 0
   m_Name: EventSystem
   m_TagString: Untagged
@@ -2120,21 +2867,21 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1727009953
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  serializedVersion: 4
+  serializedVersion: 5
   m_Component:
-  - 224: {fileID: 1727009954}
-  - 223: {fileID: 1727009957}
-  - 114: {fileID: 1727009956}
-  - 114: {fileID: 1727009955}
+  - component: {fileID: 1727009954}
+  - component: {fileID: 1727009957}
+  - component: {fileID: 1727009956}
+  - component: {fileID: 1727009955}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -2151,11 +2898,11 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 335725106}
   m_Father: {fileID: 0}
   m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
   m_AnchoredPosition: {x: 0, y: 0}
@@ -2205,7 +2952,7 @@ Canvas:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1727009953}
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
@@ -2214,6 +2961,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
