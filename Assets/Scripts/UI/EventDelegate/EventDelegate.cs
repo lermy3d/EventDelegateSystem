@@ -390,6 +390,7 @@ public class EventDelegate
 #if REFLECTION_SUPPORT
 			if (callback.Equals(mCachedCallback)) return true;
 			
+
 			UnityEngine.Object target = callback.Target as UnityEngine.Object;
 			return (mTarget == target && string.Equals(mMethodName, GetMethodName(callback)));
 #elif UNITY_FLASH
@@ -1060,7 +1061,7 @@ public class EventDelegate
         
         string type = obj.GetType().ToString();
         
-        int period = type.LastIndexOf('/');        
+        int period = type.LastIndexOf('/');
         if (period > 0)
             type = type.Substring(period + 1);
         

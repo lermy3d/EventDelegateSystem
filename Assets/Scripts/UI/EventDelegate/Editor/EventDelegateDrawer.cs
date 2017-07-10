@@ -275,6 +275,7 @@ public class EventDelegateDrawer : PropertyDrawer
                 eventDelegate.target = target;
                 eventDelegate.methodName = methodName;
                 
+				//showing if method or field is missing
                 if (eventDelegate.isValid == false)
                 {
                     if (methodName.StartsWith("<Missing - ") == false)
@@ -579,7 +580,7 @@ public class EventDelegateDrawer : PropertyDrawer
     /// Convert the specified list of delegate entries into a string array.
     /// </summary>
     
-    static public string[] GetNames(List<Entry> list, string choice, bool inlcudeParams, out int index, SerializedProperty methodProp = null)
+    static public string[] GetNames(List<Entry> list, string choice, bool includeParams, out int index, SerializedProperty methodProp = null)
     {
         index = 0;
 
@@ -604,10 +605,12 @@ public class EventDelegateDrawer : PropertyDrawer
             
             if (string.IsNullOrEmpty(del) == false && del.Contains(" ("))
                 methodName = del.Remove(del.IndexOf(" ("));
+            else
+				methodName = del;
             
             del = EventDelegate.GetFuncName(entry.target, del);
             
-            if (inlcudeParams)
+            if (includeParams)
                 names [++i] = EventDelegate.GetFuncName(entry.target, entry.name);
             else
                 names [++i] = del;
@@ -785,7 +788,8 @@ public class EventDelegateDrawer : PropertyDrawer
         
         if (target == null)
             return list;
-        
+
+		//obtaining methods to show in list
 		Component[] comps = target.GetComponents<Component>();
         MethodInfo[] methods = null;
 
@@ -874,9 +878,7 @@ public class EventDelegateDrawer : PropertyDrawer
 		if (name.Contains("INTERNAL_"))
 			return;
 
-		Entry entry = new Entry();
-		entry.target = target;
-		entry.name = name;
+		Entry entry = new Entry(target, name);
 
 		if (ExistOverloadedMethod(methods, entry))
 			return;
