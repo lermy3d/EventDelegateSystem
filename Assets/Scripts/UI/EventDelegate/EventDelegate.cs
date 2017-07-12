@@ -200,18 +200,18 @@ public class EventDelegate
     public bool mShowGroup = true;
 
     [HideInInspector]
-    public float mYOffset = 0;  //this offset is used to fix the properties overlap in reorderable list per item
-
-    [HideInInspector]
     public bool mUpdateEntryList = true;
     
     [HideInInspector]
     public Entry[] mEntryList;
     
     [HideInInspector]
-    static public BindingFlags MethodFlags = BindingFlags.OptionalParamBinding | BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static;
+    static public BindingFlags MethodFlags = BindingFlags.OptionalParamBinding | BindingFlags.Instance | BindingFlags.Public | BindingFlags.Static;
 
-	[SerializeField] MonoBehaviour mTarget;
+	[HideInInspector]
+    static public BindingFlags FieldFlags = BindingFlags.Instance | BindingFlags.Public;
+
+	[SerializeField] UnityEngine.Object mTarget;
 	[SerializeField] string mMethodName;
 	[SerializeField] Parameter[] mParameters;
 
@@ -225,13 +225,16 @@ public class EventDelegate
 
 	//delegate prototypes
     public delegate bool BoolCallback();
-    public delegate MonoBehaviour MonoBehaviourCallback();
+    public delegate Behaviour BehaviourCallback();
     public delegate UnityEngine.Object UnityObjectCallback();
     public delegate System.Object SystemObjectCallback();
 	public delegate void Callback();
     
     // Private variables
 	[System.NonSerialized] Delegate mCachedCallback;
+	[System.NonSerialized] FieldInfo mCachedFieldInfo;
+	[System.NonSerialized] PropertyInfo mCachedPropertyInfo;
+
 	[System.NonSerialized] bool mRawDelegate = false;
 #if REFLECTION_SUPPORT
 	[System.NonSerialized] MethodInfo mMethod;
@@ -243,7 +246,7 @@ public class EventDelegate
 	/// Event delegate's target object.
 	/// </summary>
 
-	public MonoBehaviour target
+	public UnityEngine.Object target
 	{
 		get
 		{
@@ -253,6 +256,8 @@ public class EventDelegate
 		{
 			mTarget = value;
 			mCachedCallback = null;
+			mCachedFieldInfo = null;
+			mCachedPropertyInfo = null;
 			mRawDelegate = false;
 			mCached = false;
 #if REFLECTION_SUPPORT
@@ -277,6 +282,8 @@ public class EventDelegate
 		{
 			mMethodName = value;
 			mCachedCallback = null;
+			mCachedFieldInfo = null;
+			mCachedPropertyInfo = null;
 			mRawDelegate = false;
 			mCached = false;
 #if REFLECTION_SUPPORT
@@ -317,7 +324,8 @@ public class EventDelegate
                 Cache();
             }
 
-			return (mRawDelegate && mCachedCallback != null) || ExistMethod();
+			return (mRawDelegate && mCachedCallback != null) || (mCachedFieldInfo != null || mCachedPropertyInfo != null)
+					|| ExistMethod() || ExistField();
 		}
 	}
 
@@ -339,14 +347,19 @@ public class EventDelegate
 			if (mTarget == null)
                 return false;
 			
-            MonoBehaviour mb = mTarget as MonoBehaviour;
-			return (mb == null || mb.enabled);
+			Behaviour behaviour = mTarget as Behaviour;
+			if (behaviour)
+			{
+				return behaviour.enabled;
+			}
+			
+			return true;
 		}
 	}
 
 	public EventDelegate () { }
 	public EventDelegate (Delegate call) { Set(call); }
-	public EventDelegate (MonoBehaviour target, string methodName) { Set(target, methodName); }
+	public EventDelegate (UnityEngine.Object target, string methodName) { Set(target, methodName); }
 
 	/// <summary>
 	/// GetMethodName is not supported on some platforms.
@@ -387,8 +400,10 @@ public class EventDelegate
 			Callback callback = obj as Callback;
 #if REFLECTION_SUPPORT
 			if (callback.Equals(mCachedCallback)) return true;
-			MonoBehaviour mb = callback.Target as MonoBehaviour;
-			return (mTarget == mb && string.Equals(mMethodName, GetMethodName(callback)));
+			
+
+			UnityEngine.Object target = callback.Target as UnityEngine.Object;
+			return (mTarget == target && string.Equals(mMethodName, GetMethodName(callback)));
 #elif UNITY_FLASH
 			return (callback == mCachedCallback);
 #else
@@ -403,9 +418,8 @@ public class EventDelegate
             if (callback.Equals(mCachedCallback))
                 return true;
            
-            MonoBehaviour mb = callback.Target as MonoBehaviour;
-            
-            return (mTarget == mb && string.Equals(mMethodName, GetMethodName(callback)));
+			UnityEngine.Object target = callback.Target as UnityEngine.Object;
+			return (mTarget == target && string.Equals(mMethodName, GetMethodName(callback)));
         }
 		
 		if (obj is EventDelegate)
@@ -435,7 +449,7 @@ public class EventDelegate
 		if (call != null && IsValid(call))
 		{
 #if REFLECTION_SUPPORT
-			mTarget = call.Target as MonoBehaviour;
+			mTarget = call.Target as UnityEngine.Object;
 
 			if (mTarget == null)
 			{
@@ -459,7 +473,7 @@ public class EventDelegate
 	/// Set the delegate callback using the target and method names.
 	/// </summary>
 
-	public void Set (MonoBehaviour target, string methodName)
+	public void Set (UnityEngine.Object target, string methodName)
 	{
 		Clear();
 		mTarget = target;
@@ -493,6 +507,38 @@ public class EventDelegate
         return false;
     }
 
+    public bool ExistField()
+    {
+        if (mTarget != null && string.IsNullOrEmpty(mMethodName) == false)
+        {
+            System.Type type = mTarget.GetType();
+
+            FieldInfo fieldInfo = null;
+            PropertyInfo propertyInfo = null;
+            
+            try
+            {
+                while(type != null)
+                {
+                    fieldInfo = type.GetField(mMethodName, FieldFlags);
+                    if (fieldInfo != null)
+                        break;
+
+                    propertyInfo = type.GetProperty(mMethodName, FieldFlags);
+                    if (propertyInfo != null)
+                        break;
+
+                    type = type.BaseType;
+                }
+             }
+            catch(System.Exception){}
+            
+            return fieldInfo != null || propertyInfo != null;
+        }
+            
+        return false;
+    }
+
 	/// <summary>
 	/// Cache the callback and create the list of the necessary parameters.
 	/// </summary>
@@ -503,7 +549,7 @@ public class EventDelegate
 		if (mRawDelegate) return;
 
 #if REFLECTION_SUPPORT
-		if (mCachedCallback == null || (mCachedCallback.Target as MonoBehaviour) != mTarget || GetMethodName(mCachedCallback) != mMethodName)
+		if (mCachedCallback == null || (mCachedCallback.Target as UnityEngine.Object) != mTarget || GetMethodName(mCachedCallback) != mMethodName)
 		{
 			if (mTarget != null && !string.IsNullOrEmpty(mMethodName))
 			{
@@ -513,8 +559,13 @@ public class EventDelegate
 				{
 					IEnumerable<MethodInfo> methods = type.GetRuntimeMethods();
 
-					foreach (MethodInfo mi in methods)
+					MethodInfo mi = null;
+					for (int i = 0, imax = methods.Length; i < imax; ++i, mi = null)
 					{
+						mi = methods [i];
+						if (mi == null)
+							continue;
+
 						if (mi.Name == mMethodName)
 						{
 							mMethod = mi;
@@ -536,7 +587,10 @@ public class EventDelegate
 						if (mMethod != null)
                             break;
 					}
-					catch (System.Exception) { }
+					catch(System.Exception exc)
+                    {
+                        Debug.LogError(exc.Message + " Inner exception: " +  exc.InnerException);
+                    }
   #if UNITY_WP8 || UNITY_WP_8_1
 					// For some odd reason Type.GetMethod(name, bindingFlags) doesn't seem to work on WP8...
 					try
@@ -549,32 +603,72 @@ public class EventDelegate
 					type = type.BaseType;
 				}
  #endif // NETFX_CORE
- 
-                for (mMethod = null; type != null; )
-                {
-                    try
-                    {
-                        mMethod = type.GetMethod(mMethodName, MethodFlags);
-                        if (mMethod != null)
-                            break;
-                    }
-                    catch(System.Exception exc)
-                    {
-                        Debug.LogError(exc.Message + " Inner exception: " +  exc.InnerException);
-                    }
-
-                    type = type.BaseType;
-                }
 
 				if (mMethod == null)
 				{
+					//clearing prev cached values, if ever...
+					mArgs = null;
+					mParameterInfos = null;
+					mCachedCallback = null;
+
+					//check if field or property
+					FieldInfo fieldInfo = null;
+					PropertyInfo propertyInfo = null;
+					
+					type = mTarget.GetType();
+					try
+					{
+						while(type != null)
+						{
+							fieldInfo = type.GetField(mMethodName, FieldFlags);
+							if (fieldInfo != null)
+								break;
+							
+							propertyInfo = type.GetProperty(mMethodName, FieldFlags);
+							if (propertyInfo != null)
+								break;
+							
+							type = type.BaseType;
+						}
+					}
+					catch(System.Exception){}
+
+					if(fieldInfo != null)
+					{
+						mCachedFieldInfo = fieldInfo;
+
+						if (mParameters == null || mParameters.Length != 1)
+						{
+							mParameters = new Parameter[1];
+							mParameters[0] = new Parameter();
+						}
+						
+						mParameters[0].expectedType = fieldInfo.FieldType;
+						mParameters[0].name = mMethodName;
+
+						return;
+					}
+					else if(propertyInfo != null)
+					{
+						mCachedPropertyInfo = propertyInfo;
+
+						if (mParameters == null || mParameters.Length != 1)
+						{
+							mParameters = new Parameter[1];
+							mParameters[0] = new Parameter();
+						}
+
+						mParameters[0].expectedType = propertyInfo.PropertyType;
+						mParameters[0].name = mMethodName;
+
+						return;
+					}
+					
+					//at this point
                     //method or target was most likely changed
                     
-                    mArgs = null;
-                    mParameters = null;
-                    
                     if(showError)
-					    Debug.LogError("Could not find method '" + mMethodName + "' on " + mTarget.GetType(), mTarget);
+					    Debug.LogError("Could not find method or field '" + mMethodName + "' on " + mTarget.GetType(), mTarget);
 
 					return;
 				}
@@ -591,8 +685,8 @@ public class EventDelegate
                     //some UI components (like Button) need this specification for their methods to work
                     if(mMethod.ReturnType == typeof(System.Boolean))
                         mCachedCallback = Delegate.CreateDelegate(typeof(BoolCallback), mTarget, mMethodName);
-                    else if(mMethod.ReturnType.IsSubclassOf(typeof(MonoBehaviour)))
-                        mCachedCallback = Delegate.CreateDelegate(typeof(MonoBehaviourCallback), mTarget, mMethodName);
+                    else if(mMethod.ReturnType.IsSubclassOf(typeof(Behaviour)))
+                        mCachedCallback = Delegate.CreateDelegate(typeof(BehaviourCallback), mTarget, mMethodName);
                     else if(mMethod.ReturnType.IsSubclassOf(typeof(UnityEngine.Object)))
                         mCachedCallback = Delegate.CreateDelegate(typeof(UnityObjectCallback), mTarget, mMethodName);
                     else if (mMethod.ReturnType != typeof(void) && mMethod.ReturnType.IsSubclassOf(typeof(System.Object)))
@@ -644,10 +738,37 @@ public class EventDelegate
 			return true;
 		}
 #else
-        if (!mCached)
+
+        if (!mCached || !(mCachedFieldInfo != null || mCachedPropertyInfo != null || mMethod != null))
         {
             Cache();
         }
+		
+		//check if field or property
+		if(mCachedFieldInfo != null)
+		{
+			if (mParameters != null && mParameters[0] != null)
+			{
+				//removing cached value, fetching new value when calling the 'get'
+				mParameters[0].value = null;
+
+				//apply value in parameter to target property
+				mCachedFieldInfo.SetValue(mTarget, mParameters[0].value);
+				return true;
+			}
+		}
+		else if(mCachedPropertyInfo != null)
+		{
+			if (mParameters != null && mParameters[0] != null)
+			{
+				//removing cached value, fetching new value when calling the 'get'
+				mParameters[0].value = null;
+
+				//apply value in parameter to target property
+				mCachedPropertyInfo.SetValue(mTarget, mParameters[0].value, null);
+				return true;
+			}
+		}
 
 		if (mCachedCallback != null)
 		{
@@ -718,7 +839,7 @@ public class EventDelegate
                     if(paramItem == null)
                         continue;
 
-                    //update the parameter is a reference (assuming value parameters will never change in realtime)
+                    //update the parameter if is a reference (assuming value parameters will never change in realtime)
                     //or if in editor mode (for testing purpose)
                     if (paramItem.paramRefType == ParameterType.Reference || Application.isEditor)
                     {
@@ -803,6 +924,8 @@ public class EventDelegate
 		mMethodName = null;
 		mRawDelegate = false;
 		mCachedCallback = null;
+		mCachedFieldInfo = null;
+		mCachedPropertyInfo = null;
 		mParameters = null;
 		mCached = false;
 #if REFLECTION_SUPPORT
@@ -841,7 +964,8 @@ public class EventDelegate
 	{
 		if (list != null)
 		{
-			for (int i = 0; i < list.Count; )
+			int imax = list.Count;
+			for (int i = 0; i < imax; )
 			{
 				EventDelegate del = list[i];
 
@@ -883,9 +1007,10 @@ public class EventDelegate
 	{
 		if (list != null)
 		{
-			for (int i = 0, imax = list.Count; i < imax; ++i)
+			EventDelegate del = null;
+			for (int i = 0, imax = list.Count; i < imax; ++i, del = null)
 			{
-				EventDelegate del = list[i];
+				del = list[i];
 				if (del != null && del.isValid)
 					return true;
 			}
@@ -936,9 +1061,10 @@ public class EventDelegate
 	{
 		if (list != null)
 		{
-			for (int i = 0, imax = list.Count; i < imax; ++i)
+			EventDelegate del = null;
+			for (int i = 0, imax = list.Count; i < imax; ++i, del = null)
 			{
-				EventDelegate del = list[i];
+				del = list[i];
 				if (del != null && del.Equals(callback))
 					return del;
 			}
@@ -970,9 +1096,10 @@ public class EventDelegate
 		}
 		else if (list != null)
 		{
-			for (int i = 0, imax = list.Count; i < imax; ++i)
+			EventDelegate del = null;
+			for (int i = 0, imax = list.Count; i < imax; ++i, del = null)
 			{
-				EventDelegate del = list[i];
+				del = list[i];
 				if (del != null && del.Equals(ev))
 					return;
 			}
@@ -1000,9 +1127,10 @@ public class EventDelegate
 	{
 		if (list != null)
 		{
-			for (int i = 0, imax = list.Count; i < imax; ++i)
+			EventDelegate del = null;
+			for (int i = 0, imax = list.Count; i < imax; ++i, del = null)
 			{
-				EventDelegate del = list[i];
+				del = list[i];
 				
 				if (del != null && del.Equals(callback))
 				{
@@ -1022,9 +1150,10 @@ public class EventDelegate
 	{
 		if (list != null)
 		{
-			for (int i = 0, imax = list.Count; i < imax; ++i)
+			EventDelegate del = null;
+			for (int i = 0, imax = list.Count; i < imax; ++i, del = null)
 			{
-				EventDelegate del = list[i];
+				del = list[i];
 
 				if (del != null && del.Equals(ev))
 				{
@@ -1047,7 +1176,7 @@ public class EventDelegate
         
         string type = obj.GetType().ToString();
         
-        int period = type.LastIndexOf('/');        
+        int period = type.LastIndexOf('/');
         if (period > 0)
             type = type.Substring(period + 1);
         
@@ -1058,12 +1187,12 @@ public class EventDelegate
 [Serializable]
 public class Entry : IComparer<Entry>, IComparable<Entry>
 {
-    public Component target;
+	public UnityEngine.Object target;
     public string name;
     
     public Entry(){}
     
-    public Entry(Component target, string name)
+	public Entry(UnityEngine.Object target, string name)
     {
         this.target = target;
         this.name = name;

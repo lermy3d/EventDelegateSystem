@@ -16,7 +16,7 @@ public class ReorderableDelegateDrawer : UnityEditor.PropertyDrawer
     /// The standard height size for each property line.
     /// </summary>
 
-    const int lineHeight = 18;
+    const int lineHeight = 16;
 
     private UnityEditorInternal.ReorderableList getList(SerializedProperty property)
 	{
@@ -30,10 +30,6 @@ public class ReorderableDelegateDrawer : UnityEditor.PropertyDrawer
                 rect.x += 8;
 
                 SerializedProperty elemtProp = property.GetArrayElementAtIndex(index);
- 
-                SerializedProperty yOffsetProp = elemtProp.FindPropertyRelative("mYOffset");
-                if (yOffsetProp != null)
-                    yOffsetProp.floatValue = 6;
 
                 if (EditorApplication.isCompiling)
                 {
@@ -49,14 +45,11 @@ public class ReorderableDelegateDrawer : UnityEditor.PropertyDrawer
             {
                 var element = property.GetArrayElementAtIndex(index);
 
-                float yOffset = 0;
-                SerializedProperty yOffsetProp = element.FindPropertyRelative("mYOffset");
-                if (yOffsetProp != null)
-                    yOffset = yOffsetProp.floatValue;
+                float yOffset = 12;
 
                 SerializedProperty showGroup = element.FindPropertyRelative("mShowGroup");
                 if (!showGroup.boolValue)
-                    return lineHeight + yOffset;
+                    return lineHeight + 1;
 
                 float lines = (3 * lineHeight) + yOffset;
 
@@ -71,7 +64,7 @@ public class ReorderableDelegateDrawer : UnityEditor.PropertyDrawer
                 if (methodProp.stringValue == "<Choose>" || methodProp.stringValue.StartsWith("<Missing - "))
                     return lines;
 
-                eventDelegate.target = targetProp.objectReferenceValue as MonoBehaviour;
+				eventDelegate.target = targetProp.objectReferenceValue;
                 eventDelegate.methodName = methodProp.stringValue;
 
                 if (eventDelegate.isValid == false)
@@ -82,8 +75,9 @@ public class ReorderableDelegateDrawer : UnityEditor.PropertyDrawer
 
                 if (ps != null)
                 {
-                    paramArrayProp.arraySize = ps.Length;
-                    for (int i = 0; i < ps.Length; i++)
+					int imax = ps.Length;
+                    paramArrayProp.arraySize = imax;
+                    for (int i = 0; i < imax; i++)
                     {
                         EventDelegate.Parameter param = ps[i];
 
@@ -106,7 +100,7 @@ public class ReorderableDelegateDrawer : UnityEditor.PropertyDrawer
                             else if (param.expectedType == typeof(Vector2) || param.expectedType == typeof(Vector3) || param.expectedType == typeof(Vector4))
                             {
                                 //TODO: use minimalist method
-                                lines += 4;
+                                lines += 2f;
                                 continue;
                             }
                         }

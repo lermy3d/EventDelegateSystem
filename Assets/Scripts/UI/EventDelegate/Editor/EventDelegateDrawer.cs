@@ -49,16 +49,11 @@ public class EventDelegateDrawer : PropertyDrawer
 
     public override float GetPropertyHeight(SerializedProperty prop, GUIContent label)
     {
-        float yOffset = 0;
-        SerializedProperty yOffsetProp = prop.FindPropertyRelative("mYOffset");
-        if (yOffsetProp != null)
-            yOffset = yOffsetProp.floatValue;
-
         SerializedProperty showGroup = prop.FindPropertyRelative("mShowGroup");
         if (!showGroup.boolValue)
-            return lineHeight + yOffset;
+            return lineHeight;
 
-        float lines = (3 * lineHeight) + yOffset;
+        float lines = (3 * lineHeight);
 
         SerializedProperty targetProp = prop.FindPropertyRelative("mTarget");
         if (targetProp.objectReferenceValue == null)
@@ -71,7 +66,7 @@ public class EventDelegateDrawer : PropertyDrawer
         if (methodProp.stringValue == "<Choose>" || methodProp.stringValue.StartsWith("<Missing - "))
             return lines;
 
-        eventDelegate.target = targetProp.objectReferenceValue as MonoBehaviour;
+		eventDelegate.target = targetProp.objectReferenceValue;
         eventDelegate.methodName = methodProp.stringValue;
         
         if (eventDelegate.isValid == false)
@@ -82,10 +77,13 @@ public class EventDelegateDrawer : PropertyDrawer
 
         if (ps != null)
         {
-            paramArrayProp.arraySize = ps.Length;
-            for (int i = 0; i < ps.Length; i++)
+			EventDelegate.Parameter param = null;
+
+			int imax = ps.Length;
+            paramArrayProp.arraySize = imax;
+            for (int i = 0; i < imax; i++, param = null)
             {
-                EventDelegate.Parameter param = ps [i];
+                param = ps [i];
 
                 lines += lineHeight;
 
@@ -157,7 +155,7 @@ public class EventDelegateDrawer : PropertyDrawer
             updateMethodsProp.boolValue = true;
 
         string eventName = nameProp.stringValue;
-        MonoBehaviour target = targetProp.objectReferenceValue as MonoBehaviour;
+		UnityEngine.Object target = targetProp.objectReferenceValue;
 
         //controls
         Rect groupPos = new Rect(rect.x, rect.y, rect.width, lineHeight);
@@ -167,14 +165,8 @@ public class EventDelegateDrawer : PropertyDrawer
         {
             EditorGUI.indentLevel++;
 
-            //this offset is used to fix the properties overlap in reorderable list per item
-            float yOffset = 0;
-            SerializedProperty yOffsetProp = prop.FindPropertyRelative("mYOffset");
-            if (yOffsetProp != null)
-                yOffset = yOffsetProp.floatValue;
-
             lineRect = rect;
-            lineRect.yMin = rect.yMin + lineHeight + yOffset;
+            lineRect.yMin = rect.yMin + lineHeight;
             lineRect.yMax = lineRect.yMin + lineHeight;
             
             eventName = EditorGUI.TextField(lineRect, eventName);
@@ -183,7 +175,7 @@ public class EventDelegateDrawer : PropertyDrawer
             lineRect.yMin += lineHeight;
             lineRect.yMax += lineHeight;
     		
-            target = EditorGUI.ObjectField(lineRect, "Notify", target, typeof(MonoBehaviour), true) as MonoBehaviour;
+			target = EditorGUI.ObjectField(lineRect, "Notify", target, typeof(UnityEngine.Object), true);
             
             //update method list if target component was modified
             if (targetProp.objectReferenceValue != target)
@@ -191,25 +183,41 @@ public class EventDelegateDrawer : PropertyDrawer
 
             targetProp.objectReferenceValue = target;
 
-            if (target != null && target.gameObject != null)
+            if (target != null)
             {
-                GameObject go = target.gameObject;
                 List<Entry> listWithParams = null;
                 
                 SerializedProperty entryArrayProp = prop.FindPropertyRelative("mEntryList");
 
                 if (updateMethodsProp.boolValue && EditorApplication.isCompiling == false)
-                    UpdateMethods(listWithParams, entryArrayProp, updateMethodsProp, go);
+				{
+					GameObject go = target as GameObject;
+					if(go == null)
+					{
+						Component component = target as Component;
+						if(target)
+						{
+							UpdateMethods(listWithParams, entryArrayProp, updateMethodsProp, component.gameObject);
+						}
+					}
+					else
+						UpdateMethods(listWithParams, entryArrayProp, updateMethodsProp, go);
+				}
                 else
                 {
                     //get list from array
                     listWithParams = new List<Entry>();
                     SerializedProperty entryItem;
-
-                    for (int i = 0; i < entryArrayProp.arraySize; i++)
+					
+					int arraySize = entryArrayProp.arraySize;
+                    for (int i = 0; i < arraySize; i++, entryItem = null)
                     {
                         entryItem = entryArrayProp.GetArrayElementAtIndex(i);
-                        Component targetComp = entryItem.FindPropertyRelative("target").objectReferenceValue as Component;
+						
+						if(entryItem == null)
+							continue;
+						
+						UnityEngine.Object targetComp = entryItem.FindPropertyRelative("target").objectReferenceValue;
                         string name = entryItem.FindPropertyRelative("name").stringValue;
                         
                         listWithParams.Add(new Entry(targetComp, name));
@@ -232,16 +240,16 @@ public class EventDelegateDrawer : PropertyDrawer
 
                 lineRect.yMin += lineHeight;
                 lineRect.yMax += lineHeight;
-                choice = EditorGUI.Popup(lineRect, "Method", index, names);
+                choice = EditorGUI.Popup(lineRect, "Event", index, names);
     
-                //saving selected method
+                //saving selected method or field
                 if (choice > 0) //&& choice != index
                 {
                     Entry entry = listWithParams [choice - 1];
     				
                     if(target != entry.target)
                     {
-                        target = entry.target as MonoBehaviour;
+						target = entry.target as UnityEngine.Object;
                         targetProp.objectReferenceValue = target;
 
                         SerializedProperty cacheProp = prop.FindPropertyRelative("mCached");
@@ -267,6 +275,7 @@ public class EventDelegateDrawer : PropertyDrawer
                 eventDelegate.target = target;
                 eventDelegate.methodName = methodName;
                 
+				//showing if method or field is missing
                 if (eventDelegate.isValid == false)
                 {
                     if (methodName.StartsWith("<Missing - ") == false)
@@ -287,14 +296,15 @@ public class EventDelegateDrawer : PropertyDrawer
                 {
                     bool showGameObject = false;
 
-                    EditorGUI.indentLevel++;
+                    //EditorGUI.indentLevel++;
 
-                    float paramTypeWidth = 100;
+                    float paramTypeWidth = 80;
                     float lineOriginalMax = lineRect.xMax;
                     lineRect.xMax -= 68;
 
-                    paramArrayProp.arraySize = ps.Length;
-                    for (int i = 0; i < ps.Length; i++)
+					int imax = ps.Length;
+                    paramArrayProp.arraySize = imax;
+                    for (int i = 0; i < imax; i++)
                     {
                         EventDelegate.Parameter param = ps [i];
                         SerializedProperty paramProp = paramArrayProp.GetArrayElementAtIndex(i);
@@ -318,7 +328,7 @@ public class EventDelegateDrawer : PropertyDrawer
                                 lineRect.xMax -= 68;
 
                             //only do this if parameter is a primitive type
-                            Rect paramTypeRect = new Rect(lineRect.x + lineRect.width - 28, lineRect.y, paramTypeWidth, lineHeight);
+                            Rect paramTypeRect = new Rect(lineRect.x + lineRect.width - 12, lineRect.y, paramTypeWidth, lineHeight);
 
                             SerializedProperty paramTypeProp = paramProp.FindPropertyRelative("paramRefType");
 
@@ -531,25 +541,36 @@ public class EventDelegateDrawer : PropertyDrawer
 
     void UpdateMethods(List<Entry> listWithParams, SerializedProperty entryArrayProp, SerializedProperty updateMethodsProp, GameObject go)
     {
+		if(go == null)
+		{
+			entryArrayProp.ClearArray();
+			return;
+		}
+
         listWithParams = GetMethods(go, true);
         entryArrayProp.ClearArray();
         SerializedProperty entryProp;
         
         //update serialized entries
-        foreach (Entry entryItem in listWithParams)
-        {
-            if (entryArrayProp.arraySize == 0)
-            {
-                entryArrayProp.InsertArrayElementAtIndex(0);
-                entryProp = entryArrayProp.GetArrayElementAtIndex(0);
-            } else
-            {
-                entryArrayProp.InsertArrayElementAtIndex(entryArrayProp.arraySize - 1);
-                entryProp = entryArrayProp.GetArrayElementAtIndex(entryArrayProp.arraySize - 1);
-            }
-            
-            entryProp.FindPropertyRelative("target").objectReferenceValue = entryItem.target;
-            entryProp.FindPropertyRelative("name").stringValue = entryItem.name;
+		Entry entryItem = null;
+		for (int ind = 0, length = listWithParams.Count; ind < length; ++ind, entryItem = null)
+		{
+			entryItem = listWithParams[ind];
+			if(entryItem != null)
+			{
+				if (entryArrayProp.arraySize == 0)
+				{
+				    entryArrayProp.InsertArrayElementAtIndex(0);
+				    entryProp = entryArrayProp.GetArrayElementAtIndex(0);
+				} else
+				{
+				    entryArrayProp.InsertArrayElementAtIndex(entryArrayProp.arraySize - 1);
+				    entryProp = entryArrayProp.GetArrayElementAtIndex(entryArrayProp.arraySize - 1);
+				}
+
+				entryProp.FindPropertyRelative("target").objectReferenceValue = entryItem.target;
+				entryProp.FindPropertyRelative("name").stringValue = entryItem.name;
+			}
         }
         
         updateMethodsProp.boolValue = false;
@@ -559,7 +580,7 @@ public class EventDelegateDrawer : PropertyDrawer
     /// Convert the specified list of delegate entries into a string array.
     /// </summary>
     
-    static public string[] GetNames(List<Entry> list, string choice, bool inlcudeParams, out int index, SerializedProperty methodProp = null)
+    static public string[] GetNames(List<Entry> list, string choice, bool includeParams, out int index, SerializedProperty methodProp = null)
     {
         index = 0;
 
@@ -569,9 +590,14 @@ public class EventDelegateDrawer : PropertyDrawer
         string[] names = new string[list.Count + 1];
         names [0] = "<Choose>";
         
-        for (int i = 0; i < list.Count;)
+		Entry entry = null;
+		int imax = list.Count;
+        for (int i = 0; i < imax; entry = null)
         {
-            Entry entry = list [i];
+            entry = list [i];
+
+			if(entry == null)
+				continue;
             
             //check if comes with params and remove
             string del = entry.name;
@@ -579,10 +605,12 @@ public class EventDelegateDrawer : PropertyDrawer
             
             if (string.IsNullOrEmpty(del) == false && del.Contains(" ("))
                 methodName = del.Remove(del.IndexOf(" ("));
+            else
+				methodName = del;
             
             del = EventDelegate.GetFuncName(entry.target, del);
             
-            if (inlcudeParams)
+            if (includeParams)
                 names [++i] = EventDelegate.GetFuncName(entry.target, entry.name);
             else
                 names [++i] = del;
@@ -760,101 +788,135 @@ public class EventDelegateDrawer : PropertyDrawer
         
         if (target == null)
             return list;
-        
-        MonoBehaviour[] comps = target.GetComponents<MonoBehaviour>();
-        
-        for (int i = 0, imax = comps.Length; i < imax; ++i)
+
+		//obtaining methods to show in list
+		Component[] comps = target.GetComponents<Component>();
+        MethodInfo[] methods = null;
+
+		Component comp = null;
+        for (int i = 0, imax = comps.Length; i < imax; ++i, comp = null)
         {
-            MonoBehaviour mb = comps [i];
-            if (mb == null)
+			comp = comps [i];
+			if (comp == null)
                 continue;
             
-            MethodInfo[] methods = mb.GetType().GetMethods(EventDelegate.MethodFlags);
+			methods = comp.GetType().GetMethods(EventDelegate.MethodFlags);
             
-            for (int b = 0; b < methods.Length; ++b)
+			MethodInfo mi = null;
+            for (int b = 0, len = methods.Length; b < len; ++b, mi = null)
             {
-                MethodInfo mi = methods [b];
+                mi = methods [b];
                 
-                //filter methods
-                string name = mi.Name;
-                
-                if (name == "obj_address")
-                    continue;
-                if (name == "MemberwiseClone")
-                    continue;
-                if (name == "Finalize")
-                    continue;
-                if (name == "Invoke")
-                    continue;
-                if (name == "InvokeRepeating")
-                    continue;
-                if (name == "CancelInvoke")
-                    continue;
-                if (name == "BroadcastMessage")
-                    continue;
-                if (name == "Equals")
-                    continue;
-                if (name == "CompareTag")
-                    continue;
-                if (name == "ToString")
-                    continue;
-                if (name == "GetType")
-                    continue;
-                if (name == "GetHashCode")
-                    continue;
-                if (name == "GetInstanceID")
-                    continue;
-                if (name.StartsWith("StartCoroutine"))
-                    continue;
-                if (name.StartsWith("StopCoroutine"))
-                    continue;
-//                if (name.StartsWith("StopAllCoroutines"))
-//                    continue;
-                if (name.StartsWith("set_"))
-                    continue;
-                if (name.StartsWith("get_"))
-                    continue;
-                if (name.StartsWith("GetComponent"))
-                    continue;
-                if (name.StartsWith("SendMessage"))
-                    continue;
-                
-                Entry entry = new Entry();
-                entry.target = mb;
-                entry.name = name;
-                
-                if (ExistOverloadedMethod(methods, entry))
-                    continue;
-                
-                if (includeParams)
-                {
-                    ParameterInfo[] parameters = mi.GetParameters();
-                    
-                    entry.name += " (";
-                    if (parameters != null && parameters.Length > 0)
-                    {                    
-                        int count = 0;
-                        foreach (ParameterInfo paramInfo in parameters)
-                        {
-                            entry.name += GetSimpleName(paramInfo.ParameterType) + " " + paramInfo.Name;
-                            count++;
-                            
-                            //adding for next param
-                            if (count < parameters.Length)
-                                entry.name += ", ";
-                        }
-                    }
-                    entry.name += ")";
-                }
-                
-                list.Add(entry);
+				if(mi != null)
+                    FilterMethods(mi, list, methods, comp, includeParams);
             }
         }
-        
+
+		//add GameObject methods
+		methods = target.GetType().GetMethods(EventDelegate.MethodFlags);
+		for (int b = 0, len = methods.Length; b < len; ++b)
+        {
+            MethodInfo mi = methods [b];
+            
+            FilterMethods(mi, list, methods, target, includeParams);
+        }
+
         list.Sort();
+
+		List<Entry> fieldList = GetProperties(target, false, true);
+		fieldList.Sort();
+
+		//obtaining properties and fields to show in list
+		fieldList.AddRange(list);
         
-        return list;
+        return fieldList;
     }
+
+	/// <summary>
+	/// Filter the available methods to show.
+	/// </summary>
+
+	static public void FilterMethods(MethodInfo mi, List<Entry> list, MethodInfo[] methods, UnityEngine.Object target, bool includeParams)
+	{
+		//filter methods
+		string name = mi.Name;
+
+		if (name == "obj_address")
+			return;
+		if (name == "MemberwiseClone")
+			return;
+		if (name == "Finalize")
+			return;
+		if (name == "Invoke")
+			return;
+		if (name == "InvokeRepeating")
+			return;
+		if (name == "CancelInvoke")
+			return;
+		if (name == "BroadcastMessage")
+			return;
+		if (name == "Equals")
+			return;
+		if (name == "CompareTag")
+			return;
+		if (name == "ToString")
+			return;
+		if (name == "GetType")
+			return;
+		if (name == "GetHashCode")
+			return;
+		if (name == "GetInstanceID")
+			return;
+		if (name.StartsWith("StartCoroutine"))
+			return;
+		if (name.StartsWith("StopCoroutine"))
+			return;
+		//if (name.StartsWith("StopAllCoroutines"))
+		//    return;
+		if (name.StartsWith("set_"))
+			return;
+		if (name.StartsWith("get_"))
+			return;
+		if (name.StartsWith("GetComponent"))
+			return;
+		if (name.StartsWith("SendMessage"))
+			return;
+		if (name.Contains("INTERNAL_"))
+			return;
+
+		Entry entry = new Entry(target, name);
+
+		if (ExistOverloadedMethod(methods, entry))
+			return;
+
+		if (includeParams)
+		{
+			ParameterInfo[] parameters = mi.GetParameters();
+
+			entry.name += " (";
+			if (parameters != null && parameters.Length > 0)
+			{                    
+				int count = 0;
+				ParameterInfo paramInfo = null;
+				for (int ind = 0, length = parameters.Length; ind < length; ++ind, paramInfo = null)
+				{
+					paramInfo = parameters[ind];
+					if(paramInfo != null)
+					{
+						entry.name += GetSimpleName(paramInfo.ParameterType) + " " + paramInfo.Name;
+						count++;
+
+						//adding for next param
+						if (count < parameters.Length)
+							entry.name += ", ";
+					}
+				}
+			}
+			entry.name += ")";
+		}
+
+		list.Add(entry);
+	}
     
     /// <summary>
     /// Collect a list of usable properties and fields.
@@ -865,74 +927,78 @@ public class EventDelegateDrawer : PropertyDrawer
         Component[] comps = target.GetComponents<Component>();
 		
         List<Entry> list = new List<Entry>();
-		
-        for (int i = 0, imax = comps.Length; i < imax; ++i)
+		Component comp = null;
+        for (int i = 0, imax = comps.Length; i < imax; ++i, comp = null)
         {
-            Component comp = comps [i];
+            comp = comps [i];
             if (comp == null)
                 continue;
 			
-            Type type = comp.GetType();
-            BindingFlags flags = BindingFlags.Instance | BindingFlags.Public;
-            FieldInfo[] fields = type.GetFields(flags);
-            PropertyInfo[] props = type.GetProperties(flags);
-			
-            // The component itself without any method
-            if (Convert(comp, filter))
-            {
-                Entry ent = new Entry();
-                ent.target = comp;
-                
-                if (list.Contains(ent) == false)                
-                    list.Add(ent);
-            }
-			
-            for (int b = 0; b < fields.Length; ++b)
-            {
-                FieldInfo field = fields [b];
-				
-                if (filter != typeof(void))
-                {
-                    if (canConvert)
-                    {
-                        if (!Convert(field.FieldType, filter))
-                            continue;
-                    } else if (!filter.IsAssignableFrom(field.FieldType))
-                        continue;
-                }
-				
-                Entry ent = new Entry();
-                ent.target = comp;
-                ent.name = field.Name;
-                list.Add(ent);
-            }
-			
-            for (int b = 0; b < props.Length; ++b)
-            {
-                PropertyInfo prop = props [b];
-                if (read && !prop.CanRead)
-                    continue;
-                if (write && !prop.CanWrite)
-                    continue;
-				
-                if (filter != typeof(void))
-                {
-                    if (canConvert)
-                    {
-                        if (!Convert(prop.PropertyType, filter))
-                            continue;
-                    } else if (!filter.IsAssignableFrom(prop.PropertyType))
-                        continue;
-                }
-				
-                Entry ent = new Entry();
-                ent.target = comp;
-                ent.name = prop.Name;
-                list.Add(ent);
-            }
+			AddProperties(list, comp, read, write);
         }
+
+		AddProperties(list, target, read, write);
+
         return list;
     }
+
+	static private void AddProperties(List<Entry> list, UnityEngine.Object comp, bool read, bool write)
+	{
+		Type type = comp.GetType();
+        BindingFlags flags = EventDelegate.FieldFlags;
+        FieldInfo[] fields = type.GetFields(flags);
+        PropertyInfo[] props = type.GetProperties(flags);
+		
+        // The component itself without any method
+        if (read && Convert(comp, filter))
+        {
+            Entry ent = new Entry();
+            ent.target = comp;
+            
+            if (list.Contains(ent) == false)
+                list.Add(ent);
+        }
+		
+        for (int b = 0, ilen = fields.Length; b < ilen; ++b)
+        {
+            FieldInfo field = fields [b];
+			
+            if (filter != typeof(void))
+            {
+                if (canConvert)
+                {
+                    if (!Convert(field.FieldType, filter))
+                        continue;
+                } else if (!filter.IsAssignableFrom(field.FieldType))
+                    continue;
+            }
+			
+            Entry ent = new Entry(comp, field.Name);
+            list.Add(ent);
+        }
+		
+        for (int b = 0, ilen = props.Length; b < ilen; ++b)
+        {
+            PropertyInfo prop = props [b];
+            if (read && !prop.CanRead)
+                continue;
+            if (write && !prop.CanWrite)
+                continue;
+			
+            if (filter != typeof(void))
+            {
+                if (canConvert)
+                {
+                    if (!Convert(prop.PropertyType, filter))
+                        continue;
+                } else if (!filter.IsAssignableFrom(prop.PropertyType))
+                    continue;
+            }
+			
+            Entry ent = new Entry(comp, prop.Name);
+            list.Add(ent);
+        }
+	}
 
     /// <summary>
     /// Returns if an overloaded method exists in an array of functions.
@@ -949,10 +1015,11 @@ public class EventDelegateDrawer : PropertyDrawer
             method = method.Remove(method.IndexOf(" ("));
         
         int count = 0;
-
-        foreach (MethodInfo methodInfo in methodArray)
+        MethodInfo methodInfo = null;
+        for (int i = 0, imax = methodArray.Length; i < imax; ++i, methodInfo = null)
         {
-            if (methodInfo.Name.Equals(method))
+			methodInfo = methodArray[i];
+            if (methodInfo != null && methodInfo.Name.Equals(method))
             { 
                 if (count > 0)
                     return true;
