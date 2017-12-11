@@ -208,17 +208,29 @@ public class EventDelegateDrawer : PropertyDrawer
                     //get list from array
                     listWithParams = new List<Entry>();
                     SerializedProperty entryItem;
-					
-					int arraySize = entryArrayProp.arraySize;
-                    for (int i = 0; i < arraySize; i++, entryItem = null)
+
+                    SerializedProperty itemTarget = null;
+                    string name = String.Empty;
+                    UnityEngine.Object targetComp = null;
+
+
+                    int arraySize = entryArrayProp.arraySize;
+                    for (int i = 0; i < arraySize; i++,
+                        entryItem = null, itemTarget = null,
+                        name = String.Empty, targetComp = null)
                     {
                         entryItem = entryArrayProp.GetArrayElementAtIndex(i);
-						
-						if(entryItem == null)
-							continue;
-						
-						UnityEngine.Object targetComp = entryItem.FindPropertyRelative("target").objectReferenceValue;
-                        string name = entryItem.FindPropertyRelative("name").stringValue;
+
+                        if (entryItem == null)
+                            continue;
+
+                        itemTarget = entryItem.FindPropertyRelative("target");
+
+                        if (itemTarget == null)
+                            continue;
+
+                        targetComp = itemTarget.objectReferenceValue;
+                        name = entryItem.FindPropertyRelative("name").stringValue;
                         
                         listWithParams.Add(new Entry(targetComp, name));
                     }
