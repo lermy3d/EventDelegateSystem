@@ -112,6 +112,11 @@ public class TestEventChild : TestEventsParent
         Debug.Log(integerParam);
     }
 
+	public void TestLogIntAndString(int intParam, string msg)
+	{
+		Debug.Log("int" + intParam + " msg: " + msg);
+	}
+
     public void TestLogEnum(FireType fire)
     {
         Debug.Log(fire);
