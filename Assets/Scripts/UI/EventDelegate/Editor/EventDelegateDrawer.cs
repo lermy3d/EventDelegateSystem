@@ -187,23 +187,25 @@ public class EventDelegateDrawer : PropertyDrawer
             {
                 List<Entry> listWithParams = null;
                 
-                SerializedProperty entryArrayProp = prop.FindPropertyRelative("mEntryList");
+				SerializedProperty entryArrayProp = prop.FindPropertyRelative("mEntryList");
 
-                if (updateMethodsProp.boolValue && EditorApplication.isCompiling == false)
+				if (updateMethodsProp.boolValue && EditorApplication.isCompiling == false)
 				{
 					GameObject go = target as GameObject;
-					if(go == null)
+					if (go == null)
 					{
 						Component component = target as Component;
-						if(target)
+						if (target)
 						{
-							UpdateMethods(listWithParams, entryArrayProp, updateMethodsProp, component.gameObject);
+							UpdateMethods (listWithParams, entryArrayProp, updateMethodsProp, component.gameObject);
 						}
 					}
 					else
-						UpdateMethods(listWithParams, entryArrayProp, updateMethodsProp, go);
+					{
+						UpdateMethods (listWithParams, entryArrayProp, updateMethodsProp, go);
+					}
 				}
-                else
+				else if (!prop.serializedObject.isEditingMultipleObjects)
                 {
                     //get list from array
                     listWithParams = new List<Entry>();
@@ -213,11 +215,9 @@ public class EventDelegateDrawer : PropertyDrawer
                     string name = String.Empty;
                     UnityEngine.Object targetComp = null;
 
-
                     int arraySize = entryArrayProp.arraySize;
-                    for (int i = 0; i < arraySize; i++,
-                        entryItem = null, itemTarget = null,
-                        name = String.Empty, targetComp = null)
+                    for (int i = 0; i < arraySize; i++, entryItem = null, itemTarget = null,
+                                                    name = String.Empty, targetComp = null)
                     {
                         entryItem = entryArrayProp.GetArrayElementAtIndex(i);
 
@@ -553,6 +553,9 @@ public class EventDelegateDrawer : PropertyDrawer
 
     void UpdateMethods(List<Entry> listWithParams, SerializedProperty entryArrayProp, SerializedProperty updateMethodsProp, GameObject go)
     {
+		if (entryArrayProp == null)
+			return;
+
 		if(go == null)
 		{
 			entryArrayProp.ClearArray();

@@ -783,11 +783,11 @@ public class EventDelegate
 			{
 				// There must be an [ExecuteInEditMode] flag on the script for us to call the function at edit time
 				System.Type type = mCachedCallback.Target.GetType();
-#if UNITY_4_3 || UNITY_4_5 || UNITY_4_6 || UNITY_5 || UNITY_2017
-                    object[] objs = type.GetCustomAttributes(typeof(ExecuteInEditMode), true);
- #else
-				object[] objs = type.GetCustomAttributes(typeof(ExecuteInEditModeAttribute), true);
- #endif
+#if UNITY_5_3_OR_NEWER || UNITY_5 || UNITY_4_6 || UNITY_4_5 || UNITY_4_3
+                object[] objs = type.GetCustomAttributes(typeof(ExecuteInEditMode), true);
+#else
+                object[] objs = type.GetCustomAttributes(typeof(ExecuteInEditModeAttribute), true);
+#endif
                 if (objs != null && objs.Length > 0)
                     mCachedCallback.DynamicInvoke(null);
 			}
@@ -802,12 +802,13 @@ public class EventDelegate
 			if (mTarget != null && !Application.isPlaying)
 			{
 				System.Type type = mTarget.GetType();
- #if UNITY_4_3 || UNITY_4_5 || UNITY_4_6 || UNITY_5 || UNITY_2017
-				object[] objs = type.GetCustomAttributes(typeof(ExecuteInEditMode), true);
- #else
-				object[] objs = type.GetCustomAttributes(typeof(ExecuteInEditModeAttribute), true);
- #endif
-				if (objs == null || objs.Length == 0) return true;
+#if UNITY_5_3_OR_NEWER || UNITY_5 || UNITY_4_6 || UNITY_4_5 || UNITY_4_3
+                object[] objs = type.GetCustomAttributes(typeof(ExecuteInEditMode), true);
+#else
+                object[] objs = type.GetCustomAttributes(typeof(ExecuteInEditModeAttribute), true);
+#endif
+                if (objs == null || objs.Length == 0)
+                    return true;
 			}
 #endif
 			int len = (mParameters != null) ? mParameters.Length : 0;
