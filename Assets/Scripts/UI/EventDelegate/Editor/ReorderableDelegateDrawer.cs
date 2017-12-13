@@ -12,6 +12,11 @@ public class ReorderableDelegateDrawer : UnityEditor.PropertyDrawer
 
     EventDelegate eventDelegate = new EventDelegate();
 
+    GUIStyle headerBackground = "RL Header";
+
+    [HideInInspector]
+    public bool mShowList = true;
+
     /// <summary>
     /// The standard height size for each property line.
     /// </summary>
@@ -19,13 +24,16 @@ public class ReorderableDelegateDrawer : UnityEditor.PropertyDrawer
     const int lineHeight = 16;
 
     private UnityEditorInternal.ReorderableList getList(SerializedProperty property)
-	{
-		if (list == null)
-		{
-			list = new ReorderableList(property.serializedObject, property, true, true, true, true);
+    {
+        if (list == null)
+        {
+            list = new ReorderableList(property.serializedObject, property, true, true, true, true);
 
             list.drawElementCallback = (UnityEngine.Rect rect, int index, bool isActive, bool isFocused) =>
-			{
+            {
+                if (!mShowList)
+                    return;
+
                 rect.width -= 10;
                 rect.x += 8;
 
@@ -39,18 +47,20 @@ public class ReorderableDelegateDrawer : UnityEditor.PropertyDrawer
                 }
 
                 EditorGUI.PropertyField(rect, elemtProp, true);
-			};
+            };
 
             list.elementHeightCallback = (index) =>
             {
-                var element = property.GetArrayElementAtIndex(index);
+                if(!mShowList)
+                    return 0;
 
-                float yOffset = 12;
+                var element = property.GetArrayElementAtIndex(index);
 
                 SerializedProperty showGroup = element.FindPropertyRelative("mShowGroup");
                 if (!showGroup.boolValue)
                     return lineHeight + 1;
 
+                float yOffset = 12;
                 float lines = (3 * lineHeight) + yOffset;
 
                 SerializedProperty targetProp = element.FindPropertyRelative("mTarget");
@@ -132,6 +142,9 @@ public class ReorderableDelegateDrawer : UnityEditor.PropertyDrawer
 
 	public override float GetPropertyHeight(SerializedProperty property, UnityEngine.GUIContent label)
 	{
+        if(!mShowList)
+            return lineHeight;
+
         if (list == null)
             list = getList(property.FindPropertyRelative("List"));
 
@@ -151,10 +164,27 @@ public class ReorderableDelegateDrawer : UnityEditor.PropertyDrawer
         {
             list.drawHeaderCallback = rect =>
             {
-                EditorGUI.LabelField(rect, property.name);
+                rect.x += 10;
+                mShowList = EditorGUI.Foldout(rect, mShowList, property.name, true);
             };
 
-            list.DoList(position);
+            list.displayAdd = mShowList;
+            list.displayRemove = mShowList;
+
+            if(mShowList)
+            {
+                list.DoList(position);
+            }
+            else
+            {
+                if (Event.current.type == EventType.Repaint)
+                {
+                    headerBackground.Draw(position, false, false, false, false);
+                }
+
+                position.x += 16;
+                mShowList = EditorGUI.Foldout(position, mShowList, property.name, true);
+            }
         }
         
 	}

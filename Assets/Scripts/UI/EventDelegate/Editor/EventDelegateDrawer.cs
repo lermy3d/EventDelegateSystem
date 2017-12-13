@@ -77,9 +77,9 @@ public class EventDelegateDrawer : PropertyDrawer
 
         if (ps != null)
         {
-			EventDelegate.Parameter param = null;
+            EventDelegate.Parameter param = null;
 
-			int imax = ps.Length;
+            int imax = ps.Length;
             paramArrayProp.arraySize = imax;
             for (int i = 0; i < imax; i++, param = null)
             {
@@ -159,7 +159,7 @@ public class EventDelegateDrawer : PropertyDrawer
 
         //controls
         Rect groupPos = new Rect(rect.x, rect.y, rect.width, lineHeight);
-        showGroup.boolValue = EditorGUI.Foldout(groupPos, showGroup.boolValue, label);
+        showGroup.boolValue = EditorGUI.Foldout(groupPos, showGroup.boolValue, label, true);
 
         if (showGroup.boolValue)
         {
