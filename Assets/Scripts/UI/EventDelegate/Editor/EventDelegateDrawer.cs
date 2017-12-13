@@ -577,7 +577,8 @@ public class EventDelegateDrawer : PropertyDrawer
 				{
 				    entryArrayProp.InsertArrayElementAtIndex(0);
 				    entryProp = entryArrayProp.GetArrayElementAtIndex(0);
-				} else
+				}
+                else
 				{
 				    entryArrayProp.InsertArrayElementAtIndex(entryArrayProp.arraySize - 1);
 				    entryProp = entryArrayProp.GetArrayElementAtIndex(entryArrayProp.arraySize - 1);
@@ -605,14 +606,14 @@ public class EventDelegateDrawer : PropertyDrawer
         string[] names = new string[list.Count + 1];
         names [0] = "<Choose>";
         
-		Entry entry = null;
-		int imax = list.Count;
+        Entry entry = null;
+        int imax = list.Count;
         for (int i = 0; i < imax; entry = null)
         {
             entry = list [i];
 
-			if(entry == null)
-				continue;
+            if(entry == null)
+                continue;
             
             //check if comes with params and remove
             string del = entry.name;
@@ -621,7 +622,7 @@ public class EventDelegateDrawer : PropertyDrawer
             if (string.IsNullOrEmpty(del) == false && del.Contains(" ("))
                 methodName = del.Remove(del.IndexOf(" ("));
             else
-				methodName = del;
+                methodName = del;
             
             del = EventDelegate.GetFuncName(entry.target, del);
             
@@ -638,14 +639,17 @@ public class EventDelegateDrawer : PropertyDrawer
                     index = i;
             }
         }
-        
+
         if (index != 0)
         {
-            if (names [index].Contains(" ("))
-                names [index] = names [index].Remove(names [index].IndexOf(" ("));
-            
-        } else if (methodProp != null && methodProp.stringValue.StartsWith("<Missing - "))
-            names [0] = methodProp.stringValue;
+            if (names[index].Contains(" ("))
+                names[index] = names[index].Remove(names[index].IndexOf(" ("));
+
+        }
+        else if (methodProp != null && methodProp.stringValue.StartsWith("<Missing - "))
+        {
+            names[0] = methodProp.stringValue;
+        }
         
         return names;
     }
@@ -772,12 +776,14 @@ public class EventDelegateDrawer : PropertyDrawer
                     value = val;
                     return true;
                 }
-            } else if (from == typeof(float))
+            }
+            else if (from == typeof(float))
             {
                 value = Mathf.RoundToInt((float)value);
                 return true;
             }
-        } else if (to == typeof(float))
+        }
+        else if (to == typeof(float))
         {
             if (from == typeof(string))
             {
@@ -822,7 +828,7 @@ public class EventDelegateDrawer : PropertyDrawer
             {
                 mi = methods [b];
                 
-				if(mi != null)
+                if(mi != null)
                     FilterMethods(mi, list, methods, comp, includeParams);
             }
         }
@@ -984,7 +990,8 @@ public class EventDelegateDrawer : PropertyDrawer
                 {
                     if (!Convert(field.FieldType, filter))
                         continue;
-                } else if (!filter.IsAssignableFrom(field.FieldType))
+                }
+                else if (!filter.IsAssignableFrom(field.FieldType))
                     continue;
             }
 			
@@ -999,14 +1006,15 @@ public class EventDelegateDrawer : PropertyDrawer
                 continue;
             if (write && !prop.CanWrite)
                 continue;
-			
+
             if (filter != typeof(void))
             {
                 if (canConvert)
                 {
                     if (!Convert(prop.PropertyType, filter))
                         continue;
-                } else if (!filter.IsAssignableFrom(prop.PropertyType))
+                }
+                else if (!filter.IsAssignableFrom(prop.PropertyType))
                     continue;
             }
 			
