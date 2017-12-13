@@ -158,8 +158,8 @@ public class EventDelegateDrawer : PropertyDrawer
 		UnityEngine.Object target = targetProp.objectReferenceValue;
 
         //controls
-        Rect groupPos = new Rect(rect.x, rect.y, rect.width, lineHeight);
-        showGroup.boolValue = EditorGUI.Foldout(groupPos, showGroup.boolValue, label, true);
+        Rect tempRect = new Rect(rect.x, rect.y, rect.width, lineHeight);
+        showGroup.boolValue = EditorGUI.Foldout(tempRect, showGroup.boolValue, label, true);
 
         if (showGroup.boolValue)
         {
@@ -176,13 +176,27 @@ public class EventDelegateDrawer : PropertyDrawer
             lineRect.yMax += lineHeight;
     		
 			target = EditorGUI.ObjectField(lineRect, "Notify", target, typeof(UnityEngine.Object), true);
-            
+
+            lineRect.yMin += lineHeight;
+            lineRect.yMax += lineHeight;
+
+            //painting manual refresh icon
+            tempRect = lineRect;
+            tempRect.xMin = lineRect.width + 24;
+            tempRect.height -= 1;
+
+            if (GUI.Button(tempRect,"R"))
+            {
+                updateMethodsProp.boolValue = true;
+            }
+
             //update method list if target component was modified
             if (targetProp.objectReferenceValue != target)
                 updateMethodsProp.boolValue = true;
 
             targetProp.objectReferenceValue = target;
 
+            //checking for notify target
             if (target != null)
             {
                 List<Entry> listWithParams = null;
@@ -250,9 +264,10 @@ public class EventDelegateDrawer : PropertyDrawer
 
                 string[] names = GetNames(listWithParams, methodName, true, out index, methodProp);
 
-                lineRect.yMin += lineHeight;
-                lineRect.yMax += lineHeight;
-                choice = EditorGUI.Popup(lineRect, "Event", index, names);
+                //painting event list popup
+                tempRect = lineRect;
+                tempRect.xMax -= 22;
+                choice = EditorGUI.Popup(tempRect, "Event", index, names);
     
                 //saving selected method or field
                 if (choice > 0) //&& choice != index
@@ -308,9 +323,7 @@ public class EventDelegateDrawer : PropertyDrawer
                 {
                     bool showGameObject = false;
 
-                    //EditorGUI.indentLevel++;
-
-                    float paramTypeWidth = 80;
+                    float paramTypeWidth = 84;
                     float lineOriginalMax = lineRect.xMax;
                     lineRect.xMax -= 68;
 
@@ -334,18 +347,22 @@ public class EventDelegateDrawer : PropertyDrawer
                         string paramDesc = GetSimpleName(param.expectedType);
                         paramDesc += " " + param.name;
 
+						//paint value/reference selection for primitive types
                         if (IsPrimitiveType(param.expectedType))
                         {
                             if(lineOriginalMax == lineRect.xMax)
                                 lineRect.xMax -= 68;
 
                             //only do this if parameter is a primitive type
-                            Rect paramTypeRect = new Rect(lineRect.x + lineRect.width - 12, lineRect.y, paramTypeWidth, lineHeight);
+                            tempRect.x = lineRect.x + lineRect.width - 12;
+                            tempRect.y = lineRect.y;
+                            tempRect.width = paramTypeWidth;
+                            tempRect.height = lineHeight;
 
                             SerializedProperty paramTypeProp = paramProp.FindPropertyRelative("paramRefType");
 
                             //draw param type option
-                            EditorGUI.PropertyField(paramTypeRect, paramTypeProp, GUIContent.none);
+                            EditorGUI.PropertyField(tempRect, paramTypeProp, GUIContent.none);
                             param.paramRefType = (ParameterType)paramTypeProp.enumValueIndex;
                         }
                         else
@@ -446,10 +463,10 @@ public class EventDelegateDrawer : PropertyDrawer
 
                                 EditorGUI.LabelField(lineRect, paramDesc);
 
-                                Rect vector4Line = new Rect(lineRect);
-                                vector4Line.xMin += (EditorGUI.indentLevel * lineHeight) + 86;
+                                tempRect = lineRect;
+                                tempRect.xMin += (EditorGUI.indentLevel * lineHeight) + 86;
 
-                                EditorGUI.MultiFloatField(vector4Line, vec4GUIContent, vec4Values);
+                                EditorGUI.MultiFloatField(tempRect, vec4GUIContent, vec4Values);
 
                                 valueProp.vector4Value = new Vector4(vec4Values[0], vec4Values[1], vec4Values[2], vec4Values[3]);
                                 param.value = valueProp.vector4Value;
@@ -553,7 +570,7 @@ public class EventDelegateDrawer : PropertyDrawer
 
     void UpdateMethods(List<Entry> listWithParams, SerializedProperty entryArrayProp, SerializedProperty updateMethodsProp, GameObject go)
     {
-		if (entryArrayProp == null)
+        if (entryArrayProp == null)
 			return;
 
 		if(go == null)
