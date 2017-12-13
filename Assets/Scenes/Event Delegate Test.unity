@@ -1319,7 +1319,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa7a342b0ef693040813a00e38574d96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VarBefore: 0
   ReorderableList:
     List:
     - mEventName: test
@@ -1694,7 +1693,6 @@ MonoBehaviour:
         argVector4: {x: 0, y: 0, z: 0, w: 0}
       mCached: 0
       oneShot: 0
-  VarAfter: 0
 --- !u!1 &399537534
 GameObject:
   m_ObjectHideFlags: 0
@@ -1763,7 +1761,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa7a342b0ef693040813a00e38574d96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VarBefore: 0
   ReorderableList:
     List:
     - mEventName: test
@@ -1930,7 +1927,7 @@ MonoBehaviour:
         field: childCount
         paramRefType: 0
         argStringValue: 1
-        argIntValue: 5
+        argIntValue: 2
         argFloatValue: 0
         argDoubleValue: 0
         argBoolValue: 0
@@ -2138,7 +2135,6 @@ MonoBehaviour:
         argVector4: {x: 0, y: 0, z: 0, w: 0}
       mCached: 0
       oneShot: 0
-  VarAfter: 0
 --- !u!1 &637447554
 GameObject:
   m_ObjectHideFlags: 0
@@ -2717,7 +2713,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa7a342b0ef693040813a00e38574d96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VarBefore: 0
   ReorderableList:
     List:
     - mEventName: test
@@ -2884,7 +2879,7 @@ MonoBehaviour:
         field: childCount
         paramRefType: 0
         argStringValue: 1
-        argIntValue: 3
+        argIntValue: 2
         argFloatValue: 0
         argDoubleValue: 0
         argBoolValue: 0
@@ -3080,7 +3075,6 @@ MonoBehaviour:
         argVector4: {x: 0, y: 0, z: 0, w: 0}
       mCached: 0
       oneShot: 0
-  VarAfter: 0
 --- !u!1 &1710937903
 GameObject:
   m_ObjectHideFlags: 0
@@ -3121,7 +3115,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa7a342b0ef693040813a00e38574d96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VarBefore: 0
   ReorderableList:
     List:
     - mEventName: test
@@ -3288,7 +3281,7 @@ MonoBehaviour:
         field: childCount
         paramRefType: 0
         argStringValue: 1
-        argIntValue: 4
+        argIntValue: 2
         argFloatValue: 0
         argDoubleValue: 0
         argBoolValue: 0
@@ -3496,7 +3489,6 @@ MonoBehaviour:
         argVector4: {x: 0, y: 0, z: 0, w: 0}
       mCached: 0
       oneShot: 0
-  VarAfter: 0
 --- !u!1 &1727009953
 GameObject:
   m_ObjectHideFlags: 0
@@ -3631,7 +3623,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa7a342b0ef693040813a00e38574d96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  VarBefore: 0
   ReorderableList:
     List:
     - mEventName: test
@@ -3994,4 +3985,3 @@ MonoBehaviour:
         argVector4: {x: 0, y: 0, z: 0, w: 0}
       mCached: 0
       oneShot: 0
-  VarAfter: 0

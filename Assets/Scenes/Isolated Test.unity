@@ -371,6 +371,8 @@ MonoBehaviour:
       - target: {fileID: 497976576}
         name: TestLogInt (Int32 integerParam)
       - target: {fileID: 497976576}
+        name: TestLogIntAndString (Int32 intParam, String msg)
+      - target: {fileID: 497976576}
         name: TestLogMultiFlag (MultiFireType multiFire)
       - target: {fileID: 497976576}
         name: TestMono (String message)
@@ -559,6 +561,8 @@ MonoBehaviour:
       - target: {fileID: 700664983}
         name: TestLogInt (Int32 integerParam)
       - target: {fileID: 700664983}
+        name: TestLogIntAndString (Int32 intParam, String msg)
+      - target: {fileID: 700664983}
         name: TestLogMultiFlag (MultiFireType multiFire)
       - target: {fileID: 700664983}
         name: TestMono (String message)
@@ -652,34 +656,6 @@ Prefab:
     - target: {fileID: 443808, guid: c0f044da1e222a5449720955e92c5d91, type: 2}
       propertyPath: m_RootOrder
       value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 110024, guid: c0f044da1e222a5449720955e92c5d91, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11408230, guid: c0f044da1e222a5449720955e92c5d91, type: 2}
-      propertyPath: ReorderableList.List.Array.data[0].mShowGroup
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11408230, guid: c0f044da1e222a5449720955e92c5d91, type: 2}
-      propertyPath: ReorderableList.List.Array.data[1].mShowGroup
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11408230, guid: c0f044da1e222a5449720955e92c5d91, type: 2}
-      propertyPath: ReorderableList.List.Array.data[2].mShowGroup
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11408230, guid: c0f044da1e222a5449720955e92c5d91, type: 2}
-      propertyPath: ReorderableList.List.Array.data[3].mShowGroup
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11408230, guid: c0f044da1e222a5449720955e92c5d91, type: 2}
-      propertyPath: ReorderableList.List.Array.data[4].mShowGroup
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 11408230, guid: c0f044da1e222a5449720955e92c5d91, type: 2}
-      propertyPath: ReorderableList.List.Array.data[5].mShowGroup
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 443808, guid: c0f044da1e222a5449720955e92c5d91, type: 2}
       propertyPath: m_LocalRotation.x
