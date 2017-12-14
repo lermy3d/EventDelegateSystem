@@ -16,6 +16,14 @@ public class EventDelegateDrawer : PropertyDrawer
     EventDelegate eventDelegate = new EventDelegate();
 
     /// <summary>
+    /// The style and texture for the refresh icon.
+    /// </summary>
+
+    static public GUIStyle mRefreshIconStyle;
+    static public Texture2D mRefreshIcon;
+    static public int mIconSize = 24;
+
+    /// <summary>
     /// The standard height size for each property line.
     /// </summary>
     
@@ -182,10 +190,25 @@ public class EventDelegateDrawer : PropertyDrawer
 
             //painting manual refresh icon
             tempRect = lineRect;
-            tempRect.xMin = lineRect.width + 24;
+            tempRect.xMin = lineRect.width + mIconSize - 4;
             tempRect.height -= 1;
 
-            if (GUI.Button(tempRect,"R"))
+            if (mRefreshIconStyle == null)
+            {
+                mRefreshIconStyle = new GUIStyle();
+
+                if (mRefreshIcon == null)
+                {
+                    mRefreshIcon = Resources.Load<Texture2D>("refresh_icon");
+                }
+
+                if (mRefreshIcon != null)
+                {
+                    mRefreshIconStyle.normal.background = mRefreshIcon;
+                }
+            }
+
+            if (GUI.Button(tempRect, mRefreshIcon))
             {
                 updateMethodsProp.boolValue = true;
             }
@@ -266,7 +289,7 @@ public class EventDelegateDrawer : PropertyDrawer
 
                 //painting event list popup
                 tempRect = lineRect;
-                tempRect.xMax -= 22;
+                tempRect.xMax -= mIconSize;
                 choice = EditorGUI.Popup(tempRect, "Event", index, names);
     
                 //saving selected method or field
