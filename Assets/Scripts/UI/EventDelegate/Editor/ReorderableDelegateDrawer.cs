@@ -148,7 +148,10 @@ public class ReorderableDelegateDrawer : UnityEditor.PropertyDrawer
         if (list == null)
             list = getList(property.FindPropertyRelative("List"));
 
-        return list.GetHeight();
+		if (list == null)
+			return 0;
+		else
+			return list.GetHeight();
 	}
 
 	public override void OnGUI(UnityEngine.Rect position, SerializedProperty property, UnityEngine.GUIContent label)
