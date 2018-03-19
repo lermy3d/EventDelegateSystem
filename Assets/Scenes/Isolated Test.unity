@@ -593,6 +593,196 @@ MonoBehaviour:
         argVector4: {x: 0, y: 0, z: 0, w: 0}
       mCached: 0
       oneShot: 0
+    - mEventName: 
+      mShowGroup: 1
+      mUpdateEntryList: 0
+      mEntryList:
+      - target: {fileID: 700664980}
+        name: active
+      - target: {fileID: 700664982}
+        name: enabled
+      - target: {fileID: 700664983}
+        name: enabled
+      - target: {fileID: 700664981}
+        name: eulerAngles
+      - target: {fileID: 700664981}
+        name: forward
+      - target: {fileID: 700664981}
+        name: hasChanged
+      - target: {fileID: 700664981}
+        name: hideFlags
+      - target: {fileID: 700664982}
+        name: hideFlags
+      - target: {fileID: 700664983}
+        name: hideFlags
+      - target: {fileID: 700664980}
+        name: hideFlags
+      - target: {fileID: 700664981}
+        name: hierarchyCapacity
+      - target: {fileID: 700664980}
+        name: isStatic
+      - target: {fileID: 700664980}
+        name: layer
+      - target: {fileID: 700664981}
+        name: localEulerAngles
+      - target: {fileID: 700664981}
+        name: localPosition
+      - target: {fileID: 700664981}
+        name: localRotation
+      - target: {fileID: 700664981}
+        name: localScale
+      - target: {fileID: 700664983}
+        name: myColor
+      - target: {fileID: 700664983}
+        name: myFireType
+      - target: {fileID: 700664983}
+        name: MyLastName
+      - target: {fileID: 700664983}
+        name: myMultiFireType
+      - target: {fileID: 700664983}
+        name: name
+      - target: {fileID: 700664981}
+        name: name
+      - target: {fileID: 700664980}
+        name: name
+      - target: {fileID: 700664982}
+        name: name
+      - target: {fileID: 700664981}
+        name: parent
+      - target: {fileID: 700664981}
+        name: position
+      - target: {fileID: 700664982}
+        name: ReorderableList
+      - target: {fileID: 700664981}
+        name: right
+      - target: {fileID: 700664981}
+        name: rotation
+      - target: {fileID: 700664983}
+        name: runInEditMode
+      - target: {fileID: 700664982}
+        name: runInEditMode
+      - target: {fileID: 700664980}
+        name: tag
+      - target: {fileID: 700664982}
+        name: tag
+      - target: {fileID: 700664981}
+        name: tag
+      - target: {fileID: 700664983}
+        name: tag
+      - target: {fileID: 700664981}
+        name: up
+      - target: {fileID: 700664983}
+        name: useGUILayout
+      - target: {fileID: 700664982}
+        name: useGUILayout
+      - target: {fileID: 700664983}
+        name: BasicEvent ()
+      - target: {fileID: 700664980}
+        name: CreatePrimitive (PrimitiveType type)
+      - target: {fileID: 700664981}
+        name: DetachChildren ()
+      - target: {fileID: 700664981}
+        name: Find (String name)
+      - target: {fileID: 700664980}
+        name: Find (String name)
+      - target: {fileID: 700664981}
+        name: FindChild (String name)
+      - target: {fileID: 700664980}
+        name: FindGameObjectsWithTag (String tag)
+      - target: {fileID: 700664980}
+        name: FindGameObjectWithTag (String tag)
+      - target: {fileID: 700664980}
+        name: FindWithTag (String tag)
+      - target: {fileID: 700664981}
+        name: GetChild (Int32 index)
+      - target: {fileID: 700664981}
+        name: GetChildCount ()
+      - target: {fileID: 700664981}
+        name: GetEnumerator ()
+      - target: {fileID: 700664981}
+        name: GetSiblingIndex ()
+      - target: {fileID: 700664981}
+        name: IsChildOf (Transform parent)
+      - target: {fileID: 700664983}
+        name: MyOptionalParameters (String childMessage)
+      - target: {fileID: 700664983}
+        name: MyStaticMethod (String sendMessage)
+      - target: {fileID: 700664983}
+        name: ParentMessage (String logMessage)
+      - target: {fileID: 700664980}
+        name: PlayAnimation (Object animation)
+      - target: {fileID: 700664983}
+        name: ResturningString ()
+      - target: {fileID: 700664981}
+        name: RotateAroundLocal (Vector3 axis, Single angle)
+      - target: {fileID: 700664980}
+        name: SampleAnimation (Object clip, Single time)
+      - target: {fileID: 700664980}
+        name: SetActive (Boolean value)
+      - target: {fileID: 700664980}
+        name: SetActiveRecursively (Boolean state)
+      - target: {fileID: 700664981}
+        name: SetAsFirstSibling ()
+      - target: {fileID: 700664981}
+        name: SetAsLastSibling ()
+      - target: {fileID: 700664983}
+        name: SetParent (Transform child, Transform newParent)
+      - target: {fileID: 700664981}
+        name: SetPositionAndRotation (Vector3 position, Quaternion rotation)
+      - target: {fileID: 700664981}
+        name: SetSiblingIndex (Int32 index)
+      - target: {fileID: 700664982}
+        name: StopAllCoroutines ()
+      - target: {fileID: 700664983}
+        name: StopAllCoroutines ()
+      - target: {fileID: 700664980}
+        name: StopAnimation ()
+      - target: {fileID: 700664983}
+        name: TestingColorParam (Color color)
+      - target: {fileID: 700664983}
+        name: TestingMultipleParameters (String message, Single number)
+      - target: {fileID: 700664983}
+        name: TestingReturn (String sendMessage)
+      - target: {fileID: 700664983}
+        name: TestingReturnInt (String sendMessage)
+      - target: {fileID: 700664983}
+        name: TestingVectorParameter (Vector2 vec2, Vector3 vec3, Vector4 vec4)
+      - target: {fileID: 700664983}
+        name: TestLogEnum (FireType fire)
+      - target: {fileID: 700664983}
+        name: TestLogInt (Int32 integerParam)
+      - target: {fileID: 700664983}
+        name: TestLogIntAndString (Int32 intParam, String msg)
+      - target: {fileID: 700664983}
+        name: TestLogMultiFlag (MultiFireType multiFire)
+      - target: {fileID: 700664983}
+        name: TestMono (String message)
+      - target: {fileID: 700664983}
+        name: TestPrimitiveParams (String valString, Int32 valInteger, Single valFloat,
+          Double valDouble, Boolean valBool, Transform valTranform, FireType fireType)
+      - target: {fileID: 700664983}
+        name: TestSerializedClassParam (DelegateHolder holderClass)
+      - target: {fileID: 700664983}
+        name: TestSystemObject (String message)
+      - target: {fileID: 700664983}
+        name: TestUnityObject (String message)
+      mTarget: {fileID: 700664983}
+      mMethodName: TestLogMultiFlag
+      mParameters:
+      - obj: {fileID: 700664983}
+        field: myMultiFireType
+        paramRefType: 1
+        argStringValue: 123
+        argIntValue: 0
+        argFloatValue: 0
+        argDoubleValue: 0
+        argBoolValue: 1
+        argColor: {r: 0.88235295, g: 0, b: 0, a: 1}
+        argVector2: {x: 0, y: 0}
+        argVector3: {x: 0, y: 0, z: 0}
+        argVector4: {x: 0, y: 0, z: 0, w: 0}
+      mCached: 0
+      oneShot: 0
 --- !u!114 &700664983
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -604,9 +794,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4089eb7c94a6d454fa5310fde2f19c2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  myFireType: 0
+  myFireType: 1
   myColor: {r: 0.043669973, g: 0.013192055, b: 0.89705884, a: 0}
-  myMultiFireType: 0
+  myMultiFireType: 1
 --- !u!1 &1089524841
 GameObject:
   m_ObjectHideFlags: 0
@@ -669,6 +859,10 @@ Prefab:
     - target: {fileID: 443808, guid: c0f044da1e222a5449720955e92c5d91, type: 2}
       propertyPath: m_LocalRotation.z
       value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 110024, guid: c0f044da1e222a5449720955e92c5d91, type: 2}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c0f044da1e222a5449720955e92c5d91, type: 2}

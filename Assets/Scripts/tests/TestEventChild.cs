@@ -11,7 +11,7 @@ public class TestEventChild : TestEventsParent
 		set;
 	}
 
-    //TODO: a custom drawer is needed for drawing flag type (use MaskField)
+	[EDFlagAttribute]
     public MultiFireType myMultiFireType;
 
     int TestingintInternalMethod(string sendMessage)
