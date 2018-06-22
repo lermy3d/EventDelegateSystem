@@ -54,6 +54,8 @@ public class EventDelegateDrawer : PropertyDrawer
     /// Width value to start using minimalistic method.
     /// </summary>
     //int minimalistWidth = 0; //TODO: implement minimalistic method, unity activates it at 257
+	
+    private Dictionary<string,List<Entry>> mMethodCache = new Dictionary<string, List<Entry>>();
 
     public override float GetPropertyHeight(SerializedProperty prop, GUIContent label)
     {
@@ -222,12 +224,19 @@ public class EventDelegateDrawer : PropertyDrawer
             //checking for notify target
             if (target != null)
             {
-                List<Entry> listWithParams = null;
+                if (!mMethodCache.ContainsKey(target.name))
+                {
+                    mMethodCache.Add(target.name, new List<Entry>());
+                }
                 
-				SerializedProperty entryArrayProp = prop.FindPropertyRelative("mEntryList");
+                List<Entry> listWithParams = mMethodCache[target.name];
+                SerializedProperty entryArrayProp = prop.FindPropertyRelative("mEntryList");
 
 				if (updateMethodsProp.boolValue && EditorApplication.isCompiling == false)
 				{
+					//refresh methods names from target
+					listWithParams.Clear();
+					
 					GameObject go = target as GameObject;
 					if (go == null)
 					{
@@ -241,11 +250,13 @@ public class EventDelegateDrawer : PropertyDrawer
 					{
 						UpdateMethods (listWithParams, entryArrayProp, updateMethodsProp, go);
 					}
+					
+					mMethodCache[target.name] = listWithParams;
 				}
-				else if (!prop.serializedObject.isEditingMultipleObjects)
+                else if (listWithParams.Count == 0 && !prop.serializedObject.isEditingMultipleObjects)
                 {
-                    //get list from array
-                    listWithParams = new List<Entry>();
+                    //create new Entry list from array
+                    listWithParams.Clear();
                     SerializedProperty entryItem;
 
                     SerializedProperty itemTarget = null;
@@ -271,6 +282,8 @@ public class EventDelegateDrawer : PropertyDrawer
                         
                         listWithParams.Add(new Entry(targetComp, name));
                     }
+
+                    mMethodCache[target.name] = listWithParams;
                 }
     
                 int index = 0;
@@ -293,7 +306,7 @@ public class EventDelegateDrawer : PropertyDrawer
                 choice = EditorGUI.Popup(tempRect, "Event", index, names);
     
                 //saving selected method or field
-                if (choice > 0) //&& choice != index
+                if (choice > 0)
                 {
                     Entry entry = listWithParams [choice - 1];
     				
@@ -596,7 +609,7 @@ public class EventDelegateDrawer : PropertyDrawer
         if (entryArrayProp == null)
 			return;
 
-		if(go == null)
+		if (go == null)
 		{
 			entryArrayProp.ClearArray();
 			return;
