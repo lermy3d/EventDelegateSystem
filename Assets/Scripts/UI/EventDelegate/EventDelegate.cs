@@ -668,7 +668,7 @@ public class EventDelegate
                     //method or target was most likely changed
                     
                     if(showError)
-					    Debug.LogError("Could not find method or field '" + mMethodName + "' on " + mTarget.GetType(), mTarget);
+					    Debug.LogWarning("Could not find method or field '" + mMethodName + "' on " + mTarget.GetType(), mTarget);
 
 					return;
 				}
